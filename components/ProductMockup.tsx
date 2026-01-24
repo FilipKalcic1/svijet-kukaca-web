@@ -13,7 +13,10 @@ interface MockupProps {
 
 export const ProductMockup = ({ frontImage, bugSlug }: MockupProps) => {
   const [view, setView] = useState<'front' | 'back'>('front');
-  const qrUrl = `https://svijet-kukaca.hr/wiki/${bugSlug}`;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+  const qrUrl = `${baseUrl}/wiki/${bugSlug}`;
+
 
   return (
     <div className="relative w-full h-full group perspective-1000">

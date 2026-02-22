@@ -117,27 +117,22 @@ export const legalPages: Record<string, LegalPage> = {
     slug: "kolacici",
     heading: "Politika kolačića",
     intro:
-      "Koristimo kolačiće kako bismo vam osigurali najbolje iskustvo na našem webshopu. Ovdje objašnjavamo koje vrste koristimo i zašto.",
+      "Ova stranica koristi isključivo tehnički nužne kolačiće bez kojih webshop ne može funkcionirati. Ne koristimo analitičke, marketinške niti kolačiće za praćenje posjetitelja.",
     sections: [
       {
-        title: "Nužni kolačići (uvijek aktivni)",
+        title: "Što zapravo koristimo?",
         content:
-          "Omogućuju osnovne funkcije poput navigacije stranicom, pamćenja sadržaja košarice i pristupa sigurnim područjima. Web stranica ne može ispravno funkcionirati bez njih — ne može ih se isključiti.",
+          "Košarica i odabrane veličine pohranjuju se u localStorage vašeg preglednika — to je lokalna memorija na vašem uređaju, ne kolačić koji se šalje na naše servere.\n\nSupabase (naša baza podataka) može postaviti session kolačić radi sigurne komunikacije s poslužiteljem.\n\nStripe (platni sustav) postavlja vlastite kolačiće isključivo tijekom procesa plaćanja, u skladu sa svojom politikom privatnosti.",
       },
       {
-        title: "Analitički kolačići",
+        title: "Što NE koristimo",
         content:
-          "Pomažu nam razumjeti kako posjetitelji komuniciraju sa stranicom (npr. koje majice najviše gledate) prikupljanjem anonimnih podataka. Koristimo ih isključivo radi poboljšanja korisničkog iskustva.",
+          "Ne koristimo Google Analytics ni bilo koji drugi alat za praćenje ponašanja posjetitelja. Ne postavljamo marketinške kolačiće. Ne dijelimo podatke o vašem posjetu s oglašivačkim platformama.",
       },
       {
-        title: "Marketinški kolačići",
+        title: "Vaša kontrola",
         content:
-          "Koriste se za praćenje posjetitelja putem web-stranica kako bi se prikazali oglasi koji su relevantni i zanimljivi — npr. da te na Facebooku podsjetimo na majicu koju si ostavio u košarici. Ove kolačiće možete odbiti bez ikakvih posljedica za funkcionalnost shopa.",
-      },
-      {
-        title: "Vaša prava prema GDPR-u",
-        content:
-          "Kvačice za analitičke i marketinške kolačiće nisu unaprijed označene — vi ih sami birate. Možete u svakom trenutku promijeniti svoje postavke kolačića. Odbitak kolačića ne utječe na vašu mogućnost kupnje.",
+          "Budući da koristimo samo tehnički nužne kolačiće, prema GDPR-u nije potreban vaš aktivni pristanak za njihovo korištenje. Možete ih obrisati u bilo kojem trenutku putem postavki preglednika — jedina posljedica je da će se sadržaj košarice resetirati.",
       },
     ],
   },

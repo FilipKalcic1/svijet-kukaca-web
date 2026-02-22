@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Search, Bug, Loader2, X } from "lucide-react";
-import { supabase } from "@/lib/supabase"; 
-import { ProductMockup } from "@/components/ProductMockup"; 
-import Link from "next/link"; // <--- NOVO: Ovo nam treba za navigaciju
+import { Search, Bug, Loader2, X, ShoppingBag } from "lucide-react";
+import { supabase } from "@/lib/supabase";
+import { ProductMockup } from "@/components/ProductMockup";
+import { useCart } from "@/context/CartContext";
+import Link from "next/link";
 
 // Tip podataka
 interface Insect {
@@ -22,10 +23,10 @@ interface Insect {
 }
 
 export default function Home() {
+  const { cartCount, openCart } = useCart();
   const [insects, setInsects] = useState<Insect[]>([]);
   const [loading, setLoading] = useState(true);
-  
-  // Stanja za pretragu
+
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("all"); 
 
@@ -36,10 +37,8 @@ export default function Home() {
         .from('insects')
         .select('*');
 
-      if (error) {
-        console.error("Greška pri dohvatu:", error.message);
-      } else {
-        setInsects(data || []);
+      if (!error && data) {
+        setInsects(data);
       }
       setLoading(false);
     }
@@ -63,7 +62,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-zinc-900 font-sans selection:bg-green-300 selection:text-black">
+    <div className="min-h-screen bg-white text-zinc-900 font-sans selection:bg-green-300 selection:text-black scroll-smooth">
       
       {/* NAVBAR */}
       <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100">
@@ -74,23 +73,24 @@ export default function Home() {
             </div>
             <span className="font-bold text-xl tracking-tight">Svijet Kukaca</span>
           </div>
-          <Button variant="outline" className="rounded-full hover:bg-zinc-100 transition-colors">
-            Košarica (0)
+          <Button variant="outline" onClick={openCart} className="rounded-full hover:bg-zinc-100 transition-colors flex items-center gap-2">
+            <ShoppingBag className="w-4 h-4" />
+            Košarica {cartCount > 0 && `(${cartCount})`}
           </Button>
         </div>
       </nav>
 
       {/* HERO SEKCIJA */}
-      <section className="relative pt-32 pb-20 px-6 min-h-[70vh] flex flex-col items-center justify-center text-center">
+      <section className="relative pt-40 pb-32 px-6 min-h-screen flex flex-col items-center justify-center text-center">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-125 bg-green-300/20 rounded-full blur-[100px] -z-10" />
-        
-        <h1 className="text-5xl md:text-7xl font-extrabold text-zinc-900 mb-6 tracking-tight">
-          Nosi Prirodu. <br /> 
+
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-zinc-900 mb-8 tracking-tight leading-[1.1]">
+          Nosi Prirodu. <br />
           <span className="text-transparent bg-clip-text bg-linear-to-r from-green-500 to-emerald-700">
             Upoznaj Svijet.
           </span>
         </h1>
-        <p className="text-xl text-zinc-500 max-w-2xl mx-auto mb-8 leading-relaxed">
+        <p className="text-xl md:text-2xl text-zinc-500 max-w-2xl mx-auto mb-12 leading-relaxed">
           Premium majice s edukativnom pričom. Skeniraj QR kod na leđima i otkrij tajni život kukca kojeg nosiš.
         </p>
         <Button onClick={scrollToShop} size="lg" className="bg-black text-white hover:bg-green-400 hover:text-black rounded-full text-lg px-8 h-14 transition-all shadow-lg hover:shadow-green-300/50">
@@ -99,9 +99,9 @@ export default function Home() {
       </section>
 
       {/* SHOP SEKCIJA */}
-      <section id="shop" className="py-24 px-6 max-w-7xl mx-auto">
-        <div className="flex flex-col items-center mb-16 space-y-8">
-          <h2 className="text-3xl font-bold tracking-tight">Istraži Kolekciju</h2>
+      <section id="shop" className="pt-32 pb-32 px-6 max-w-7xl mx-auto">
+        <div className="flex flex-col items-center mb-20 space-y-10">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Istraži Kolekciju</h2>
           
           {/* SEARCH BAR */}
           <div className="relative w-full max-w-xl group">
@@ -156,7 +156,7 @@ export default function Home() {
 
         {/* GRID REZULTATA */}
         {!loading && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
             {filteredInsects.length > 0 ? (
               filteredInsects.map((bug) => (
                 // --- GLAVNA PROMJENA: Link omata cijelu karticu ---
@@ -226,14 +226,20 @@ export default function Home() {
       </section>
       
       {/* FOOTER */}
-      <footer className="bg-white text-zinc-900 py-12 px-6 mt-12 text-center">
-        <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="w-8 h-8 bg-green-400 rounded-full flex items-center justify-center">
-              <Bug className="w-5 h-5 text-black" />
-            </div>
-            <span className="font-bold text-xl">Svijet Kukaca</span>
+      <footer className="bg-white text-zinc-900 py-20 px-6 mt-20 text-center border-t border-zinc-100">
+        <div className="flex items-center justify-center gap-2 mb-6">
+          <div className="w-8 h-8 bg-green-400 rounded-full flex items-center justify-center">
+            <Bug className="w-5 h-5 text-black" />
+          </div>
+          <span className="font-bold text-xl">Svijet Kukaca</span>
         </div>
-        <p className="text-zinc-500 text-sm">© 2026. Sva prava pridržana.</p>
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-6 text-sm text-zinc-400">
+          <Link href="/o-projektu" className="hover:text-black transition-colors">O projektu</Link>
+          <Link href="/uvjeti" className="hover:text-black transition-colors">Uvjeti poslovanja</Link>
+          <Link href="/privatnost" className="hover:text-black transition-colors">Politika privatnosti</Link>
+          <Link href="/kolacici" className="hover:text-black transition-colors">Kolačići</Link>
+        </div>
+        <p className="text-zinc-400 text-sm">© 2026. Sva prava pridržana.</p>
       </footer>
 
     </div>

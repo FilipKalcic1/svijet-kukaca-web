@@ -14,6 +14,7 @@ export default function CheckoutPage() {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<'cod' | 'stripe'>('stripe');
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   useEffect(() => {
     // if (items.length === 0) router.push("/shop"); 
@@ -55,7 +56,7 @@ export default function CheckoutPage() {
      return (
         <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-white">
             <p className="text-xl font-bold text-zinc-400">Vaša košarica je prazna.</p>
-            <Link href="/shop" className="bg-black text-white px-6 py-2 rounded-full font-bold">
+            <Link href="/" className="bg-black text-white px-6 py-2 rounded-full font-bold">
                 Povratak u trgovinu
             </Link>
         </div>
@@ -63,40 +64,40 @@ export default function CheckoutPage() {
   }
 
   return (
-    <main className="min-h-screen bg-white text-zinc-900 p-6 lg:p-12 selection:bg-green-100">
+    <main className="min-h-screen bg-white text-zinc-900 px-6 pt-12 pb-24 lg:px-12 lg:pt-16 lg:pb-32 selection:bg-green-100">
       <div className="max-w-5xl mx-auto">
-        
-        <Link href="/" className="inline-flex items-center text-sm font-bold text-zinc-400 hover:text-black mb-8 transition-colors">
+
+        <Link href="/" className="inline-flex items-center text-sm font-bold text-zinc-400 hover:text-black mb-10 transition-colors">
           <ArrowLeft className="w-4 h-4 mr-2" /> Natrag
         </Link>
 
-        <h1 className="text-4xl font-black tracking-tight mb-8">Naplata</h1>
+        <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-12">Naplata</h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           
           {/* LIJEVO: Forma */}
-          <div className="lg:col-span-7 space-y-8">
-            <form id="checkout-form" onSubmit={handleSubmit} className="space-y-8">
+          <div className="lg:col-span-7 space-y-10">
+            <form id="checkout-form" onSubmit={handleSubmit} className="space-y-10">
               
               {/* Sekcija 1: Podaci */}
-              <div className="space-y-4">
-                <h2 className="text-xl font-bold border-b border-zinc-100 pb-2">Podaci za dostavu</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-5">
+                <h2 className="text-xl font-bold border-b border-zinc-100 pb-3">Podaci za dostavu</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <Input name="name" label="Ime i prezime" placeholder="Ivan Horvat" required />
                   <Input name="phone" label="Mobitel" placeholder="091..." required />
                 </div>
                 <Input name="email" label="Email" type="email" placeholder="ivan@email.com" required />
                 <Input name="address" label="Adresa" placeholder="Ilica 1" required />
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-5">
                   <Input name="city" label="Grad" placeholder="Zagreb" required />
                   <Input name="zip" label="Poštanski br." placeholder="10000" required />
                 </div>
               </div>
 
               {/* Sekcija 2: Način plaćanja */}
-              <div className="space-y-4">
-                <h2 className="text-xl font-bold border-b border-zinc-100 pb-2">Način plaćanja</h2>
-                <div className="grid grid-cols-1 gap-4">
+              <div className="space-y-5">
+                <h2 className="text-xl font-bold border-b border-zinc-100 pb-3">Način plaćanja</h2>
+                <div className="grid grid-cols-1 gap-5">
                   
                   {/* --- OPCIJA 1: STRIPE (Kartice + Apple Pay) --- */}
                   <div 
@@ -165,9 +166,9 @@ export default function CheckoutPage() {
 
           {/* DESNO: Sažetak */}
           <div className="lg:col-span-5">
-            <div className="bg-zinc-50 p-6 rounded-3xl border border-zinc-200 sticky top-24">
-              <h3 className="font-bold text-lg mb-6">Tvoja košarica</h3>
-              <div className="space-y-4 mb-6 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
+            <div className="bg-zinc-50 p-8 rounded-3xl border border-zinc-200 sticky top-24">
+              <h3 className="font-bold text-lg mb-8">Tvoja košarica</h3>
+              <div className="space-y-5 mb-8 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
                 {items.map((item) => (
                   <div key={item.id} className="flex justify-between items-start text-sm">
                     <div className="flex flex-col">
@@ -179,7 +180,7 @@ export default function CheckoutPage() {
                 ))}
               </div>
               
-              <div className="border-t border-dashed border-zinc-300 pt-4 space-y-2 mb-6">
+              <div className="border-t border-dashed border-zinc-300 pt-6 space-y-3 mb-8">
                 <div className="flex justify-between text-zinc-500 text-sm">
                   <span>Međuzbroj</span>
                   <span>{cartTotal.toFixed(2)} €</span>
@@ -194,10 +195,25 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
-              <button 
+              <label className="flex items-start gap-3 mb-6 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  checked={agreedToTerms}
+                  onChange={(e) => setAgreedToTerms(e.target.checked)}
+                  className="mt-0.5 accent-black shrink-0"
+                />
+                <span className="text-xs text-zinc-500 leading-relaxed">
+                  Pročitao/la sam i slažem se s{" "}
+                  <Link href="/uvjeti" target="_blank" className="underline decoration-dotted hover:text-black">uvjetima poslovanja</Link>
+                  {" "}i{" "}
+                  <Link href="/privatnost" target="_blank" className="underline decoration-dotted hover:text-black">politikom privatnosti</Link>.
+                </span>
+              </label>
+
+              <button
                 form="checkout-form"
-                type="submit" 
-                disabled={isSubmitting}
+                type="submit"
+                disabled={isSubmitting || !agreedToTerms}
                 className="w-full bg-black hover:bg-zinc-800 text-white font-bold h-14 rounded-full text-lg shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
@@ -225,11 +241,11 @@ export default function CheckoutPage() {
 
 function Input({ label, ...props }: any) {
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-2">
       <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider ml-1">{label}</label>
-      <input 
-        {...props} 
-        className="h-12 px-4 rounded-xl border border-zinc-200 bg-white focus:bg-white focus:ring-2 focus:ring-green-500 focus:outline-none transition-all placeholder:text-zinc-300 font-medium"
+      <input
+        {...props}
+        className="h-13 px-5 rounded-xl border border-zinc-200 bg-white focus:bg-white focus:ring-2 focus:ring-green-500 focus:outline-none transition-all placeholder:text-zinc-300 font-medium"
       />
     </div>
   );

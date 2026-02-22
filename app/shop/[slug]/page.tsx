@@ -11,9 +11,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-// 1. IMPORTAJ KOŠARICU
 import { useCart } from "@/context/CartContext";
-// import { toast } from "sonner"; // Ako želiš obavijesti
 
 interface Insect {
   id: number;
@@ -29,8 +27,7 @@ interface Insect {
 
 export default function ProductPage() {
   const params = useParams();
-  // 2. AKTIVIRAJ HOOK ZA KOŠARICU
-  const { addItem, openCart } = useCart(); 
+  const { addItem, openCart, cartCount } = useCart(); 
 
   const [product, setProduct] = useState<Insect | null>(null);
   const [loading, setLoading] = useState(true);
@@ -50,9 +47,7 @@ export default function ProductPage() {
         .eq('slug', params.slug)
         .single();
 
-      if (error) {
-        console.error("Greška pri dohvatu:", error);
-      } else {
+      if (!error) {
         setProduct(data);
       }
       setLoading(false);
@@ -75,13 +70,16 @@ export default function ProductPage() {
     const shareData = {
       title: `Svijet Kukaca - ${product?.name_hr}`,
       text: `Pogledaj ovu super majicu s kukcem: ${product?.name_hr}`,
-      url: url,
+      url,
     };
     if (navigator.share) {
-      try { await navigator.share(shareData); } catch (err) { console.log("Dijeljenje otkazano"); }
+      try {
+        await navigator.share(shareData);
+      } catch {
+        // User cancelled share
+      }
     } else {
-      navigator.clipboard.writeText(url);
-      alert("Link kopiran!");
+      await navigator.clipboard.writeText(url);
     }
   };
 
@@ -89,27 +87,20 @@ export default function ProductPage() {
   const increaseQty = () => setQuantity((prev) => prev + 1);
 
 
-  // 3. GLAVNA FUNKCIJA ZA DODAVANJE U KOŠARICU
   const handleAddToCart = () => {
     if (!product) return;
 
-    const activeImage = getSafeImage(product);
-
-    // Budući da naša košarica (u trenutnom kodu) dodaje 1 po 1,
-    // napravit ćemo petlju da doda onoliko komada koliko je odabrano.
-    // (Ili možemo modificirati context da prima quantity, ali ovo je brže rješenje sada)
-    for (let i = 0; i < quantity; i++) {
-      addItem({
-        id: `${product.id}-${selectedSize}`, // Jedinstveni ID za svaku veličinu
+    addItem(
+      {
+        id: `${product.id}-${selectedSize}`,
         name: `${product.name_hr} (Majica)`,
         price: product.price,
-        image: activeImage,
+        image: getSafeImage(product),
         size: selectedSize,
-      });
-    }
-
-    // toast.success("Dodano u košaricu!"); // Ako koristiš sonner
-    openCart(); // Otvori ladicu da kupac vidi da je dodano
+      },
+      quantity
+    );
+    openCart();
   };
 
 
@@ -118,7 +109,7 @@ export default function ProductPage() {
   if (!product) return (
     <div className="min-h-screen flex flex-col items-center justify-center gap-4">
       <p>Proizvod nije pronađen.</p>
-      <Link href="/shop" className="text-blue-600 underline">Povratak u trgovinu</Link>
+      <Link href="/" className="text-green-600 underline">Povratak u trgovinu</Link>
     </div>
   );
 
@@ -133,13 +124,23 @@ export default function ProductPage() {
           <ArrowLeft size={20} />
           <span className="font-medium hidden sm:inline">Natrag na Shop</span>
         </Link>
-        <Button variant="ghost" size="icon" onClick={handleShare} className="md:hidden text-zinc-600">
-          <Share2 size={20} />
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" size="icon" onClick={handleShare} className="md:hidden text-zinc-600">
+            <Share2 size={20} />
+          </Button>
+          <Button variant="ghost" size="icon" onClick={openCart} className="relative text-zinc-600">
+            <ShoppingBag size={20} />
+            {cartCount > 0 && (
+              <span className="absolute -top-1 -right-1 w-5 h-5 bg-green-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                {cartCount}
+              </span>
+            )}
+          </Button>
+        </div>
       </nav>
 
-      <main className="pt-20 pb-20 max-w-7xl mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-start">
+      <main className="pt-28 pb-32 max-w-7xl mx-auto px-4 md:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
           
           {/* LIJEVO */}
           <div className="relative w-full aspect-3/4 bg-zinc-50 rounded-3xl lg:sticky lg:top-24 overflow-hidden shadow-inner border border-zinc-100">
@@ -150,7 +151,7 @@ export default function ProductPage() {
           </div>
 
           {/* DESNO */}
-          <div className="flex flex-col space-y-8 pt-2 lg:pt-4">
+          <div className="flex flex-col space-y-10 pt-4 lg:pt-8">
             
             {/* Header info */}
             <div className="flex justify-between items-start">
@@ -158,7 +159,7 @@ export default function ProductPage() {
                 <p className="text-xs font-bold text-green-600 uppercase tracking-widest mb-2 bg-green-50 inline-block px-2 py-1 rounded-md">
                   {product.category}
                 </p>
-                <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-black mb-1 leading-tight">
+                <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-black mb-2 leading-tight">
                   {product.name_hr}
                 </h1>
                 <p className="text-lg text-zinc-400 italic font-serif">{product.name_science}</p>
@@ -175,7 +176,7 @@ export default function ProductPage() {
             </p>
 
             {/* SELEKTORI */}
-            <div className="space-y-6">
+            <div className="space-y-8">
               
               {/* Veličina */}
               <div>
@@ -275,7 +276,7 @@ export default function ProductPage() {
             </div>
 
             {/* INFO */}
-            <div className="border-t border-zinc-100 mt-8 space-y-5 pt-8">
+            <div className="border-t border-zinc-100 mt-10 space-y-6 pt-10">
               <div className="flex gap-4 items-start group">
                 <div className="w-10 h-10 rounded-full bg-zinc-50 flex items-center justify-center">
                   <Ruler className="w-5 h-5 text-zinc-600" />

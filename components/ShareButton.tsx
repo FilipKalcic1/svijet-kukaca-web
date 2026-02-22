@@ -20,8 +20,8 @@ export default function ShareButton({ title, text }: ShareProps) {
           text: text,
           url: window.location.href,
         });
-      } catch (error) {
-        console.log("Dijeljenje prekinuto");
+      } catch {
+        // User cancelled share
       }
     } else {
       // 2. Fallback za desktop (kopiraj link)
@@ -32,20 +32,16 @@ export default function ShareButton({ title, text }: ShareProps) {
   };
 
   return (
-    <button 
+    <button
       onClick={handleShare}
-      className="group flex items-center gap-2 text-sm font-bold text-zinc-500 hover:text-green-700 transition-colors bg-white px-3 py-1.5 rounded-full border border-zinc-200 hover:border-green-200 shadow-sm"
+      className="group flex items-center justify-center w-8 h-8 text-zinc-500 hover:text-green-700 transition-colors bg-white rounded-full border border-zinc-200 hover:border-green-200 shadow-sm"
+      aria-label="Podijeli"
+      title={copied ? "Kopirano!" : "Podijeli"}
     >
       {copied ? (
-        <>
-          <Check className="w-4 h-4 text-green-600" />
-          <span className="text-green-600">Kopirano!</span>
-        </>
+        <Check className="w-4 h-4 text-green-600" />
       ) : (
-        <>
-          <Share2 className="w-4 h-4 group-hover:scale-110 transition-transform" />
-          Podijeli
-        </>
+        <Share2 className="w-4 h-4 group-hover:scale-110 transition-transform" />
       )}
     </button>
   );

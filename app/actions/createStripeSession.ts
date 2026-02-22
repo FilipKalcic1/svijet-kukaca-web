@@ -1,70 +1,118 @@
 "use server";
 
 import { supabase } from "@/lib/supabase";
+import type { CartItem } from "@/context/CartContext";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2024-12-18.acacia" as any, // Dodaj 'as any' i greška nestaje
   typescript: true,
 });
 
-export async function createStripeSession(formData: FormData, cartItems: any[], total: number) {
+function sanitize(value: FormDataEntryValue | null): string {
+  if (!value || typeof value !== "string") return "";
+  return value.trim().slice(0, 500);
+}
+
+function validateEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function validateItems(items: CartItem[]): boolean {
+  if (!Array.isArray(items) || items.length === 0) return false;
+  return items.every(
+    (item) =>
+      typeof item.id === "string" &&
+      typeof item.name === "string" &&
+      typeof item.price === "number" &&
+      item.price > 0 &&
+      typeof item.quantity === "number" &&
+      item.quantity > 0 &&
+      item.quantity <= 100
+  );
+}
+
+export async function createStripeSession(
+  formData: FormData,
+  cartItems: CartItem[],
+  _total?: number
+) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   try {
-    // 1. SPREMI NARUDŽBU U BAZU (Status: PENDING)
+    const name = sanitize(formData.get("name"));
+    const email = sanitize(formData.get("email"));
+    const phone = sanitize(formData.get("phone"));
+    const address = sanitize(formData.get("address"));
+    const city = sanitize(formData.get("city"));
+    const zip = sanitize(formData.get("zip"));
+
+    if (!name || !email || !phone || !address || !city || !zip) {
+      return { error: "Sva polja su obavezna." };
+    }
+
+    if (!validateEmail(email)) {
+      return { error: "Neispravna email adresa." };
+    }
+
+    if (!validateItems(cartItems)) {
+      return { error: "Neispravni artikli u košarici." };
+    }
+
+    // Recalculate total server-side
+    const calculatedTotal = cartItems.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0
+    );
+
     const orderData = {
-      name: formData.get("name") as string,
-      email: formData.get("email") as string,
-      phone: formData.get("phone") as string,
-      address: formData.get("address") as string,
-      city: formData.get("city") as string,
-      zip: formData.get("zip") as string,
+      name,
+      email,
+      phone,
+      address,
+      city,
+      zip,
       items: cartItems,
-      total: total,
-      payment_method: 'stripe',
-      status: 'pending' // Čeka plaćanje
+      total: calculatedTotal,
+      payment_method: "stripe",
+      status: "pending",
     };
 
     const { data: order, error } = await supabase
-      .from('orders')
+      .from("orders")
       .insert([orderData])
       .select()
       .single();
 
-    if (error) throw new Error("Greška pri kreiranju narudžbe u bazi: " + error.message);
+    if (error) {
+      return { error: "Greška pri kreiranju narudžbe." };
+    }
 
-    // 2. PRIPREMI PROIZVODE ZA STRIPE FORMAT
     const lineItems = cartItems.map((item) => ({
       price_data: {
         currency: "eur",
         product_data: {
           name: item.name,
-          // images: [item.image], // Možeš dodati i sliku ako je na javnom URL-u
         },
-        unit_amount: Math.round(item.price * 100), // Stripe traži cente (npr. 25.00€ = 2500)
+        unit_amount: Math.round(item.price * 100),
       },
       quantity: item.quantity,
     }));
 
-    // 3. KREIRAJ STRIPE CHECKOUT SESIJU
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"], // Kartice, Google Pay, Apple Pay
+      payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `${baseUrl}/checkout/success?order_id=${order.id}`, // Vrati se ovdje ako prođe
-      cancel_url: `${baseUrl}/checkout`, // Vrati se ovdje ako odustane
-      customer_email: orderData.email,
+      success_url: `${baseUrl}/checkout/success?order_id=${order.id}`,
+      cancel_url: `${baseUrl}/checkout`,
+      customer_email: email,
       metadata: {
-        orderId: order.id, // Poveznica da znamo koja je narudžba plaćena
+        orderId: order.id,
       },
     });
 
-    // Vrati URL na koji frontend treba preusmjeriti korisnika
     return { url: session.url };
-
-  } catch (error: any) {
-    console.error("Stripe Error:", error);
-    return { error: error.message };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Greška na serveru.";
+    return { error: message };
   }
 }

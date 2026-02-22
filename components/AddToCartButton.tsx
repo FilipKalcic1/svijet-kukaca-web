@@ -3,39 +3,42 @@
 import { useCart } from "@/context/CartContext";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
-import { toast } from "sonner"; // Opcionalno za notifikaciju
 
 type Props = {
   id: number;
   name: string;
   price: number;
   image: string;
+  size?: string;
 };
 
-export default function AddToCartButton({ id, name, price, image }: Props) {
+export default function AddToCartButton({
+  id,
+  name,
+  price,
+  image,
+  size = "M",
+}: Props) {
   const { addItem } = useCart();
 
   const handleAdd = () => {
-    // Ovdje hardkodiramo veličinu 'L' za primjer, 
-    // ali idealno bi imao selektor veličine iznad.
     addItem({
-      id: `${id}-L`, // Jedinstveni ID
-      name,
+      id: `${id}-${size}`,
+      name: `${name} (Majica)`,
       price,
       image,
-      size: "L", // Default veličina
+      size,
     });
-    // Košarica će se sama otvoriti zbog logike u Contextu
   };
 
   return (
-    <Button 
+    <Button
       onClick={handleAdd}
-      size="lg" 
+      size="lg"
       className="w-full rounded-full bg-green-600 hover:bg-green-700 text-white px-8 h-12 shadow-lg hover:scale-105 transition-transform"
     >
       <ShoppingBag className="w-4 h-4 mr-2" />
-      Dodaj u košaricu (25.00 €)
+      Dodaj u košaricu ({price.toFixed(2)} €)
     </Button>
   );
 }

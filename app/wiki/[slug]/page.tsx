@@ -18,6 +18,8 @@ import type { Metadata } from "next";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
+export const revalidate = 3600;
+
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const params = await props.params;
   const { data: insect } = await supabase

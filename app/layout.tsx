@@ -16,29 +16,31 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Svijet Kukaca - Edukativne majice s pričom",
-    template: "%s | Svijet Kukaca",
+    default: "Svijet Kukaca & Riba - Edukativne majice s pričom",
+    template: "%s",
   },
   description:
-    "Premium majice s edukativnom pričom o kukcima. Skeniraj QR kod na leđima i otkrij tajni život kukca kojeg nosiš.",
+    "Premium majice s edukativnom pričom o kukcima i ribama. Skeniraj QR kod na leđima i otkrij tajni život životinje koju nosiš.",
   keywords: [
     "majice",
     "kukci",
+    "ribe",
     "edukacija",
     "QR kod",
     "hrvatska",
     "t-shirt",
     "insect",
+    "fish",
     "obrazovanje",
   ],
-  authors: [{ name: "Svijet Kukaca" }],
+  authors: [{ name: "Svijet Kukaca & Riba" }],
   openGraph: {
     type: "website",
     locale: "hr_HR",
-    siteName: "Svijet Kukaca",
-    title: "Svijet Kukaca - Edukativne majice s pričom",
+    siteName: "Svijet Kukaca & Riba",
+    title: "Svijet Kukaca & Riba - Edukativne majice s pričom",
     description:
-      "Premium majice s edukativnom pričom o kukcima. Skeniraj QR kod i otkrij tajni život kukca.",
+      "Premium majice s edukativnom pričom o kukcima i ribama. Skeniraj QR kod i otkrij tajni život životinje.",
   },
   robots: {
     index: true,

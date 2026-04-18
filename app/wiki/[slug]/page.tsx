@@ -1,7 +1,7 @@
 import { supabase } from "@/lib/supabase";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import {
   ArrowLeft,
   MapPin,
@@ -10,10 +10,14 @@ import {
   Image as ImageIcon,
   ShoppingBag,
   Bug,
+  Fish,
   Sparkles,
+  ArrowRight,
+  BookOpen,
 } from "lucide-react";
 import React from "react";
 import ShareButton from "@/components/ShareButton";
+import ImageLightbox from "@/components/ImageLightbox";
 import type { Metadata } from "next";
 
 type PageProps = { params: Promise<{ slug: string }> };
@@ -22,49 +26,94 @@ export const revalidate = 3600;
 
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const params = await props.params;
-  const { data: insect } = await supabase
-    .from("insects")
-    .select("name_hr, name_science, description")
+  const { data: creature } = await supabase
+    .from("creatures")
+    .select("name_hr, name_science, description, creature_type")
     .eq("slug", params.slug)
     .maybeSingle();
 
-  if (!insect) return { title: "Wiki - Svijet Kukaca" };
+  if (!creature) return { title: "Wiki" };
 
+  const siteName = creature.creature_type === "fish" ? "Svijet Riba" : "Svijet Kukaca";
   return {
-    title: `${insect.name_hr} - Wiki | Svijet Kukaca`,
+    title: `${creature.name_hr} (${creature.name_science}) - Wiki | ${siteName}`,
     description:
-      insect.description?.slice(0, 160) ||
-      `Saznaj sve o vrsti ${insect.name_hr} (${insect.name_science})`,
+      creature.description?.slice(0, 160) ||
+      `Saznaj sve o vrsti ${creature.name_hr} (${creature.name_science})`,
   };
 }
 
-export default async function InsectPage(props: PageProps) {
+export default async function CreaturePage(props: PageProps) {
   const params = await props.params;
-  const { data: insect } = await supabase
-    .from("insects")
+  const { data: creature } = await supabase
+    .from("creatures")
     .select("*")
     .eq("slug", params.slug)
     .maybeSingle();
 
-  if (!insect) return notFound();
+  if (!creature) return notFound();
+
+  const isFish = creature.creature_type === "fish";
+  const CreatureIcon = isFish ? Fish : Bug;
+  const backPath = isFish ? "/ribe" : "/kukci";
+  const creatureLabel = isFish ? "ribu" : "kukcem";
+
+  // Fetch related/comparison species
+  let relatedCreatures: Array<{
+    slug: string;
+    name_hr: string;
+    name_science: string | null;
+    description: string | null;
+    image_url: string | null;
+    size: string | null;
+    food: string | null;
+    habitat: string | null;
+  }> = [];
+
+  if (creature.related_slugs && creature.related_slugs.length > 0) {
+    const { data } = await supabase
+      .from("creatures")
+      .select("slug, name_hr, name_science, description, image_url, size, food, habitat")
+      .in("slug", creature.related_slugs);
+    relatedCreatures = data ?? [];
+  }
+
+  // Fetch articles for "Saznaj više" section
+  const { data: articles } = await supabase
+    .from("articles")
+    .select("slug, title, summary, category")
+    .order("sort_order", { ascending: true })
+    .limit(5);
 
   return (
-    <main className="min-h-screen bg-white text-black pb-32 font-sans selection:bg-green-100">
+    <main
+      className="min-h-screen bg-white text-black pb-32 font-sans selection:bg-accent-100"
+      data-theme={isFish ? "fish" : undefined}
+    >
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100 px-6 py-4">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
           <Link
-            href="/"
+            href={backPath}
             className="flex items-center text-sm font-medium text-zinc-500 hover:text-black transition-colors"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Natrag
           </Link>
           <div className="flex gap-3 items-center">
+            <Link
+              href="/"
+              className="text-xs text-zinc-400 hover:text-black transition-colors font-medium"
+            >
+              Naslovnica
+            </Link>
             <span className="text-[10px] font-bold bg-zinc-100 px-2 py-1 rounded text-zinc-500 uppercase tracking-wider">
               Wiki
             </span>
-            <ShareButton title={insect.name_hr} text={`Saznaj više o vrsti ${insect.name_hr}!`} />
+            <ShareButton
+              title={creature.name_hr}
+              text={`Saznaj više o vrsti ${creature.name_hr}!`}
+            />
           </div>
         </div>
       </nav>
@@ -72,58 +121,50 @@ export default async function InsectPage(props: PageProps) {
       <div className="max-w-3xl mx-auto px-6 mt-16">
         {/* Hero */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 text-green-600 text-xs font-bold uppercase tracking-widest mb-4 bg-green-50 px-3 py-1.5 rounded-full">
+          <div className="inline-flex items-center gap-2 text-accent-600 text-xs font-bold uppercase tracking-widest mb-4 bg-accent-50 px-3 py-1.5 rounded-full">
             <Sparkles className="w-3 h-3" />
             Kolekcija otključana
           </div>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-black mb-3">
-            {insect.name_hr}
+            {creature.name_hr}
           </h1>
-          {insect.name_science && (
+          {creature.name_science && (
             <p className="text-xl md:text-2xl text-zinc-400 font-serif italic mb-8">
-              {insect.name_science}
+              {creature.name_science}
             </p>
           )}
-          <p className="text-lg md:text-xl text-zinc-600 leading-relaxed max-w-2xl mx-auto">
-            {insect.description}
+          <p className="text-lg md:text-xl text-zinc-600 leading-relaxed max-w-2xl mx-auto whitespace-pre-line">
+            {creature.description}
           </p>
         </div>
 
-        {/* Illustration */}
-        {insect.illustration_url && (
-          <div className="relative w-full aspect-square max-w-md mx-auto mb-20 hover:scale-[1.02] transition-transform duration-700">
-            <Image
-              src={insect.illustration_url}
-              alt={insect.name_hr}
-              fill
-              sizes="(max-width: 768px) 100vw, 448px"
-              className="object-contain drop-shadow-xl"
-              priority
+        {/* Stats */}
+        {(creature.size || creature.food || creature.habitat) && (
+          <div className="grid grid-cols-3 divide-x divide-zinc-100 border-y border-zinc-100 py-10 mb-20">
+            <StatBox icon={<Ruler />} label="Veličina" value={creature.size} />
+            <StatBox icon={<Leaf />} label="Hrana" value={creature.food} />
+            <StatBox
+              icon={<MapPin />}
+              label="Stanište"
+              value={creature.habitat}
             />
           </div>
         )}
 
-        {/* Stats */}
-        <div className="grid grid-cols-3 divide-x divide-zinc-100 border-y border-zinc-100 py-10 mb-20">
-          <StatBox icon={<Ruler />} label="Veličina" value={insect.size} />
-          <StatBox icon={<Leaf />} label="Hrana" value={insect.food} />
-          <StatBox icon={<MapPin />} label="Stanište" value={insect.habitat} />
-        </div>
-
-        {/* Did you know section */}
-        {insect.fun_facts && insect.fun_facts.length > 0 && (
+        {/* Fun facts */}
+        {creature.fun_facts && creature.fun_facts.length > 0 && (
           <div className="mb-20">
             <div className="flex items-center gap-2 mb-8">
-              <Bug className="w-5 h-5 text-green-600" />
+              <CreatureIcon className="w-5 h-5 text-accent-600" />
               <h3 className="text-xl font-bold text-black">Jesi li znao/la?</h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {insect.fun_facts.map((fact: string, i: number) => (
+              {creature.fun_facts.map((fact: string, i: number) => (
                 <div
                   key={i}
-                  className="bg-linear-to-br from-zinc-50 to-green-50/30 p-6 rounded-2xl hover:shadow-md transition-all border border-zinc-100"
+                  className="bg-linear-to-br from-zinc-50 to-accent-50/30 p-6 rounded-2xl hover:shadow-md transition-all border border-zinc-100"
                 >
-                  <span className="block text-green-600 font-black text-2xl mb-2 opacity-30">
+                  <span className="block text-accent-600 font-black text-2xl mb-2 opacity-30">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <p className="text-zinc-700 font-medium text-sm leading-relaxed">
@@ -136,7 +177,7 @@ export default async function InsectPage(props: PageProps) {
         )}
 
         {/* Gallery */}
-        {insect.gallery_images && insect.gallery_images.length > 0 && (
+        {creature.gallery_images && creature.gallery_images.length > 0 && (
           <div className="mb-20">
             <div className="flex items-center gap-2 mb-8 text-zinc-400">
               <ImageIcon className="w-4 h-4" />
@@ -144,40 +185,141 @@ export default async function InsectPage(props: PageProps) {
                 Galerija
               </span>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {insect.gallery_images.map((url: string, i: number) => (
+            <ImageLightbox
+              images={creature.gallery_images}
+              altPrefix={creature.name_hr}
+            />
+          </div>
+        )}
+
+        {/* Related / Comparison species */}
+        {relatedCreatures.length > 0 && (
+          <div className="mb-20">
+            <div className="flex items-center gap-2 mb-8">
+              <CreatureIcon className="w-5 h-5 text-accent-600" />
+              <h3 className="text-xl font-bold text-black">Usporedba vrsta</h3>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {relatedCreatures.map((related) => (
                 <div
-                  key={i}
-                  className="relative aspect-square rounded-xl overflow-hidden bg-zinc-50"
+                  key={related.slug}
+                  className="border border-zinc-100 rounded-2xl overflow-hidden hover:shadow-lg transition-all"
                 >
-                  <Image
-                    src={url}
-                    alt={`${insect.name_hr} - slika ${i + 1}`}
-                    fill
-                    sizes="(max-width: 768px) 50vw, 33vw"
-                    className="object-cover hover:scale-105 transition-transform duration-500"
-                  />
+                  {related.image_url && (
+                    <div className="relative aspect-4/3 bg-zinc-50">
+                      <Image
+                        src={related.image_url}
+                        alt={related.name_hr}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
+                  <div className="p-6">
+                    <h4 className="text-lg font-bold text-black mb-1">
+                      {related.name_hr}
+                    </h4>
+                    {related.name_science && (
+                      <p className="text-sm text-zinc-400 font-serif italic mb-3">
+                        {related.name_science}
+                      </p>
+                    )}
+                    {related.description && (
+                      <p className="text-sm text-zinc-600 leading-relaxed mb-4 line-clamp-3">
+                        {related.description}
+                      </p>
+                    )}
+                    {(related.size || related.food || related.habitat) && (
+                      <div className="flex flex-wrap gap-2 mb-4 text-xs text-zinc-500">
+                        {related.size && (
+                          <span className="bg-zinc-50 px-2 py-1 rounded-full">
+                            {related.size}
+                          </span>
+                        )}
+                        {related.food && (
+                          <span className="bg-zinc-50 px-2 py-1 rounded-full">
+                            {related.food}
+                          </span>
+                        )}
+                        {related.habitat && (
+                          <span className="bg-zinc-50 px-2 py-1 rounded-full">
+                            {related.habitat}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                    <Link
+                      href={`/wiki/${related.slug}`}
+                      className="inline-flex items-center gap-1 text-sm font-semibold text-accent-600 hover:text-accent-700 transition-colors"
+                    >
+                      Saznaj više
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         )}
 
+        {/* Saznaj više - Articles */}
+        {articles && articles.length > 0 && (
+          <div className="mb-20">
+            <div className="flex items-center gap-2 mb-8">
+              <BookOpen className="w-5 h-5 text-accent-600" />
+              <h3 className="text-xl font-bold text-black">Saznaj više</h3>
+            </div>
+            <div className="space-y-3">
+              {articles.map((article) => (
+                <Link
+                  key={article.slug}
+                  href={`/clanci/${article.slug}`}
+                  className="flex items-center gap-3 p-4 rounded-xl border border-zinc-100 hover:border-zinc-200 hover:shadow-md transition-all group"
+                >
+                  <div className="w-8 h-8 bg-zinc-50 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-accent-50 transition-colors">
+                    <BookOpen className="w-4 h-4 text-zinc-400 group-hover:text-accent-600 transition-colors" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-black group-hover:text-accent-700 transition-colors truncate">
+                      {article.title}
+                    </p>
+                    {article.summary && (
+                      <p className="text-xs text-zinc-400 truncate">
+                        {article.summary}
+                      </p>
+                    )}
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-zinc-300 group-hover:text-accent-600 transition-colors shrink-0" />
+                </Link>
+              ))}
+            </div>
+            <div className="mt-4 text-center">
+              <Link
+                href="/clanci"
+                className="text-sm font-semibold text-accent-600 hover:text-accent-700 transition-colors"
+              >
+                Pogledaj sve članke →
+              </Link>
+            </div>
+          </div>
+        )}
+
         {/* CTA - Buy the shirt */}
         <div className="bg-linear-to-br from-zinc-900 to-zinc-800 text-white rounded-3xl p-10 md:p-14 text-center mb-8">
-          <div className="w-12 h-12 bg-green-400 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Bug className="w-6 h-6 text-black" />
+          <div className="w-12 h-12 bg-accent-400 rounded-full flex items-center justify-center mx-auto mb-4">
+            <CreatureIcon className="w-6 h-6 text-black" />
           </div>
           <h3 className="text-2xl font-bold mb-2">
-            Nosi {insect.name_hr} na sebi
+            Nosi {creature.name_hr} na sebi
           </h3>
           <p className="text-zinc-400 mb-6 max-w-md mx-auto">
-            Premium majica s ovim kukcem. Skeniraj QR kod na leđima i podijeli
+            Premium majica s {creatureLabel}. Skeniraj QR kod na leđima i podijeli
             priču s drugima.
           </p>
           <Link
-            href={`/shop/${insect.slug}`}
-            className="inline-flex items-center gap-2 bg-green-400 text-black font-bold px-8 py-3 rounded-full hover:bg-green-300 transition-colors"
+            href={`/shop/${creature.slug}`}
+            className="inline-flex items-center gap-2 bg-accent-400 text-black font-bold px-8 py-3 rounded-full hover:bg-accent-300 transition-colors"
           >
             <ShoppingBag className="w-5 h-5" />
             Kupi Majicu

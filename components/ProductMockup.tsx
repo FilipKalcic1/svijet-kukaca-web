@@ -82,7 +82,7 @@ export const ProductMockup = ({ frontImage, bugSlug }: MockupProps) => {
                 level="L"
               />
               <div className="flex items-center justify-center gap-2 mt-3 text-zinc-500">
-                <ScanLine size={14} className="animate-pulse text-green-500" />
+                <ScanLine size={14} className="animate-pulse text-accent-500" />
                 <span className="text-[10px] font-bold uppercase tracking-widest">
                   Skeniraj Priču
                 </span>

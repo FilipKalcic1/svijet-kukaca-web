@@ -35,7 +35,7 @@ export default function AddToCartButton({
     <Button
       onClick={handleAdd}
       size="lg"
-      className="w-full rounded-full bg-green-600 hover:bg-green-700 text-white px-8 h-12 shadow-lg hover:scale-105 transition-transform"
+      className="w-full rounded-full bg-accent-600 hover:bg-accent-700 text-white px-8 h-12 shadow-lg hover:scale-105 transition-transform"
     >
       <ShoppingBag className="w-4 h-4 mr-2" />
       Dodaj u košaricu ({price.toFixed(2)} €)

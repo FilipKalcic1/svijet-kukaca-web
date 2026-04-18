@@ -10,7 +10,7 @@ import {
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 
-interface Insect {
+interface Creature {
   id: number;
   name_hr: string;
   name_science: string;
@@ -20,20 +20,22 @@ interface Insect {
   image_url: string | null;
   product_front_image?: string | null;
   slug: string;
+  creature_type?: string;
 }
 
-function getSafeImage(prod: Insect) {
+function getSafeImage(prod: Creature) {
   if (prod.product_front_image && prod.product_front_image.length > 5) return prod.product_front_image;
   if (prod.image_url && prod.image_url.length > 5) return prod.image_url;
   return "https://placehold.co/600x800/png?text=Nema+Slike";
 }
 
-export default function ProductDetails({ product }: { product: Insect }) {
+export default function ProductDetails({ product }: { product: Creature }) {
   const { addItem, openCart, cartCount } = useCart();
   const [selectedSize, setSelectedSize] = useState("M");
   const [quantity, setQuantity] = useState(1);
 
   const activeImage = getSafeImage(product);
+  const backPath = product.creature_type === "fish" ? "/ribe" : "/kukci";
 
   const handleShare = async () => {
     const url = window.location.href;
@@ -64,22 +66,25 @@ export default function ProductDetails({ product }: { product: Insect }) {
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans text-zinc-900 selection:bg-green-300 selection:text-black">
+    <div className="min-h-screen bg-white font-sans text-zinc-900 selection:bg-accent-300 selection:text-black">
 
       {/* NAVBAR */}
       <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur border-b border-zinc-100 h-16 flex items-center px-4 md:px-6 justify-between">
-        <Link href="/" className="flex items-center gap-2 text-zinc-500 hover:text-black transition-colors p-2 -ml-2 rounded-full hover:bg-zinc-100">
+        <Link href={backPath} className="flex items-center gap-2 text-zinc-500 hover:text-black transition-colors p-2 -ml-2 rounded-full hover:bg-zinc-100">
           <ArrowLeft size={20} />
           <span className="font-medium hidden sm:inline">Natrag na Shop</span>
         </Link>
         <div className="flex items-center gap-2">
+          <Link href="/" className="text-xs text-zinc-400 hover:text-black transition-colors font-medium hidden sm:inline px-2">
+            Naslovnica
+          </Link>
           <Button variant="ghost" size="icon" onClick={handleShare} className="md:hidden text-zinc-600">
             <Share2 size={20} />
           </Button>
           <Button variant="ghost" size="icon" onClick={openCart} className="relative text-zinc-600">
             <ShoppingBag size={20} />
             {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 w-5 h-5 bg-green-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+              <span className="absolute -top-1 -right-1 w-5 h-5 bg-accent-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                 {cartCount}
               </span>
             )}
@@ -100,7 +105,7 @@ export default function ProductDetails({ product }: { product: Insect }) {
 
             <div className="flex justify-between items-start">
               <div>
-                <p className="text-xs font-bold text-green-600 uppercase tracking-widest mb-2 bg-green-50 inline-block px-2 py-1 rounded-md">
+                <p className="text-xs font-bold text-accent-600 uppercase tracking-widest mb-2 bg-accent-50 inline-block px-2 py-1 rounded-md">
                   {product.category}
                 </p>
                 <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-black mb-2 leading-tight">
@@ -115,7 +120,7 @@ export default function ProductDetails({ product }: { product: Insect }) {
 
             <div className="text-3xl font-bold">{product.price.toFixed(2)} €</div>
 
-            <p className="text-zinc-600 leading-relaxed text-base md:text-lg border-l-2 border-green-300 pl-4">
+            <p className="text-zinc-600 leading-relaxed text-base md:text-lg border-l-2 border-accent-300 pl-4">
               {product.description || "Ovaj kukac je poseban i nosi jedinstvenu priču..."}
             </p>
 
@@ -167,7 +172,7 @@ export default function ProductDetails({ product }: { product: Insect }) {
             <div className="space-y-4">
               <Button
                 onClick={handleAddToCart}
-                className="w-full h-14 text-lg rounded-full bg-black hover:bg-green-600 hover:text-white transition-all shadow-xl hover:shadow-green-300/30 font-bold active:scale-95"
+                className="w-full h-14 text-lg rounded-full bg-black hover:bg-accent-600 hover:text-white transition-all shadow-xl hover:shadow-accent-300/30 font-bold active:scale-95"
               >
                 <ShoppingBag className="w-5 h-5 mr-2" />
                 Dodaj u Košaricu

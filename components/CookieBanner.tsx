@@ -26,7 +26,7 @@ export default function CookieBanner() {
             localStorage.setItem("cookie-consent", "necessary");
             setVisible(false);
           }}
-          className="text-xs font-bold px-5 py-2.5 rounded-full bg-black text-white hover:bg-green-600 transition-colors shrink-0"
+          className="text-xs font-bold px-5 py-2.5 rounded-full bg-black text-white hover:bg-accent-600 transition-colors shrink-0"
         >
           Razumijem
         </button>

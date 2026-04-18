@@ -38,7 +38,7 @@ async function getSlugs() {
   if (args.length > 0) return args;
 
   const { data, error } = await supabase
-    .from("insects")
+    .from("creatures")
     .select("slug")
     .order("slug");
 

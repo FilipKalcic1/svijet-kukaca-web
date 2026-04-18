@@ -1,16 +1,22 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
-import { X, ShoppingBag, Trash2, Minus, Plus } from "lucide-react";
+import { X, ShoppingBag, Trash2, Minus, Plus, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
 
 export default function CartDrawer() {
-  const { items, removeItem, updateQuantity, cartTotal, cartCount, isCartOpen, closeCart } = useCart();
+  const {
+    items,
+    removeItem,
+    updateQuantity,
+    cartTotal,
+    cartCount,
+    isCartOpen,
+    closeCart,
+  } = useCart();
 
-  // Lock body scroll when cart is open
   useEffect(() => {
     if (isCartOpen) {
       document.body.style.overflow = "hidden";
@@ -28,7 +34,7 @@ export default function CartDrawer() {
     <>
       {/* Overlay */}
       <div
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-99"
+        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-99"
         onClick={closeCart}
         aria-hidden="true"
       />
@@ -40,114 +46,139 @@ export default function CartDrawer() {
         aria-label="Košarica"
       >
         {/* Header */}
-        <div className="p-6 border-b border-zinc-100 flex items-center justify-between bg-[#FDFBF7]">
-          <h2 className="text-xl font-black text-zinc-900 flex items-center gap-2">
-            <ShoppingBag className="w-5 h-5" /> Tvoja košarica
+        <div className="px-6 h-16 border-b border-zinc-100 flex items-center justify-between shrink-0">
+          <h2 className="text-lg font-bold text-zinc-900 flex items-center gap-2">
+            <ShoppingBag className="w-5 h-5" />
+            Košarica
             {cartCount > 0 && (
-              <span className="text-sm font-medium text-zinc-400">
-                ({cartCount})
+              <span className="text-xs font-semibold text-zinc-400 bg-zinc-100 px-2 py-0.5 rounded-full">
+                {cartCount}
               </span>
             )}
           </h2>
           <button
             onClick={closeCart}
-            className="p-2 hover:bg-zinc-200 rounded-full transition-colors"
+            className="w-9 h-9 flex items-center justify-center hover:bg-zinc-100 rounded-full transition-colors"
             aria-label="Zatvori košaricu"
           >
-            <X className="w-5 h-5 text-zinc-500" />
+            <X className="w-5 h-5 text-zinc-400" />
           </button>
         </div>
 
         {/* Items */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4">
+        <div className="flex-1 overflow-y-auto">
           {items.length === 0 ? (
-            <div className="h-full flex flex-col items-center justify-center text-center space-y-4 text-zinc-400">
-              <ShoppingBag className="w-16 h-16 opacity-20" />
-              <p>Košarica je prazna.</p>
-              <Button onClick={closeCart} variant="outline">
-                Zatvori
-              </Button>
+            <div className="h-full flex flex-col items-center justify-center text-center px-6 gap-3">
+              <div className="w-16 h-16 bg-zinc-50 rounded-full flex items-center justify-center">
+                <ShoppingBag className="w-7 h-7 text-zinc-200" />
+              </div>
+              <p className="text-sm text-zinc-400 font-medium">
+                Košarica je prazna
+              </p>
+              <button
+                onClick={closeCart}
+                className="text-sm font-semibold text-accent-600 hover:text-accent-700 transition-colors"
+              >
+                Nastavi s kupovinom
+              </button>
             </div>
           ) : (
-            items.map((item) => (
-              <div
-                key={item.id}
-                className="flex gap-4 items-start p-3 rounded-xl bg-zinc-50 border border-zinc-100"
-              >
-                <div className="relative w-20 h-24 bg-white rounded-lg overflow-hidden shrink-0 border border-zinc-200">
-                  <Image
-                    src={item.image}
-                    alt={item.name}
-                    fill
-                    sizes="80px"
-                    className="object-cover"
-                  />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-sm text-zinc-900 line-clamp-1">
-                    {item.name}
-                  </h3>
-                  <p className="text-xs text-zinc-400 mt-0.5">
-                    Vel: {item.size}
-                  </p>
+            <div className="divide-y divide-zinc-100">
+              {items.map((item) => (
+                <div key={item.id} className="flex gap-4 p-4 sm:p-5 group">
+                  {/* Image */}
+                  <div className="relative w-18 h-22 bg-zinc-50 rounded-xl overflow-hidden shrink-0 border border-zinc-100">
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      fill
+                      sizes="72px"
+                      className="object-cover"
+                    />
+                  </div>
 
-                  <div className="flex items-center justify-between mt-3">
-                    {/* Quantity controls */}
-                    <div className="flex items-center border border-zinc-200 rounded-full h-8 bg-white">
+                  {/* Info */}
+                  <div className="flex-1 min-w-0 flex flex-col">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="min-w-0">
+                        <h3 className="text-sm font-semibold text-zinc-900 truncate">
+                          {item.name}
+                        </h3>
+                        <p className="text-xs text-zinc-400 mt-0.5">
+                          Veličina: {item.size}
+                        </p>
+                      </div>
+                      {/* Remove button — always visible */}
                       <button
-                        onClick={() =>
-                          item.quantity > 1
-                            ? updateQuantity(item.id, item.quantity - 1)
-                            : removeItem(item.id)
-                        }
-                        className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-zinc-100 text-zinc-500 transition-colors"
-                        aria-label="Smanji količinu"
+                        onClick={() => removeItem(item.id)}
+                        className="w-7 h-7 flex items-center justify-center rounded-full text-zinc-300 hover:text-red-500 hover:bg-red-50 transition-colors shrink-0"
+                        aria-label={`Ukloni ${item.name}`}
                       >
-                        {item.quantity === 1 ? (
-                          <Trash2 className="w-3 h-3 text-red-400" />
-                        ) : (
-                          <Minus className="w-3 h-3" />
-                        )}
-                      </button>
-                      <span className="w-6 text-center text-sm font-bold">
-                        {item.quantity}
-                      </span>
-                      <button
-                        onClick={() =>
-                          updateQuantity(item.id, item.quantity + 1)
-                        }
-                        className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-zinc-100 text-zinc-500 transition-colors"
-                        aria-label="Povećaj količinu"
-                      >
-                        <Plus className="w-3 h-3" />
+                        <X className="w-4 h-4" />
                       </button>
                     </div>
 
-                    <span className="font-bold text-sm text-zinc-900">
-                      {(item.price * item.quantity).toFixed(2)} €
-                    </span>
+                    <div className="flex items-center justify-between mt-auto pt-2">
+                      {/* Quantity */}
+                      <div className="flex items-center h-8 border border-zinc-200 rounded-full bg-zinc-50">
+                        <button
+                          onClick={() =>
+                            item.quantity > 1
+                              ? updateQuantity(item.id, item.quantity - 1)
+                              : removeItem(item.id)
+                          }
+                          className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white text-zinc-500 transition-colors"
+                          aria-label="Smanji količinu"
+                        >
+                          <Minus className="w-3 h-3" />
+                        </button>
+                        <span className="w-6 text-center text-xs font-bold tabular-nums">
+                          {item.quantity}
+                        </span>
+                        <button
+                          onClick={() =>
+                            updateQuantity(item.id, item.quantity + 1)
+                          }
+                          className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white text-zinc-500 transition-colors"
+                          aria-label="Povećaj količinu"
+                        >
+                          <Plus className="w-3 h-3" />
+                        </button>
+                      </div>
+
+                      <span className="text-sm font-bold text-zinc-900 tabular-nums">
+                        {(item.price * item.quantity).toFixed(2)} €
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))
+              ))}
+            </div>
           )}
         </div>
 
         {/* Footer */}
         {items.length > 0 && (
-          <div className="p-6 border-t border-zinc-100 bg-[#FDFBF7]">
-            <div className="flex justify-between items-center mb-2 text-sm text-zinc-500">
+          <div className="shrink-0 border-t border-zinc-100 p-5 space-y-4">
+            <div className="flex justify-between items-center text-sm text-zinc-500">
               <span>Dostava</span>
-              <span className="text-green-600 font-bold">Besplatna</span>
+              <span className="text-accent-600 font-semibold">Besplatna</span>
             </div>
-            <div className="flex justify-between items-center mb-4 text-lg font-black text-zinc-900">
-              <span>Ukupno:</span>
-              <span>{cartTotal.toFixed(2)} €</span>
+            <div className="flex justify-between items-baseline">
+              <span className="text-sm font-semibold text-zinc-600">
+                Ukupno
+              </span>
+              <span className="text-xl font-black text-zinc-900 tabular-nums">
+                {cartTotal.toFixed(2)} €
+              </span>
             </div>
-            <Link href="/checkout" onClick={closeCart}>
-              <Button className="w-full h-12 text-lg rounded-full bg-green-600 hover:bg-green-700 shadow-lg">
-                Dovrši kupnju
-              </Button>
+            <Link
+              href="/checkout"
+              onClick={closeCart}
+              className="flex items-center justify-center gap-2 w-full h-12 bg-black text-white font-bold rounded-full text-sm hover:bg-zinc-800 active:scale-[0.98] transition-all shadow-lg"
+            >
+              Nastavi na naplatu
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         )}

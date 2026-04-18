@@ -4,8 +4,8 @@ import { useState } from "react";
 import { ProductMockup } from "@/components/ProductMockup";
 import { Button } from "@/components/ui/button";
 import {
-  Truck, Ruler, ArrowLeft,
-  Share2, Minus, Plus, Lock, ShoppingBag,
+  Truck, ArrowLeft, Package,
+  Share2, Minus, Plus, ShieldCheck, ShoppingBag, CreditCard,
 } from "lucide-react";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
@@ -36,12 +36,14 @@ export default function ProductDetails({ product }: { product: Creature }) {
 
   const activeImage = getSafeImage(product);
   const backPath = product.creature_type === "fish" ? "/ribe" : "/kukci";
+  const isFish = product.creature_type === "fish";
+  const siteName = isFish ? "Svijet Riba" : "Svijet Kukaca";
 
   const handleShare = async () => {
     const url = window.location.href;
     const shareData = {
-      title: `Svijet Kukaca - ${product.name_hr}`,
-      text: `Pogledaj ovu super majicu s kukcem: ${product.name_hr}`,
+      title: `${siteName} - ${product.name_hr}`,
+      text: `Pogledaj ovu majicu: ${product.name_hr}`,
       url,
     };
     if (navigator.share) {
@@ -121,7 +123,7 @@ export default function ProductDetails({ product }: { product: Creature }) {
             <div className="text-3xl font-bold">{product.price.toFixed(2)} €</div>
 
             <p className="text-zinc-600 leading-relaxed text-base md:text-lg border-l-2 border-accent-300 pl-4">
-              {product.description || "Ovaj kukac je poseban i nosi jedinstvenu priču..."}
+              {product.description}
             </p>
 
             {/* Size selector */}
@@ -129,7 +131,6 @@ export default function ProductDetails({ product }: { product: Creature }) {
               <div>
                 <div className="flex justify-between items-center mb-3">
                   <span className="font-bold text-sm">Odaberi veličinu</span>
-                  <button className="text-xs text-zinc-400 underline hover:text-black decoration-dotted">Tablica veličina</button>
                 </div>
                 <div className="grid grid-cols-5 gap-2 md:gap-3">
                   {["S", "M", "L", "XL", "XXL"].map((size) => (
@@ -169,61 +170,47 @@ export default function ProductDetails({ product }: { product: Creature }) {
             </div>
 
             {/* Add to cart */}
-            <div className="space-y-4">
-              <Button
-                onClick={handleAddToCart}
-                className="w-full h-14 text-lg rounded-full bg-black hover:bg-accent-600 hover:text-white transition-all shadow-xl hover:shadow-accent-300/30 font-bold active:scale-95"
-              >
-                <ShoppingBag className="w-5 h-5 mr-2" />
-                Dodaj u Košaricu
-              </Button>
+            <Button
+              onClick={handleAddToCart}
+              className="w-full h-14 text-lg rounded-full bg-black hover:bg-accent-600 hover:text-white transition-all shadow-xl hover:shadow-accent-300/30 font-bold active:scale-95"
+            >
+              <ShoppingBag className="w-5 h-5 mr-2" />
+              Dodaj u košaricu
+            </Button>
 
-              <div className="flex flex-col items-center gap-3 pt-4 mt-4 border-t border-zinc-100">
-                <div className="flex items-center justify-center gap-1.5 text-xs text-zinc-400">
-                  <Lock size={12} />
-                  <span>Sigurno plaćanje i pouzeće</span>
-                </div>
-                <div className="flex flex-wrap justify-center gap-2 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-help">
-                  <div className="h-6 px-2 border border-zinc-300 rounded flex items-center justify-center bg-zinc-50" title="Visa">
-                    <span className="text-[10px] font-bold tracking-tighter italic text-black">VISA</span>
-                  </div>
-                  <div className="h-6 px-2 border border-zinc-300 rounded flex items-center justify-center bg-zinc-50" title="Mastercard">
-                    <div className="flex -space-x-1">
-                      <div className="w-3 h-3 rounded-full bg-zinc-800"></div>
-                      <div className="w-3 h-3 rounded-full bg-zinc-400"></div>
-                    </div>
-                  </div>
-                  <div className="h-6 px-2 border border-zinc-300 rounded flex items-center justify-center bg-zinc-50 gap-1" title="Apple Pay">
-                    <span className="text-[10px] font-bold text-black">Pay</span>
-                  </div>
-                  <div className="h-6 px-2 border border-zinc-300 rounded flex items-center justify-center bg-zinc-50" title="Google Pay">
-                    <span className="text-[10px] font-bold text-black">GPay</span>
-                  </div>
-                  <div className="h-6 px-2 border border-zinc-300 rounded flex items-center justify-center bg-zinc-50" title="Plaćanje pouzećem">
-                    <Truck size={12} className="text-black" />
-                  </div>
-                </div>
+            {/* Trust strip */}
+            <div className="grid grid-cols-3 gap-4 py-6 border-y border-zinc-100">
+              <div className="flex flex-col items-center text-center gap-1.5">
+                <Truck className="w-4 h-4 text-zinc-400" />
+                <span className="text-[11px] text-zinc-500 font-medium leading-tight">Dostava 2-3 dana</span>
+              </div>
+              <div className="flex flex-col items-center text-center gap-1.5">
+                <CreditCard className="w-4 h-4 text-zinc-400" />
+                <span className="text-[11px] text-zinc-500 font-medium leading-tight">Kartica ili pouzećem</span>
+              </div>
+              <div className="flex flex-col items-center text-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-zinc-400" />
+                <span className="text-[11px] text-zinc-500 font-medium leading-tight">Sigurna kupovina</span>
               </div>
             </div>
 
-            {/* Info */}
-            <div className="border-t border-zinc-100 mt-10 space-y-6 pt-10">
-              <div className="flex gap-4 items-start">
-                <div className="w-10 h-10 rounded-full bg-zinc-50 flex items-center justify-center">
-                  <Ruler className="w-5 h-5 text-zinc-600" />
+            {/* Product details */}
+            <div className="space-y-4">
+              <h4 className="text-xs font-bold uppercase tracking-widest text-zinc-400">Detalji proizvoda</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="bg-zinc-50 rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <Package className="w-4 h-4 text-zinc-400" />
+                    <span className="text-sm font-semibold text-zinc-900">Materijal</span>
+                  </div>
+                  <p className="text-sm text-zinc-500 leading-relaxed">100% organski pamuk, 220 g/m2, relaxed kroj</p>
                 </div>
-                <div>
-                  <h4 className="font-bold text-sm">Kroj i Materijal</h4>
-                  <p className="text-sm text-zinc-500 mt-1">100% organski pamuk (220 gsm). Relaxed fit.</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start">
-                <div className="w-10 h-10 rounded-full bg-zinc-50 flex items-center justify-center">
-                  <Truck className="w-5 h-5 text-zinc-600" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-sm">Brza Dostava</h4>
-                  <p className="text-sm text-zinc-500 mt-1">GLS dostava 2-3 radna dana.</p>
+                <div className="bg-zinc-50 rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <Truck className="w-4 h-4 text-zinc-400" />
+                    <span className="text-sm font-semibold text-zinc-900">Dostava</span>
+                  </div>
+                  <p className="text-sm text-zinc-500 leading-relaxed">GLS, 2-3 radna dana. Besplatno iznad 50 €.</p>
                 </div>
               </div>
             </div>

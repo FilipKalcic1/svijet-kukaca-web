@@ -8,7 +8,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
 export async function POST(req: NextRequest) {
@@ -23,13 +23,13 @@ export async function POST(req: NextRequest) {
 
   try {
     const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-
-    if (webhookSecret) {
-      event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
-    } else {
-      // In development without webhook secret, parse the event directly
-      event = JSON.parse(body) as Stripe.Event;
+    if (!webhookSecret) {
+      return NextResponse.json(
+        { error: "Webhook secret not configured" },
+        { status: 500 }
+      );
     }
+    event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";
     return NextResponse.json(

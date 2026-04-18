@@ -17,7 +17,7 @@ export default function CheckoutPage() {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   useEffect(() => {
-    // if (items.length === 0) router.push("/shop"); 
+    if (items.length === 0) router.push("/");
   }, [items, router]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -239,7 +239,7 @@ export default function CheckoutPage() {
   );
 }
 
-function Input({ label, ...props }: any) {
+function Input({ label, ...props }: { label: string } & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <div className="flex flex-col gap-2">
       <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider ml-1">{label}</label>

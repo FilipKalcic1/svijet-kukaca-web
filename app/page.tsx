@@ -28,14 +28,14 @@ export default async function LandingPage() {
     <div className="min-h-screen bg-[#fafaf8] font-sans text-zinc-900 selection:bg-zinc-200">
       {/* ─── NAVBAR ─── */}
       <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100">
-        <div className="max-w-7xl mx-auto px-6 h-28 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 h-36 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <Image
               src="/images/kayaha-logo.png"
               alt="KAYAHA"
-              width={280}
-              height={100}
-              className="h-24 w-auto object-contain"
+              width={400}
+              height={144}
+              className="h-32 w-auto object-contain"
               priority
             />
           </Link>
@@ -62,7 +62,7 @@ export default async function LandingPage() {
       </nav>
 
       {/* ─── HERO ─── */}
-      <section className="relative pt-44 pb-28 md:pt-52 md:pb-36 px-6 text-center overflow-hidden">
+      <section className="relative pt-52 pb-28 md:pt-60 md:pb-36 px-6 text-center overflow-hidden">
         <div className="absolute top-20 left-1/4 w-96 h-96 bg-green-200/20 rounded-full blur-[120px] -z-10" />
         <div className="absolute top-32 right-1/4 w-96 h-96 bg-blue-200/20 rounded-full blur-[120px] -z-10" />
 
@@ -338,9 +338,9 @@ export default async function LandingPage() {
                 <Image
                   src="/images/kayaha-logo.png"
                   alt="KAYAHA"
-                  width={250}
-                  height={90}
-                  className="h-20 w-auto object-contain brightness-0 invert"
+                  width={350}
+                  height={126}
+                  className="h-28 w-auto object-contain brightness-0 invert"
                 />
               </div>
               <p className="text-zinc-400 text-sm max-w-xs leading-relaxed">

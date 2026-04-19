@@ -33,7 +33,7 @@ export default async function ArticlesPage() {
   return (
     <main className="min-h-screen bg-[#fafaf8] text-black pb-32 font-sans selection:bg-accent-100">
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100 px-6 h-28 flex items-center">
+      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100 px-6 h-36 flex items-center">
         <div className="max-w-3xl mx-auto w-full flex items-center justify-between">
           <Link
             href="/"
@@ -46,9 +46,9 @@ export default async function ArticlesPage() {
             <Image
               src="/images/kayaha-logo.png"
               alt="KAYAHA"
-              width={280}
-              height={100}
-              className="h-24 w-auto object-contain"
+              width={400}
+              height={144}
+              className="h-32 w-auto object-contain"
             />
           </Link>
           <span className="text-[10px] font-bold bg-zinc-100 px-3 py-1.5 rounded-full text-zinc-400 uppercase tracking-[0.2em]">

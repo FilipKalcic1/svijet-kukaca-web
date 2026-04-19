@@ -16,15 +16,15 @@ export default function HomeNav({ theme = INSECT_THEME }: { theme?: ThemeConfig 
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100">
-      <div className="max-w-7xl mx-auto px-6 h-28 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 h-36 flex items-center justify-between">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center">
             <Image
               src="/images/kayaha-logo.png"
               alt="KAYAHA"
-              width={280}
-              height={100}
-              className="h-24 w-auto object-contain"
+              width={400}
+              height={144}
+              className="h-32 w-auto object-contain"
               priority
             />
           </Link>

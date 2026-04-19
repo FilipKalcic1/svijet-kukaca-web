@@ -29,7 +29,7 @@ export default async function FishShopPage() {
       <HomeNav theme={FISH_THEME} />
 
       {/* HERO */}
-      <section className="relative pt-48 pb-32 px-6 min-h-screen flex flex-col items-center justify-center text-center">
+      <section className="relative pt-52 pb-32 px-6 min-h-screen flex flex-col items-center justify-center text-center">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-125 bg-accent-300/15 rounded-full blur-[100px] -z-10" />
         <div className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-400 mb-8 bg-white px-5 py-2.5 rounded-full border border-zinc-100 shadow-sm">
           <Leaf className="w-3 h-3 text-accent-500" />
@@ -64,9 +64,9 @@ export default async function FishShopPage() {
             <Image
               src="/images/kayaha-logo.png"
               alt="KAYAHA"
-              width={200}
-              height={70}
-              className="h-16 w-auto object-contain brightness-0 invert mx-auto"
+              width={300}
+              height={105}
+              className="h-24 w-auto object-contain brightness-0 invert mx-auto"
             />
           </div>
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-8 text-sm text-zinc-400">

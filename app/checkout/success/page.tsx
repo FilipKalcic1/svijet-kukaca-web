@@ -71,9 +71,9 @@ export default function SuccessPage() {
           <Image
             src="/images/kayaha-logo.png"
             alt="KAYAHA"
-            width={200}
-            height={70}
-            className="h-16 w-auto object-contain"
+            width={300}
+            height={105}
+            className="h-24 w-auto object-contain"
           />
         </Link>
       </div>

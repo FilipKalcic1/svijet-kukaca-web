@@ -16,9 +16,9 @@ export default function Error({
         <Image
           src="/images/kayaha-logo.png"
           alt="KAYAHA"
-          width={200}
-          height={70}
-          className="h-16 w-auto object-contain"
+          width={300}
+          height={105}
+          className="h-24 w-auto object-contain"
         />
       </Link>
       <div className="w-18 h-18 bg-red-50 border border-red-100 rounded-2xl flex items-center justify-center mb-6">

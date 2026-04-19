@@ -72,7 +72,7 @@ export default function ProductDetails({ product }: { product: Creature }) {
     <div className="min-h-screen bg-[#fafaf8] font-sans text-zinc-900 selection:bg-accent-300 selection:text-black">
 
       {/* NAVBAR */}
-      <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-zinc-100 h-28 flex items-center px-4 md:px-6 justify-between">
+      <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-zinc-100 h-36 flex items-center px-4 md:px-6 justify-between">
         <Link href={backPath} className="flex items-center gap-2 text-zinc-400 hover:text-black transition-colors p-2 -ml-2 rounded-full hover:bg-zinc-50">
           <ArrowLeft size={20} />
           <span className="font-medium hidden sm:inline text-sm tracking-wide">Natrag</span>
@@ -81,9 +81,9 @@ export default function ProductDetails({ product }: { product: Creature }) {
           <Image
             src="/images/kayaha-logo.png"
             alt="KAYAHA"
-            width={280}
-            height={100}
-            className="h-24 w-auto object-contain"
+            width={400}
+            height={144}
+            className="h-32 w-auto object-contain"
           />
         </Link>
         <div className="flex items-center gap-2">
@@ -101,7 +101,7 @@ export default function ProductDetails({ product }: { product: Creature }) {
         </div>
       </nav>
 
-      <main className="pt-36 pb-32 max-w-7xl mx-auto px-4 md:px-8">
+      <main className="pt-44 pb-32 max-w-7xl mx-auto px-4 md:px-8">
 
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-xs text-zinc-400 mb-8 tracking-wide">

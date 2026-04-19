@@ -6,7 +6,7 @@ import type { LegalPage } from "@/lib/legal";
 export default function LegalPage({ page }: { page: LegalPage }) {
   return (
     <main className="min-h-screen bg-[#fafaf8] text-zinc-900 font-sans selection:bg-accent-100">
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100 px-6 h-28 flex items-center">
+      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100 px-6 h-36 flex items-center">
         <div className="max-w-3xl mx-auto w-full flex items-center justify-between">
           <Link
             href="/"
@@ -19,9 +19,9 @@ export default function LegalPage({ page }: { page: LegalPage }) {
             <Image
               src="/images/kayaha-logo.png"
               alt="KAYAHA"
-              width={280}
-              height={100}
-              className="h-24 w-auto object-contain"
+              width={400}
+              height={144}
+              className="h-32 w-auto object-contain"
             />
           </Link>
           <div />

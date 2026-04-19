@@ -15,7 +15,6 @@ import {
 export const revalidate = 3600;
 
 export default async function LandingPage() {
-  // Fetch featured products from both worlds
   const { data: featured } = await supabase
     .from("creatures")
     .select("slug, name_hr, name_science, price, image_url, creature_type, category")
@@ -26,28 +25,36 @@ export default async function LandingPage() {
   const fishes = (featured ?? []).filter((c) => c.creature_type === "fish");
 
   return (
-    <div className="min-h-screen bg-white font-sans text-zinc-900 selection:bg-zinc-200">
+    <div className="min-h-screen bg-[#fafaf8] font-sans text-zinc-900 selection:bg-zinc-200">
       {/* ─── NAVBAR ─── */}
       <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 h-28 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <Image
               src="/images/kayaha-logo.png"
               alt="KAYAHA"
-              width={120}
-              height={40}
-              className="h-9 w-auto object-contain"
+              width={280}
+              height={100}
+              className="h-24 w-auto object-contain"
               priority
             />
           </Link>
-          <div className="flex items-center gap-4 text-sm">
-            <Link href="/kukci" className="text-zinc-500 hover:text-black transition-colors font-medium">
-              Kukci
+          <div className="flex items-center gap-3 text-sm">
+            <Link
+              href="/kukci"
+              className="flex items-center gap-1.5 text-zinc-400 hover:text-green-600 transition-colors font-medium px-3 py-1.5 rounded-full hover:bg-green-50"
+            >
+              <Bug className="w-4 h-4" />
+              <span className="hidden sm:inline">Kukci</span>
             </Link>
-            <Link href="/ribe" className="text-zinc-500 hover:text-black transition-colors font-medium">
-              Ribe
+            <Link
+              href="/ribe"
+              className="flex items-center gap-1.5 text-zinc-400 hover:text-blue-600 transition-colors font-medium px-3 py-1.5 rounded-full hover:bg-blue-50"
+            >
+              <Fish className="w-4 h-4" />
+              <span className="hidden sm:inline">Ribe</span>
             </Link>
-            <Link href="/clanci" className="text-zinc-500 hover:text-black transition-colors font-medium hidden sm:inline">
+            <Link href="/clanci" className="text-zinc-400 hover:text-black transition-colors font-medium px-3 py-1.5 rounded-full hover:bg-zinc-100 hidden sm:inline-flex">
               Članci
             </Link>
           </div>
@@ -55,17 +62,17 @@ export default async function LandingPage() {
       </nav>
 
       {/* ─── HERO ─── */}
-      <section className="relative pt-32 pb-24 md:pt-44 md:pb-32 px-6 text-center overflow-hidden">
-        {/* Background orbs */}
-        <div className="absolute top-20 left-1/4 w-96 h-96 bg-green-200/30 rounded-full blur-[120px] -z-10" />
-        <div className="absolute top-32 right-1/4 w-96 h-96 bg-blue-200/30 rounded-full blur-[120px] -z-10" />
+      <section className="relative pt-44 pb-28 md:pt-52 md:pb-36 px-6 text-center overflow-hidden">
+        <div className="absolute top-20 left-1/4 w-96 h-96 bg-green-200/20 rounded-full blur-[120px] -z-10" />
+        <div className="absolute top-32 right-1/4 w-96 h-96 bg-blue-200/20 rounded-full blur-[120px] -z-10" />
 
         <div className="max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-6 bg-zinc-50 px-4 py-2 rounded-full border border-zinc-100">
-            Edukacija kroz modu
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.25em] text-zinc-400 mb-8 bg-white px-5 py-2.5 rounded-full border border-zinc-100 shadow-sm">
+            <Leaf className="w-3 h-3 text-accent-500" />
+            Elevated Style · Natural Spirit
           </div>
 
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.05] mb-6">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.05] mb-8">
             Premium Majice
             <br />
             <span className="text-transparent bg-clip-text bg-linear-to-r from-green-500 via-emerald-500 to-blue-500">
@@ -73,7 +80,7 @@ export default async function LandingPage() {
             </span>
           </h1>
 
-          <p className="text-xl md:text-2xl text-zinc-500 max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto mb-12 leading-relaxed">
             Svaka majica nosi priču o jednoj vrsti. Skeniraj QR kod na leđima i otkrij
             tajni život životinje koju nosiš.
           </p>
@@ -81,14 +88,14 @@ export default async function LandingPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/kukci"
-              className="inline-flex items-center justify-center gap-2 bg-black text-white hover:bg-green-500 hover:text-black rounded-full text-lg px-8 h-14 transition-all shadow-lg hover:shadow-green-300/40 font-semibold"
+              className="inline-flex items-center justify-center gap-2 bg-black text-white hover:bg-green-500 hover:text-black rounded-full text-lg px-8 h-14 transition-all shadow-lg hover:shadow-green-300/40 font-semibold tracking-wide"
             >
               <Bug className="w-5 h-5" />
               Istraži Kukce
             </Link>
             <Link
               href="/ribe"
-              className="inline-flex items-center justify-center gap-2 bg-white text-black border-2 border-zinc-200 hover:bg-blue-500 hover:text-white hover:border-blue-500 rounded-full text-lg px-8 h-14 transition-all shadow-lg hover:shadow-blue-300/40 font-semibold"
+              className="inline-flex items-center justify-center gap-2 bg-white text-black border-2 border-zinc-200 hover:bg-blue-500 hover:text-white hover:border-blue-500 rounded-full text-lg px-8 h-14 transition-all shadow-lg hover:shadow-blue-300/40 font-semibold tracking-wide"
             >
               <Fish className="w-5 h-5" />
               Istraži Ribe
@@ -98,45 +105,45 @@ export default async function LandingPage() {
       </section>
 
       {/* ─── KAKO FUNKCIONIRA ─── */}
-      <section className="py-24 px-6 bg-zinc-50 border-y border-zinc-100">
+      <section className="py-28 px-6 bg-white border-y border-zinc-100">
         <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-4">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-300">Kako funkcionira</span>
+          </div>
           <h2 className="text-center text-3xl md:text-4xl font-bold tracking-tight mb-4">
-            Kako Funkcionira?
+            Tri Jednostavna Koraka
           </h2>
-          <p className="text-center text-zinc-500 mb-16 max-w-lg mx-auto">
-            Tri jednostavna koraka do edukativnog iskustva
+          <p className="text-center text-zinc-400 mb-20 max-w-lg mx-auto">
+            Od kupnje do edukativnog iskustva
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-            {/* Step 1 */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16">
             <div className="text-center group">
-              <div className="w-16 h-16 bg-white rounded-2xl shadow-sm border border-zinc-100 flex items-center justify-center mx-auto mb-5 group-hover:shadow-md transition-shadow">
-                <span className="text-2xl font-black text-zinc-300">01</span>
+              <div className="w-18 h-18 bg-[#fafaf8] rounded-2xl border border-zinc-100 flex items-center justify-center mx-auto mb-6 group-hover:shadow-md transition-shadow">
+                <span className="text-2xl font-black text-zinc-200">01</span>
               </div>
               <h3 className="font-bold text-lg mb-2">Odaberi Majicu</h3>
-              <p className="text-sm text-zinc-500 leading-relaxed">
+              <p className="text-sm text-zinc-400 leading-relaxed">
                 Odaberi svog omiljenog kukca ili ribu iz kolekcije premium majica.
               </p>
             </div>
 
-            {/* Step 2 */}
             <div className="text-center group">
-              <div className="w-16 h-16 bg-white rounded-2xl shadow-sm border border-zinc-100 flex items-center justify-center mx-auto mb-5 group-hover:shadow-md transition-shadow">
-                <ScanLine className="w-7 h-7 text-zinc-400" />
+              <div className="w-18 h-18 bg-[#fafaf8] rounded-2xl border border-zinc-100 flex items-center justify-center mx-auto mb-6 group-hover:shadow-md transition-shadow">
+                <ScanLine className="w-7 h-7 text-zinc-300" />
               </div>
               <h3 className="font-bold text-lg mb-2">Skeniraj QR Kod</h3>
-              <p className="text-sm text-zinc-500 leading-relaxed">
+              <p className="text-sm text-zinc-400 leading-relaxed">
                 Na leđima svake majice je QR kod koji vodi na edukativnu stranicu o vrsti.
               </p>
             </div>
 
-            {/* Step 3 */}
             <div className="text-center group">
-              <div className="w-16 h-16 bg-white rounded-2xl shadow-sm border border-zinc-100 flex items-center justify-center mx-auto mb-5 group-hover:shadow-md transition-shadow">
-                <span className="text-2xl font-black text-zinc-300">03</span>
+              <div className="w-18 h-18 bg-[#fafaf8] rounded-2xl border border-zinc-100 flex items-center justify-center mx-auto mb-6 group-hover:shadow-md transition-shadow">
+                <Sparkles className="w-7 h-7 text-zinc-300" />
               </div>
               <h3 className="font-bold text-lg mb-2">Otkrij Priču</h3>
-              <p className="text-sm text-zinc-500 leading-relaxed">
+              <p className="text-sm text-zinc-400 leading-relaxed">
                 Saznaj zanimljivosti, stanište, prehranu i fascinantne činjenice o vrsti.
               </p>
             </div>
@@ -146,9 +153,9 @@ export default async function LandingPage() {
 
       {/* ─── SVIJET KUKACA — Featured ─── */}
       {insects.length > 0 && (
-        <section className="py-24 px-6">
+        <section className="py-28 px-6">
           <div className="max-w-7xl mx-auto">
-            <div className="flex items-center justify-between mb-12">
+            <div className="flex items-center justify-between mb-14">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-green-400 rounded-full flex items-center justify-center">
                   <Bug className="w-5 h-5 text-black" />
@@ -175,7 +182,7 @@ export default async function LandingPage() {
               ))}
             </div>
 
-            <div className="sm:hidden mt-6 text-center">
+            <div className="sm:hidden mt-8 text-center">
               <Link
                 href="/kukci"
                 className="inline-flex items-center gap-1 text-sm font-semibold text-green-600"
@@ -190,9 +197,9 @@ export default async function LandingPage() {
 
       {/* ─── SVIJET RIBA — Featured ─── */}
       {fishes.length > 0 && (
-        <section className="py-24 px-6 bg-zinc-50 border-y border-zinc-100">
+        <section className="py-28 px-6 bg-white border-y border-zinc-100">
           <div className="max-w-7xl mx-auto">
-            <div className="flex items-center justify-between mb-12">
+            <div className="flex items-center justify-between mb-14">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-blue-400 rounded-full flex items-center justify-center">
                   <Fish className="w-5 h-5 text-black" />
@@ -219,7 +226,7 @@ export default async function LandingPage() {
               ))}
             </div>
 
-            <div className="sm:hidden mt-6 text-center">
+            <div className="sm:hidden mt-8 text-center">
               <Link
                 href="/ribe"
                 className="inline-flex items-center gap-1 text-sm font-semibold text-blue-600"
@@ -233,13 +240,16 @@ export default async function LandingPage() {
       )}
 
       {/* ─── ZAŠTO MI ─── */}
-      <section className="py-24 px-6">
+      <section className="py-28 px-6">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-center text-3xl md:text-4xl font-bold tracking-tight mb-16">
+          <div className="text-center mb-4">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-300">Zašto KAYAHA</span>
+          </div>
+          <h2 className="text-center text-3xl md:text-4xl font-bold tracking-tight mb-20">
             Zašto Naše Majice?
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
             <ValueProp
               icon={<Leaf className="w-5 h-5" />}
               title="100% Organski Pamuk"
@@ -265,9 +275,8 @@ export default async function LandingPage() {
       </section>
 
       {/* ─── WORLDS CTA ─── */}
-      <section className="px-6 pb-24">
+      <section className="px-6 pb-28">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Insect CTA */}
           <Link
             href="/kukci"
             className="group relative rounded-3xl overflow-hidden p-10 md:p-12 flex flex-col justify-end min-h-[280px]"
@@ -277,7 +286,7 @@ export default async function LandingPage() {
               <Bug className="w-8 h-8 text-white" />
             </div>
             <div className="relative z-10">
-              <p className="text-green-100 text-sm font-bold uppercase tracking-widest mb-2">
+              <p className="text-green-100 text-[10px] font-bold uppercase tracking-[0.25em] mb-2">
                 Kolekcija
               </p>
               <h3 className="text-3xl font-extrabold text-white mb-3">
@@ -293,7 +302,6 @@ export default async function LandingPage() {
             </div>
           </Link>
 
-          {/* Fish CTA */}
           <Link
             href="/ribe"
             className="group relative rounded-3xl overflow-hidden p-10 md:p-12 flex flex-col justify-end min-h-[280px]"
@@ -303,7 +311,7 @@ export default async function LandingPage() {
               <Fish className="w-8 h-8 text-white" />
             </div>
             <div className="relative z-10">
-              <p className="text-blue-100 text-sm font-bold uppercase tracking-widest mb-2">
+              <p className="text-blue-100 text-[10px] font-bold uppercase tracking-[0.25em] mb-2">
                 Kolekcija
               </p>
               <h3 className="text-3xl font-extrabold text-white mb-3">
@@ -322,18 +330,17 @@ export default async function LandingPage() {
       </section>
 
       {/* ─── FOOTER ─── */}
-      <footer className="bg-zinc-900 text-white py-16 px-6">
+      <footer className="bg-zinc-900 text-white py-20 px-6">
         <div className="max-w-5xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-start gap-10 mb-12">
-            {/* Brand */}
+          <div className="flex flex-col md:flex-row justify-between items-start gap-10 mb-14">
             <div>
-              <div className="mb-4">
+              <div className="mb-5">
                 <Image
                   src="/images/kayaha-logo.png"
                   alt="KAYAHA"
-                  width={130}
-                  height={44}
-                  className="h-10 w-auto object-contain brightness-0 invert"
+                  width={250}
+                  height={90}
+                  className="h-20 w-auto object-contain brightness-0 invert"
                 />
               </div>
               <p className="text-zinc-400 text-sm max-w-xs leading-relaxed">
@@ -341,7 +348,6 @@ export default async function LandingPage() {
               </p>
             </div>
 
-            {/* Links */}
             <div className="grid grid-cols-2 gap-x-16 gap-y-3 text-sm">
               <Link href="/kukci" className="text-zinc-400 hover:text-white transition-colors">
                 Svijet Kukaca
@@ -364,10 +370,14 @@ export default async function LandingPage() {
             </div>
           </div>
 
-          <div className="border-t border-zinc-800 pt-6 text-center">
+          <div className="border-t border-zinc-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
             <p className="text-zinc-500 text-xs">
               © 2026 KAYAHA. Sva prava pridržana.
             </p>
+            <div className="flex items-center gap-2">
+              <Leaf className="w-3 h-3 text-zinc-600" />
+              <span className="text-[10px] uppercase tracking-[0.2em] text-zinc-600 font-medium">Elevated Style · Natural Spirit</span>
+            </div>
           </div>
         </div>
       </footer>
@@ -398,17 +408,17 @@ function ProductCard({
   return (
     <Link href={`/shop/${item.slug}`} className="group block">
       <div className="bg-white rounded-2xl border border-zinc-100 overflow-hidden hover:shadow-xl transition-all duration-300">
-        <div className="relative aspect-3/4 bg-zinc-50">
+        <div className="relative aspect-3/4 bg-[#fafaf8]">
           {img ? (
             <Image
               src={img}
               alt={item.name_hr}
               fill
               sizes="(max-width: 768px) 50vw, 25vw"
-              className="object-cover"
+              className="object-contain p-3"
             />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center text-zinc-300">
+            <div className="absolute inset-0 flex items-center justify-center text-zinc-200">
               {accentClass === "green" ? (
                 <Bug className="w-12 h-12" />
               ) : (
@@ -418,7 +428,7 @@ function ProductCard({
           )}
         </div>
         <div className="p-4">
-          <p className={`text-[10px] font-bold uppercase tracking-widest ${badgeBg} px-2 py-0.5 rounded-full inline-block mb-2`}>
+          <p className={`text-[10px] font-bold uppercase tracking-[0.2em] ${badgeBg} px-2 py-0.5 rounded-full inline-block mb-2`}>
             {item.category}
           </p>
           <h3 className={`font-bold text-sm md:text-base leading-tight mb-0.5 ${hoverText} transition-colors`}>
@@ -451,11 +461,11 @@ function ValueProp({
 }) {
   return (
     <div className="text-center">
-      <div className="w-12 h-12 bg-zinc-50 rounded-xl flex items-center justify-center mx-auto mb-4 text-zinc-600">
+      <div className="w-14 h-14 bg-white border border-zinc-100 rounded-2xl flex items-center justify-center mx-auto mb-5 text-zinc-500">
         {icon}
       </div>
-      <h3 className="font-bold text-sm mb-1">{title}</h3>
-      <p className="text-xs text-zinc-500 leading-relaxed">{desc}</p>
+      <h3 className="font-bold text-sm mb-1.5">{title}</h3>
+      <p className="text-xs text-zinc-400 leading-relaxed">{desc}</p>
     </div>
   );
 }

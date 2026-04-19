@@ -38,7 +38,7 @@ U Hrvatskoj, grgeč je jedan od najpopularnijih sportskih ulova — ribolovci ga
 Grgeč igra ključnu ulogu u ekosustavu slatkih voda kao "srednji predator" — kontrolira populacije sitnih riba i beskralježnjaka, a istovremeno služi kao plijen većim grabežljivcima poput soma i štuke. Bez grgeča, mnogi slatkovodni ekosustavi bi izgubili ravnotežu.`,
     price: 18,
     category: "predator",
-    image_url: null,
+    image_url: "/assets/mockups/grgec-front.png",
     size: "15–50 cm (rekord: 60 cm, 4.75 kg)",
     food: "Sitne ribe, račići, ličinke kukaca, zooplankton (mladi)",
     habitat: "Rijeke, jezera, bare, akumulacije — cijela Europa",

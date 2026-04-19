@@ -1,7 +1,7 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
-import { X, ShoppingBag, Trash2, Minus, Plus, ArrowRight } from "lucide-react";
+import { X, ShoppingBag, Minus, Plus, ArrowRight, Leaf } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
@@ -41,17 +41,17 @@ export default function CartDrawer() {
 
       {/* Drawer */}
       <div
-        className="fixed inset-y-0 right-0 w-full max-w-md bg-white shadow-2xl z-100 flex flex-col animate-in slide-in-from-right duration-300"
+        className="fixed inset-y-0 right-0 w-full max-w-md bg-[#fafaf8] shadow-2xl z-100 flex flex-col animate-in slide-in-from-right duration-300"
         role="dialog"
         aria-label="Košarica"
       >
         {/* Header */}
-        <div className="px-6 h-16 border-b border-zinc-100 flex items-center justify-between shrink-0">
+        <div className="px-6 h-18 bg-white border-b border-zinc-100 flex items-center justify-between shrink-0">
           <h2 className="text-lg font-bold text-zinc-900 flex items-center gap-2">
             <ShoppingBag className="w-5 h-5" />
             Košarica
             {cartCount > 0 && (
-              <span className="text-xs font-semibold text-zinc-400 bg-zinc-100 px-2 py-0.5 rounded-full">
+              <span className="text-[10px] font-bold text-zinc-400 bg-zinc-100 px-2.5 py-1 rounded-full tracking-wide">
                 {cartCount}
               </span>
             )}
@@ -68,8 +68,8 @@ export default function CartDrawer() {
         {/* Items */}
         <div className="flex-1 overflow-y-auto">
           {items.length === 0 ? (
-            <div className="h-full flex flex-col items-center justify-center text-center px-6 gap-3">
-              <div className="w-16 h-16 bg-zinc-50 rounded-full flex items-center justify-center">
+            <div className="h-full flex flex-col items-center justify-center text-center px-6 gap-4">
+              <div className="w-18 h-18 bg-white rounded-2xl border border-zinc-100 flex items-center justify-center">
                 <ShoppingBag className="w-7 h-7 text-zinc-200" />
               </div>
               <p className="text-sm text-zinc-400 font-medium">
@@ -83,17 +83,17 @@ export default function CartDrawer() {
               </button>
             </div>
           ) : (
-            <div className="divide-y divide-zinc-100">
+            <div className="p-4 space-y-3">
               {items.map((item) => (
-                <div key={item.id} className="flex gap-4 p-4 sm:p-5 group">
+                <div key={item.id} className="flex gap-4 p-4 bg-white rounded-2xl border border-zinc-100">
                   {/* Image */}
-                  <div className="relative w-18 h-22 bg-zinc-50 rounded-xl overflow-hidden shrink-0 border border-zinc-100">
+                  <div className="relative w-18 h-22 bg-[#fafaf8] rounded-xl overflow-hidden shrink-0 border border-zinc-100">
                     <Image
                       src={item.image}
                       alt={item.name}
                       fill
                       sizes="72px"
-                      className="object-cover"
+                      className="object-contain p-1"
                     />
                   </div>
 
@@ -108,7 +108,6 @@ export default function CartDrawer() {
                           Veličina: {item.size}
                         </p>
                       </div>
-                      {/* Remove button — always visible */}
                       <button
                         onClick={() => removeItem(item.id)}
                         className="w-7 h-7 flex items-center justify-center rounded-full text-zinc-300 hover:text-red-500 hover:bg-red-50 transition-colors shrink-0"
@@ -119,8 +118,7 @@ export default function CartDrawer() {
                     </div>
 
                     <div className="flex items-center justify-between mt-auto pt-2">
-                      {/* Quantity */}
-                      <div className="flex items-center h-8 border border-zinc-200 rounded-full bg-zinc-50">
+                      <div className="flex items-center h-8 border border-zinc-200 rounded-full bg-[#fafaf8]">
                         <button
                           onClick={() =>
                             item.quantity > 1
@@ -159,13 +157,13 @@ export default function CartDrawer() {
 
         {/* Footer */}
         {items.length > 0 && (
-          <div className="shrink-0 border-t border-zinc-100 p-5 space-y-4">
+          <div className="shrink-0 bg-white border-t border-zinc-100 p-5 space-y-4">
             <div className="flex justify-between items-center text-sm text-zinc-500">
               <span>Dostava</span>
               <span className="text-accent-600 font-semibold">Besplatna</span>
             </div>
             <div className="flex justify-between items-baseline">
-              <span className="text-sm font-semibold text-zinc-600">
+              <span className="text-sm font-semibold text-zinc-500">
                 Ukupno
               </span>
               <span className="text-xl font-black text-zinc-900 tabular-nums">
@@ -175,11 +173,15 @@ export default function CartDrawer() {
             <Link
               href="/checkout"
               onClick={closeCart}
-              className="flex items-center justify-center gap-2 w-full h-12 bg-black text-white font-bold rounded-full text-sm hover:bg-zinc-800 active:scale-[0.98] transition-all shadow-lg"
+              className="flex items-center justify-center gap-2 w-full h-13 bg-black text-white font-bold rounded-full text-sm hover:bg-zinc-800 active:scale-[0.98] transition-all shadow-lg tracking-wide"
             >
               Nastavi na naplatu
               <ArrowRight className="w-4 h-4" />
             </Link>
+            <div className="flex items-center justify-center gap-2 pt-1">
+              <Leaf className="w-3 h-3 text-zinc-300" />
+              <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-300">KAYAHA</span>
+            </div>
           </div>
         )}
       </div>

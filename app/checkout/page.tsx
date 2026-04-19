@@ -12,10 +12,10 @@ import {
   Lock,
   ShieldCheck,
   Package,
-  ChevronRight,
   Minus,
   Plus,
   X,
+  Leaf,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,9 +26,7 @@ export default function CheckoutPage() {
   const { items, cartTotal, clearCart, removeItem, updateQuantity } = useCart();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState<"cod" | "stripe">(
-    "stripe"
-  );
+  const [paymentMethod, setPaymentMethod] = useState<"cod" | "stripe">("stripe");
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   useEffect(() => {
@@ -69,16 +67,16 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-6 bg-zinc-50">
-        <div className="w-16 h-16 bg-zinc-100 rounded-full flex items-center justify-center">
-          <Package className="w-7 h-7 text-zinc-300" />
+      <div className="min-h-screen flex flex-col items-center justify-center gap-6 bg-[#fafaf8]">
+        <div className="w-18 h-18 bg-white border border-zinc-100 rounded-2xl flex items-center justify-center">
+          <Package className="w-7 h-7 text-zinc-200" />
         </div>
         <p className="text-lg font-semibold text-zinc-400">
           Vaša košarica je prazna.
         </p>
         <Link
           href="/"
-          className="bg-black text-white px-8 py-3 rounded-full font-bold text-sm hover:bg-zinc-800 transition-colors"
+          className="bg-black text-white px-8 py-3 rounded-full font-bold text-sm hover:bg-zinc-800 transition-colors tracking-wide"
         >
           Povratak u trgovinu
         </Link>
@@ -90,10 +88,10 @@ export default function CheckoutPage() {
   const total = cartTotal + shippingCost;
 
   return (
-    <main className="min-h-screen bg-zinc-50 text-zinc-900 selection:bg-accent-100">
+    <main className="min-h-screen bg-[#fafaf8] text-zinc-900 selection:bg-accent-100">
       {/* Top bar */}
       <div className="bg-white border-b border-zinc-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-28 flex items-center justify-between">
           <Link
             href="/"
             className="flex items-center gap-2 text-zinc-400 hover:text-black transition-colors text-sm font-medium"
@@ -106,15 +104,15 @@ export default function CheckoutPage() {
             <Image
               src="/images/kayaha-logo.png"
               alt="KAYAHA"
-              width={90}
-              height={30}
-              className="h-7 w-auto object-contain"
+              width={280}
+              height={100}
+              className="h-24 w-auto object-contain"
             />
           </Link>
 
           <div className="flex items-center gap-1.5 text-zinc-400">
             <Lock className="w-3.5 h-3.5" />
-            <span className="text-xs font-medium hidden sm:inline">
+            <span className="text-xs font-medium hidden sm:inline tracking-wide">
               Sigurna naplata
             </span>
           </div>
@@ -131,7 +129,7 @@ export default function CheckoutPage() {
               className="space-y-8"
             >
               {/* Shipping info */}
-              <section className="bg-white rounded-2xl border border-zinc-200/80 p-6 sm:p-8">
+              <section className="bg-white rounded-2xl border border-zinc-100 p-6 sm:p-8">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center text-xs font-bold">
                     1
@@ -141,52 +139,20 @@ export default function CheckoutPage() {
 
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <FloatingInput
-                      name="name"
-                      label="Ime i prezime"
-                      required
-                      autoComplete="name"
-                    />
-                    <FloatingInput
-                      name="phone"
-                      label="Broj telefona"
-                      type="tel"
-                      required
-                      autoComplete="tel"
-                    />
+                    <FloatingInput name="name" label="Ime i prezime" required autoComplete="name" />
+                    <FloatingInput name="phone" label="Broj telefona" type="tel" required autoComplete="tel" />
                   </div>
-                  <FloatingInput
-                    name="email"
-                    label="Email adresa"
-                    type="email"
-                    required
-                    autoComplete="email"
-                  />
-                  <FloatingInput
-                    name="address"
-                    label="Adresa"
-                    required
-                    autoComplete="street-address"
-                  />
+                  <FloatingInput name="email" label="Email adresa" type="email" required autoComplete="email" />
+                  <FloatingInput name="address" label="Adresa" required autoComplete="street-address" />
                   <div className="grid grid-cols-2 gap-4">
-                    <FloatingInput
-                      name="city"
-                      label="Grad"
-                      required
-                      autoComplete="address-level2"
-                    />
-                    <FloatingInput
-                      name="zip"
-                      label="Poštanski broj"
-                      required
-                      autoComplete="postal-code"
-                    />
+                    <FloatingInput name="city" label="Grad" required autoComplete="address-level2" />
+                    <FloatingInput name="zip" label="Poštanski broj" required autoComplete="postal-code" />
                   </div>
                 </div>
               </section>
 
               {/* Payment method */}
-              <section className="bg-white rounded-2xl border border-zinc-200/80 p-6 sm:p-8">
+              <section className="bg-white rounded-2xl border border-zinc-100 p-6 sm:p-8">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center text-xs font-bold">
                     2
@@ -195,7 +161,6 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="space-y-3">
-                  {/* Stripe */}
                   <label
                     className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${
                       paymentMethod === "stripe"
@@ -203,39 +168,17 @@ export default function CheckoutPage() {
                         : "border-zinc-200 hover:border-zinc-300"
                     }`}
                   >
-                    <input
-                      type="radio"
-                      name="payment"
-                      value="stripe"
-                      checked={paymentMethod === "stripe"}
-                      onChange={() => setPaymentMethod("stripe")}
-                      className="sr-only"
-                    />
-                    <div
-                      className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${
-                        paymentMethod === "stripe"
-                          ? "border-black"
-                          : "border-zinc-300"
-                      }`}
-                    >
-                      {paymentMethod === "stripe" && (
-                        <div className="w-2.5 h-2.5 rounded-full bg-black" />
-                      )}
+                    <input type="radio" name="payment" value="stripe" checked={paymentMethod === "stripe"} onChange={() => setPaymentMethod("stripe")} className="sr-only" />
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${paymentMethod === "stripe" ? "border-black" : "border-zinc-300"}`}>
+                      {paymentMethod === "stripe" && <div className="w-2.5 h-2.5 rounded-full bg-black" />}
                     </div>
-                    <CreditCard
-                      className={`w-5 h-5 shrink-0 ${paymentMethod === "stripe" ? "text-black" : "text-zinc-400"}`}
-                    />
+                    <CreditCard className={`w-5 h-5 shrink-0 ${paymentMethod === "stripe" ? "text-black" : "text-zinc-400"}`} />
                     <div className="flex-1">
-                      <span className="block text-sm font-semibold">
-                        Kartično plaćanje
-                      </span>
-                      <span className="block text-xs text-zinc-400 mt-0.5">
-                        Visa, Mastercard, Apple Pay, Google Pay
-                      </span>
+                      <span className="block text-sm font-semibold">Kartično plaćanje</span>
+                      <span className="block text-xs text-zinc-400 mt-0.5">Visa, Mastercard, Apple Pay, Google Pay</span>
                     </div>
                   </label>
 
-                  {/* COD */}
                   <label
                     className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${
                       paymentMethod === "cod"
@@ -243,35 +186,14 @@ export default function CheckoutPage() {
                         : "border-zinc-200 hover:border-zinc-300"
                     }`}
                   >
-                    <input
-                      type="radio"
-                      name="payment"
-                      value="cod"
-                      checked={paymentMethod === "cod"}
-                      onChange={() => setPaymentMethod("cod")}
-                      className="sr-only"
-                    />
-                    <div
-                      className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${
-                        paymentMethod === "cod"
-                          ? "border-black"
-                          : "border-zinc-300"
-                      }`}
-                    >
-                      {paymentMethod === "cod" && (
-                        <div className="w-2.5 h-2.5 rounded-full bg-black" />
-                      )}
+                    <input type="radio" name="payment" value="cod" checked={paymentMethod === "cod"} onChange={() => setPaymentMethod("cod")} className="sr-only" />
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${paymentMethod === "cod" ? "border-black" : "border-zinc-300"}`}>
+                      {paymentMethod === "cod" && <div className="w-2.5 h-2.5 rounded-full bg-black" />}
                     </div>
-                    <Truck
-                      className={`w-5 h-5 shrink-0 ${paymentMethod === "cod" ? "text-black" : "text-zinc-400"}`}
-                    />
+                    <Truck className={`w-5 h-5 shrink-0 ${paymentMethod === "cod" ? "text-black" : "text-zinc-400"}`} />
                     <div className="flex-1">
-                      <span className="block text-sm font-semibold">
-                        Plaćanje pouzećem
-                      </span>
-                      <span className="block text-xs text-zinc-400 mt-0.5">
-                        Platite gotovinom prilikom preuzimanja
-                      </span>
+                      <span className="block text-sm font-semibold">Plaćanje pouzećem</span>
+                      <span className="block text-xs text-zinc-400 mt-0.5">Platite gotovinom prilikom preuzimanja</span>
                     </div>
                   </label>
                 </div>
@@ -279,43 +201,32 @@ export default function CheckoutPage() {
             </form>
 
             {/* Trust signals */}
-            <div className="mt-6 flex items-center justify-center gap-6 text-zinc-400">
+            <div className="mt-6 flex items-center justify-center gap-6 text-zinc-300">
               <div className="flex items-center gap-1.5">
                 <Lock className="w-3.5 h-3.5" />
-                <span className="text-[11px] font-medium">SSL enkripcija</span>
+                <span className="text-[11px] font-medium tracking-wide">SSL enkripcija</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <ShieldCheck className="w-3.5 h-3.5" />
-                <span className="text-[11px] font-medium">
-                  Zaštićeni podaci
-                </span>
+                <span className="text-[11px] font-medium tracking-wide">Zaštićeni podaci</span>
               </div>
             </div>
           </div>
 
           {/* RIGHT — Order summary */}
           <div className="lg:col-span-5 order-1 lg:order-2">
-            <div className="bg-white rounded-2xl border border-zinc-200/80 p-6 sm:p-8 lg:sticky lg:top-8">
+            <div className="bg-white rounded-2xl border border-zinc-100 p-6 sm:p-8 lg:sticky lg:top-8">
               <h3 className="text-lg font-bold mb-6">Pregled narudžbe</h3>
 
-              {/* Items */}
               <div className="divide-y divide-zinc-100 mb-6">
                 {items.map((item) => (
                   <div key={item.id} className="flex gap-3 py-4 first:pt-0">
-                    <div className="relative w-14 h-14 bg-zinc-100 rounded-xl overflow-hidden shrink-0 border border-zinc-100">
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        fill
-                        sizes="56px"
-                        className="object-cover"
-                      />
+                    <div className="relative w-14 h-14 bg-[#fafaf8] rounded-xl overflow-hidden shrink-0 border border-zinc-100">
+                      <Image src={item.image} alt={item.name} fill sizes="56px" className="object-contain p-1" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2">
-                        <p className="text-sm font-semibold truncate">
-                          {item.name}
-                        </p>
+                        <p className="text-sm font-semibold truncate">{item.name}</p>
                         <button
                           onClick={() => removeItem(item.id)}
                           className="w-6 h-6 flex items-center justify-center rounded-full text-zinc-300 hover:text-red-500 hover:bg-red-50 transition-colors shrink-0"
@@ -324,92 +235,49 @@ export default function CheckoutPage() {
                           <X className="w-3.5 h-3.5" />
                         </button>
                       </div>
-                      <p className="text-xs text-zinc-400 mt-0.5">
-                        Vel: {item.size}
-                      </p>
+                      <p className="text-xs text-zinc-400 mt-0.5">Vel: {item.size}</p>
                       <div className="flex items-center justify-between mt-2">
-                        <div className="flex items-center h-7 border border-zinc-200 rounded-full bg-zinc-50">
-                          <button
-                            onClick={() =>
-                              item.quantity > 1
-                                ? updateQuantity(item.id, item.quantity - 1)
-                                : removeItem(item.id)
-                            }
-                            className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white text-zinc-500 transition-colors"
-                          >
+                        <div className="flex items-center h-7 border border-zinc-200 rounded-full bg-[#fafaf8]">
+                          <button onClick={() => item.quantity > 1 ? updateQuantity(item.id, item.quantity - 1) : removeItem(item.id)} className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white text-zinc-500 transition-colors">
                             <Minus className="w-3 h-3" />
                           </button>
-                          <span className="w-5 text-center text-xs font-bold tabular-nums">
-                            {item.quantity}
-                          </span>
-                          <button
-                            onClick={() =>
-                              updateQuantity(item.id, item.quantity + 1)
-                            }
-                            className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white text-zinc-500 transition-colors"
-                          >
+                          <span className="w-5 text-center text-xs font-bold tabular-nums">{item.quantity}</span>
+                          <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white text-zinc-500 transition-colors">
                             <Plus className="w-3 h-3" />
                           </button>
                         </div>
-                        <span className="text-sm font-bold tabular-nums">
-                          {(item.price * item.quantity).toFixed(2)} €
-                        </span>
+                        <span className="text-sm font-bold tabular-nums">{(item.price * item.quantity).toFixed(2)} €</span>
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
 
-              {/* Totals */}
               <div className="border-t border-zinc-100 pt-4 space-y-3">
                 <div className="flex justify-between text-sm">
-                  <span className="text-zinc-500">
-                    Međuzbroj ({items.reduce((s, i) => s + i.quantity, 0)} kom)
-                  </span>
+                  <span className="text-zinc-400">Međuzbroj ({items.reduce((s, i) => s + i.quantity, 0)} kom)</span>
                   <span className="tabular-nums">{cartTotal.toFixed(2)} €</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-zinc-500">Dostava</span>
-                  <span className="text-accent-600 font-semibold">
-                    Besplatna
-                  </span>
+                  <span className="text-zinc-400">Dostava</span>
+                  <span className="text-accent-600 font-semibold">Besplatna</span>
                 </div>
               </div>
 
               <div className="border-t border-zinc-200 mt-4 pt-4 flex justify-between items-baseline">
                 <span className="text-base font-bold">Ukupno</span>
-                <span className="text-2xl font-black tabular-nums">
-                  {total.toFixed(2)} €
-                </span>
+                <span className="text-2xl font-black tabular-nums">{total.toFixed(2)} €</span>
               </div>
 
-              {/* Terms + Submit (visible on desktop) */}
+              {/* Terms + Submit (desktop) */}
               <div className="mt-8 hidden lg:block">
                 <label className="flex items-start gap-3 mb-5 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={agreedToTerms}
-                    onChange={(e) => setAgreedToTerms(e.target.checked)}
-                    className="mt-0.5 accent-black shrink-0 w-4 h-4"
-                  />
+                  <input type="checkbox" checked={agreedToTerms} onChange={(e) => setAgreedToTerms(e.target.checked)} className="mt-0.5 accent-black shrink-0 w-4 h-4" />
                   <span className="text-xs text-zinc-500 leading-relaxed">
                     Slažem se s{" "}
-                    <Link
-                      href="/uvjeti"
-                      target="_blank"
-                      className="underline hover:text-black transition-colors"
-                    >
-                      uvjetima poslovanja
-                    </Link>{" "}
-                    i{" "}
-                    <Link
-                      href="/privatnost"
-                      target="_blank"
-                      className="underline hover:text-black transition-colors"
-                    >
-                      politikom privatnosti
-                    </Link>
-                    .
+                    <Link href="/uvjeti" target="_blank" className="underline hover:text-black transition-colors">uvjetima poslovanja</Link>
+                    {" "}i{" "}
+                    <Link href="/privatnost" target="_blank" className="underline hover:text-black transition-colors">politikom privatnosti</Link>.
                   </span>
                 </label>
 
@@ -417,18 +285,12 @@ export default function CheckoutPage() {
                   form="checkout-form"
                   type="submit"
                   disabled={isSubmitting || !agreedToTerms}
-                  className="w-full h-14 bg-black text-white font-bold rounded-full text-base transition-all hover:bg-zinc-800 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg"
+                  className="w-full h-14 bg-black text-white font-bold rounded-full text-base transition-all hover:bg-zinc-800 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg tracking-wide"
                 >
                   {isSubmitting ? (
-                    <>
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                      Obrađujem...
-                    </>
+                    <><Loader2 className="w-5 h-5 animate-spin" />Obrađujem...</>
                   ) : paymentMethod === "stripe" ? (
-                    <>
-                      <Lock className="w-4 h-4" />
-                      Nastavi na plaćanje
-                    </>
+                    <><Lock className="w-4 h-4" />Nastavi na plaćanje</>
                   ) : (
                     "Potvrdi narudžbu"
                   )}
@@ -446,57 +308,31 @@ export default function CheckoutPage() {
       </div>
 
       {/* Mobile sticky footer */}
-      <div className="lg:hidden fixed bottom-0 inset-x-0 bg-white border-t border-zinc-200 p-4 z-50">
+      <div className="lg:hidden fixed bottom-0 inset-x-0 bg-white border-t border-zinc-100 p-4 z-50">
         <label className="flex items-start gap-3 mb-3 cursor-pointer">
-          <input
-            type="checkbox"
-            checked={agreedToTerms}
-            onChange={(e) => setAgreedToTerms(e.target.checked)}
-            className="mt-0.5 accent-black shrink-0 w-4 h-4"
-          />
+          <input type="checkbox" checked={agreedToTerms} onChange={(e) => setAgreedToTerms(e.target.checked)} className="mt-0.5 accent-black shrink-0 w-4 h-4" />
           <span className="text-[11px] text-zinc-500 leading-relaxed">
             Slažem se s{" "}
-            <Link
-              href="/uvjeti"
-              target="_blank"
-              className="underline hover:text-black"
-            >
-              uvjetima
-            </Link>{" "}
-            i{" "}
-            <Link
-              href="/privatnost"
-              target="_blank"
-              className="underline hover:text-black"
-            >
-              politikom privatnosti
-            </Link>
-            .
+            <Link href="/uvjeti" target="_blank" className="underline hover:text-black">uvjetima</Link>
+            {" "}i{" "}
+            <Link href="/privatnost" target="_blank" className="underline hover:text-black">politikom privatnosti</Link>.
           </span>
         </label>
         <div className="flex items-center gap-4">
           <div className="shrink-0">
             <span className="text-xs text-zinc-400 block">Ukupno</span>
-            <span className="text-xl font-black tabular-nums">
-              {total.toFixed(2)} €
-            </span>
+            <span className="text-xl font-black tabular-nums">{total.toFixed(2)} €</span>
           </div>
           <button
             form="checkout-form"
             type="submit"
             disabled={isSubmitting || !agreedToTerms}
-            className="flex-1 h-12 bg-black text-white font-bold rounded-full text-sm transition-all hover:bg-zinc-800 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="flex-1 h-12 bg-black text-white font-bold rounded-full text-sm transition-all hover:bg-zinc-800 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 tracking-wide"
           >
             {isSubmitting ? (
-              <>
-                <Loader2 className="w-4 h-4 animate-spin" />
-                Obrađujem...
-              </>
+              <><Loader2 className="w-4 h-4 animate-spin" />Obrađujem...</>
             ) : paymentMethod === "stripe" ? (
-              <>
-                <Lock className="w-3.5 h-3.5" />
-                Nastavi na plaćanje
-              </>
+              <><Lock className="w-3.5 h-3.5" />Nastavi na plaćanje</>
             ) : (
               "Potvrdi narudžbu"
             )}

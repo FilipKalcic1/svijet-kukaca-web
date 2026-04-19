@@ -93,20 +93,25 @@ export default async function CreaturePage(props: PageProps) {
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100 px-6 py-4">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
-          <Link
-            href={backPath}
-            className="flex items-center text-sm font-medium text-zinc-500 hover:text-black transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Natrag
+          <div className="flex items-center gap-3">
+            <Link
+              href={backPath}
+              className="flex items-center text-sm font-medium text-zinc-500 hover:text-black transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Natrag
+            </Link>
+          </div>
+          <Link href="/" className="absolute left-1/2 -translate-x-1/2">
+            <Image
+              src="/images/kayaha-logo.png"
+              alt="KAYAHA"
+              width={90}
+              height={30}
+              className="h-7 w-auto object-contain"
+            />
           </Link>
           <div className="flex gap-3 items-center">
-            <Link
-              href="/"
-              className="text-xs text-zinc-400 hover:text-black transition-colors font-medium"
-            >
-              Naslovnica
-            </Link>
             <span className="text-[10px] font-bold bg-zinc-100 px-2 py-1 rounded text-zinc-500 uppercase tracking-wider">
               Wiki
             </span>

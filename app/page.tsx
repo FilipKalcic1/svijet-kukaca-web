@@ -30,19 +30,16 @@ export default async function LandingPage() {
       {/* ─── NAVBAR ─── */}
       <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="flex -space-x-1">
-              <div className="w-7 h-7 bg-green-400 rounded-full flex items-center justify-center">
-                <Bug className="w-4 h-4 text-black" />
-              </div>
-              <div className="w-7 h-7 bg-blue-400 rounded-full flex items-center justify-center">
-                <Fish className="w-4 h-4 text-black" />
-              </div>
-            </div>
-            <span className="font-bold text-lg tracking-tight hidden sm:inline">
-              Svijet Kukaca & Riba
-            </span>
-          </div>
+          <Link href="/" className="flex items-center gap-2">
+            <Image
+              src="/images/kayaha-logo.png"
+              alt="KAYAHA"
+              width={120}
+              height={40}
+              className="h-9 w-auto object-contain"
+              priority
+            />
+          </Link>
           <div className="flex items-center gap-4 text-sm">
             <Link href="/kukci" className="text-zinc-500 hover:text-black transition-colors font-medium">
               Kukci
@@ -330,16 +327,14 @@ export default async function LandingPage() {
           <div className="flex flex-col md:flex-row justify-between items-start gap-10 mb-12">
             {/* Brand */}
             <div>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="flex -space-x-1">
-                  <div className="w-7 h-7 bg-green-400 rounded-full flex items-center justify-center">
-                    <Bug className="w-4 h-4 text-black" />
-                  </div>
-                  <div className="w-7 h-7 bg-blue-400 rounded-full flex items-center justify-center">
-                    <Fish className="w-4 h-4 text-black" />
-                  </div>
-                </div>
-                <span className="font-bold text-lg">Svijet Kukaca & Riba</span>
+              <div className="mb-4">
+                <Image
+                  src="/images/kayaha-logo.png"
+                  alt="KAYAHA"
+                  width={130}
+                  height={44}
+                  className="h-10 w-auto object-contain brightness-0 invert"
+                />
               </div>
               <p className="text-zinc-400 text-sm max-w-xs leading-relaxed">
                 Edukativne majice s pričom. Svaka majica nosi priču o jednoj vrsti.
@@ -371,7 +366,7 @@ export default async function LandingPage() {
 
           <div className="border-t border-zinc-800 pt-6 text-center">
             <p className="text-zinc-500 text-xs">
-              © 2026 Svijet Kukaca & Riba. Sva prava pridržana.
+              © 2026 KAYAHA. Sva prava pridržana.
             </p>
           </div>
         </div>

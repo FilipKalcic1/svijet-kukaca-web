@@ -8,6 +8,7 @@ import {
   Share2, Minus, Plus, ShieldCheck, ShoppingBag, CreditCard,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 
 interface Creature {
@@ -74,12 +75,18 @@ export default function ProductDetails({ product }: { product: Creature }) {
       <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur border-b border-zinc-100 h-16 flex items-center px-4 md:px-6 justify-between">
         <Link href={backPath} className="flex items-center gap-2 text-zinc-500 hover:text-black transition-colors p-2 -ml-2 rounded-full hover:bg-zinc-100">
           <ArrowLeft size={20} />
-          <span className="font-medium hidden sm:inline">Natrag na Shop</span>
+          <span className="font-medium hidden sm:inline">Natrag</span>
+        </Link>
+        <Link href="/" className="absolute left-1/2 -translate-x-1/2">
+          <Image
+            src="/images/kayaha-logo.png"
+            alt="KAYAHA"
+            width={90}
+            height={30}
+            className="h-7 w-auto object-contain"
+          />
         </Link>
         <div className="flex items-center gap-2">
-          <Link href="/" className="text-xs text-zinc-400 hover:text-black transition-colors font-medium hidden sm:inline px-2">
-            Naslovnica
-          </Link>
           <Button variant="ghost" size="icon" onClick={handleShare} className="md:hidden text-zinc-600">
             <Share2 size={20} />
           </Button>

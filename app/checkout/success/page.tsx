@@ -4,6 +4,7 @@ import { useEffect, Suspense, useRef } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { CheckCircle, ArrowRight, Package } from "lucide-react";
+import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 
 function SuccessContent() {
@@ -58,6 +59,17 @@ function SuccessContent() {
 export default function SuccessPage() {
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center p-6">
+      <div className="absolute top-6">
+        <Link href="/">
+          <Image
+            src="/images/kayaha-logo.png"
+            alt="KAYAHA"
+            width={110}
+            height={36}
+            className="h-8 w-auto object-contain"
+          />
+        </Link>
+      </div>
       <Suspense
         fallback={
           <div className="text-zinc-400 animate-pulse text-sm">

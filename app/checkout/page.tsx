@@ -99,17 +99,18 @@ export default function CheckoutPage() {
             className="flex items-center gap-2 text-zinc-400 hover:text-black transition-colors text-sm font-medium"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span className="hidden sm:inline">Natrag u trgovinu</span>
+            <span className="hidden sm:inline">Natrag</span>
           </Link>
 
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-xs text-zinc-400">
-            <span className="text-zinc-300">Košarica</span>
-            <ChevronRight className="w-3 h-3" />
-            <span className="text-black font-semibold">Naplata</span>
-            <ChevronRight className="w-3 h-3" />
-            <span className="text-zinc-300">Potvrda</span>
-          </div>
+          <Link href="/" className="absolute left-1/2 -translate-x-1/2">
+            <Image
+              src="/images/kayaha-logo.png"
+              alt="KAYAHA"
+              width={90}
+              height={30}
+              className="h-7 w-auto object-contain"
+            />
+          </Link>
 
           <div className="flex items-center gap-1.5 text-zinc-400">
             <Lock className="w-3.5 h-3.5" />

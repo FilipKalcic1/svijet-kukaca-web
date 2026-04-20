@@ -43,10 +43,10 @@ export default async function LandingPage() {
 
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.05] mb-10 md:mb-12">
-            Majice
+            Nosi prirodu,
             <br />
             <span className="text-transparent bg-clip-text bg-linear-to-r from-green-500 via-emerald-500 to-blue-500">
-              s Pričom.
+              upoznaj svijet.
             </span>
           </h1>
 

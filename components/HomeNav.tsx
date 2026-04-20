@@ -13,7 +13,7 @@ export default function HomeNav({ theme = INSECT_THEME }: { theme?: ThemeConfig 
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-zinc-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 md:h-20 flex items-center justify-between gap-4">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 h-16 md:h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center shrink-0" aria-label="KAYAHA">
           <Image
             src="/images/kayaha-logo.png"
@@ -25,7 +25,7 @@ export default function HomeNav({ theme = INSECT_THEME }: { theme?: ThemeConfig 
           />
         </Link>
 
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-2 sm:gap-3">
           <Link
             href="/kukci"
             aria-label="Svijet Kukaca"
@@ -36,7 +36,7 @@ export default function HomeNav({ theme = INSECT_THEME }: { theme?: ThemeConfig 
                 : "bg-green-50 text-green-600 hover:bg-green-500 hover:text-white"
             }`}
           >
-            <Bug className="w-5 h-5 md:w-5.5 md:h-5.5" />
+            <Bug className="w-5 h-5" />
           </Link>
           <Link
             href="/ribe"
@@ -48,7 +48,7 @@ export default function HomeNav({ theme = INSECT_THEME }: { theme?: ThemeConfig 
                 : "bg-blue-50 text-blue-600 hover:bg-blue-500 hover:text-white"
             }`}
           >
-            <Fish className="w-5 h-5 md:w-5.5 md:h-5.5" />
+            <Fish className="w-5 h-5" />
           </Link>
           <Link
             href="/clanci"

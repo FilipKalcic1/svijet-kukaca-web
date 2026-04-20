@@ -10,7 +10,7 @@ export default function LandingNav() {
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-zinc-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 md:h-20 flex items-center justify-between gap-4">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 h-16 md:h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center shrink-0" aria-label="KAYAHA">
           <Image
             src="/images/kayaha-logo.png"
@@ -22,7 +22,7 @@ export default function LandingNav() {
           />
         </Link>
 
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-2 sm:gap-3">
           <Link
             href="/kukci"
             aria-label="Svijet Kukaca"

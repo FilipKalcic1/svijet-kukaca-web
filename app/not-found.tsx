@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Leaf } from "lucide-react";
 
 export default function NotFound() {
   return (
@@ -11,7 +10,7 @@ export default function NotFound() {
           alt="KAYAHA"
           width={300}
           height={105}
-          className="h-24 w-auto object-contain"
+          className="h-12 w-auto object-contain"
         />
       </Link>
       <div className="w-18 h-18 bg-white border border-zinc-100 rounded-2xl flex items-center justify-center mb-6">
@@ -27,10 +26,6 @@ export default function NotFound() {
       >
         Povratak na naslovnicu
       </Link>
-      <div className="flex items-center gap-2 mt-12">
-        <Leaf className="w-3 h-3 text-zinc-300" />
-        <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-300">Elevated Style · Natural Spirit</span>
-      </div>
     </div>
   );
 }

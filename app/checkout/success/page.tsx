@@ -3,7 +3,7 @@
 import { useEffect, Suspense, useRef } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { CheckCircle, ArrowRight, Package, Leaf } from "lucide-react";
+import { CheckCircle, ArrowRight, Package } from "lucide-react";
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 
@@ -53,12 +53,6 @@ function SuccessContent() {
         <ArrowRight className="w-4 h-4" />
       </Link>
 
-      <div className="flex items-center justify-center gap-2 mt-12">
-        <Leaf className="w-3 h-3 text-zinc-300" />
-        <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-300">
-          Elevated Style · Natural Spirit
-        </span>
-      </div>
     </div>
   );
 }
@@ -73,7 +67,7 @@ export default function SuccessPage() {
             alt="KAYAHA"
             width={300}
             height={105}
-            className="h-24 w-auto object-contain"
+            className="h-12 w-auto object-contain"
           />
         </Link>
       </div>

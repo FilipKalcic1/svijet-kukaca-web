@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s",
   },
   description:
-    "Premium majice s edukativnom pričom o kukcima i ribama. Skeniraj QR kod na leđima i otkrij tajni život životinje koju nosiš.",
+    "Majice s edukativnom pričom o kukcima i ribama. Skeniraj QR kod na leđima i otkrij tajni život životinje koju nosiš.",
   keywords: [
     "majice",
     "kukci",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     siteName: "Svijet Kukaca & Riba",
     title: "Svijet Kukaca & Riba - Edukativne majice s pričom",
     description:
-      "Premium majice s edukativnom pričom o kukcima i ribama. Skeniraj QR kod i otkrij tajni život životinje.",
+      "Majice s edukativnom pričom o kukcima i ribama. Skeniraj QR kod i otkrij tajni život životinje.",
   },
   robots: {
     index: true,

@@ -24,13 +24,30 @@ interface Creature {
   creature_type?: string;
 }
 
+interface RelatedItem {
+  id: number;
+  slug: string;
+  name_hr: string;
+  name_science: string | null;
+  price: number;
+  image_url: string | null;
+  category: string | null;
+  creature_type?: string;
+}
+
 function getSafeImage(prod: Creature) {
   if (prod.product_front_image && prod.product_front_image.length > 5) return prod.product_front_image;
   if (prod.image_url && prod.image_url.length > 5) return prod.image_url;
   return "https://placehold.co/600x800/png?text=Nema+Slike";
 }
 
-export default function ProductDetails({ product }: { product: Creature }) {
+export default function ProductDetails({
+  product,
+  related = [],
+}: {
+  product: Creature;
+  related?: RelatedItem[];
+}) {
   const { addItem, openCart, cartCount } = useCart();
   const [selectedSize, setSelectedSize] = useState("M");
   const [quantity, setQuantity] = useState(1);
@@ -72,7 +89,7 @@ export default function ProductDetails({ product }: { product: Creature }) {
     <div className="min-h-screen bg-[#fafaf8] font-sans text-zinc-900 selection:bg-accent-300 selection:text-black">
 
       {/* NAVBAR */}
-      <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-zinc-100 h-36 flex items-center px-4 md:px-6 justify-between">
+      <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-zinc-100 h-16 md:h-20 flex items-center px-4 md:px-6 justify-between">
         <Link href={backPath} className="flex items-center gap-2 text-zinc-400 hover:text-black transition-colors p-2 -ml-2 rounded-full hover:bg-zinc-50">
           <ArrowLeft size={20} />
           <span className="font-medium hidden sm:inline text-sm tracking-wide">Natrag</span>
@@ -81,9 +98,9 @@ export default function ProductDetails({ product }: { product: Creature }) {
           <Image
             src="/images/kayaha-logo.png"
             alt="KAYAHA"
-            width={400}
-            height={144}
-            className="h-32 w-auto object-contain"
+            width={800}
+            height={292}
+            className="h-7 md:h-8 w-auto object-contain"
           />
         </Link>
         <div className="flex items-center gap-2">
@@ -271,21 +288,72 @@ export default function ProductDetails({ product }: { product: Creature }) {
               </div>
             </div>
 
-            {/* KAYAHA tagline */}
-            <div className="flex items-center justify-center gap-3 pt-4">
-              <div className="h-px flex-1 bg-zinc-100" />
-              <div className="flex items-center gap-2">
-                <Leaf className="w-3.5 h-3.5 text-accent-400" />
-                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-300">
-                  Elevated Style · Natural Spirit
-                </span>
-              </div>
-              <div className="h-px flex-1 bg-zinc-100" />
-            </div>
-
           </div>
         </div>
+
+        {related.length > 0 && (
+          <section className="mt-32 md:mt-40 border-t border-zinc-100 pt-20 md:pt-28">
+            <div className="flex items-baseline justify-between mb-12">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-300 block mb-2">
+                  Kolekcija
+                </span>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
+                  Možda vam se svidi
+                </h2>
+              </div>
+              <Link
+                href={backPath}
+                className="hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-zinc-500 hover:text-black transition-colors"
+              >
+                Pogledaj sve →
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+              {related.map((item) => (
+                <RelatedCard key={item.slug} item={item} />
+              ))}
+            </div>
+          </section>
+        )}
       </main>
     </div>
+  );
+}
+
+function RelatedCard({ item }: { item: RelatedItem }) {
+  return (
+    <Link href={`/shop/${item.slug}`} className="group block">
+      <div className="bg-white rounded-2xl border border-zinc-100 overflow-hidden hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
+        <div className="relative aspect-3/4 bg-[#fafaf8]">
+          <ProductMockup
+            frontImage={item.image_url || ""}
+            bugSlug={item.slug}
+          />
+        </div>
+        <div className="p-5 flex flex-col grow">
+          {item.category && (
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent-600 bg-accent-50 px-2 py-0.5 rounded-full inline-block self-start mb-3">
+              {item.category}
+            </p>
+          )}
+          <h3 className="font-bold text-sm md:text-base leading-tight mb-1 group-hover:text-accent-600 transition-colors">
+            {item.name_hr}
+          </h3>
+          {item.name_science && (
+            <p className="text-xs text-zinc-400 italic font-serif mb-4 truncate">
+              {item.name_science}
+            </p>
+          )}
+          <div className="flex items-center justify-between mt-auto pt-3 border-t border-zinc-50">
+            <span className="font-bold text-lg">{item.price} €</span>
+            <div className="bg-zinc-900 text-white text-xs font-medium px-3 py-1.5 rounded-full group-hover:bg-accent-500 transition-colors">
+              Pogledaj
+            </div>
+          </div>
+        </div>
+      </div>
+    </Link>
   );
 }

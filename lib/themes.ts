@@ -20,7 +20,7 @@ export const INSECT_THEME: ThemeConfig = {
   label: "Svijet Kukaca",
   shopTitle: "Istraži Kolekciju",
   shopSubtitle:
-    "Premium majice s edukativnom pričom. Skeniraj QR kod na leđima i otkrij tajni život kukca kojeg nosiš.",
+    "Majice s edukativnom pričom. Skeniraj QR kod na leđima i otkrij tajni život kukca kojeg nosiš.",
   heroTitle: ["Nosi Prirodu.", "Upoznaj Svijet."],
   heroCta: "Pronađi Svog Kukca",
   searchPlaceholder: "Traži kukca (npr. Jelenak, Lucanus...)",
@@ -40,7 +40,7 @@ export const FISH_THEME: ThemeConfig = {
   label: "Svijet Riba",
   shopTitle: "Istraži Kolekciju",
   shopSubtitle:
-    "Premium majice s edukativnom pričom. Skeniraj QR kod na leđima i otkrij tajni život ribe koju nosiš.",
+    "Majice s edukativnom pričom. Skeniraj QR kod na leđima i otkrij tajni život ribe koju nosiš.",
   heroTitle: ["Nosi Prirodu.", "Zaroni u Svijet."],
   heroCta: "Pronađi Svoju Ribu",
   searchPlaceholder: "Traži ribu (npr. Grgeč, Pastrva...)",

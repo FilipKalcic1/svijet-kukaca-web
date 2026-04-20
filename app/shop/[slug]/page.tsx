@@ -34,9 +34,18 @@ export default async function ProductPage(props: PageProps) {
 
   if (!product) return notFound();
 
+  const { data: relatedData } = await supabase
+    .from("creatures")
+    .select("id, slug, name_hr, name_science, price, image_url, creature_type, category")
+    .eq("creature_type", product.creature_type)
+    .neq("slug", slug)
+    .limit(4);
+
+  const related = relatedData ?? [];
+
   return (
     <div data-theme={product.creature_type === "fish" ? "fish" : undefined}>
-      <ProductDetails product={product} />
+      <ProductDetails product={product} related={related} />
     </div>
   );
 }

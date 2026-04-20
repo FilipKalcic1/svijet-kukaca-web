@@ -91,7 +91,7 @@ export default function CheckoutPage() {
     <main className="min-h-screen bg-[#fafaf8] text-zinc-900 selection:bg-accent-100">
       {/* Top bar */}
       <div className="bg-white border-b border-zinc-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-36 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 md:h-20 flex items-center justify-between">
           <Link
             href="/"
             className="flex items-center gap-2 text-zinc-400 hover:text-black transition-colors text-sm font-medium"
@@ -104,9 +104,9 @@ export default function CheckoutPage() {
             <Image
               src="/images/kayaha-logo.png"
               alt="KAYAHA"
-              width={400}
-              height={144}
-              className="h-32 w-auto object-contain"
+              width={800}
+              height={292}
+              className="h-7 md:h-8 w-auto object-contain"
             />
           </Link>
 

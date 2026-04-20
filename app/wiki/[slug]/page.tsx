@@ -56,7 +56,6 @@ export default async function CreaturePage(props: PageProps) {
   const isFish = creature.creature_type === "fish";
   const CreatureIcon = isFish ? Fish : Bug;
   const backPath = isFish ? "/ribe" : "/kukci";
-  const creatureLabel = isFish ? "ribu" : "kukcem";
 
   let relatedCreatures: Array<{
     slug: string;
@@ -89,7 +88,7 @@ export default async function CreaturePage(props: PageProps) {
       data-theme={isFish ? "fish" : undefined}
     >
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100 px-6 h-36 flex items-center">
+      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100 px-6 h-16 md:h-20 flex items-center">
         <div className="max-w-3xl mx-auto w-full flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link
@@ -104,9 +103,9 @@ export default async function CreaturePage(props: PageProps) {
             <Image
               src="/images/kayaha-logo.png"
               alt="KAYAHA"
-              width={400}
-              height={144}
-              className="h-32 w-auto object-contain"
+              width={800}
+              height={292}
+              className="h-7 md:h-8 w-auto object-contain"
             />
           </Link>
           <div className="flex gap-3 items-center">
@@ -313,8 +312,7 @@ export default async function CreaturePage(props: PageProps) {
             Nosi {creature.name_hr} na sebi
           </h3>
           <p className="text-zinc-400 mb-6 max-w-md mx-auto">
-            Premium majica s {creatureLabel}. Skeniraj QR kod na leđima i podijeli
-            priču s drugima.
+            Edukativna majica s QR kodom. Skeniraj i podijeli priču s drugima.
           </p>
           <Link
             href={`/shop/${creature.slug}`}
@@ -325,17 +323,6 @@ export default async function CreaturePage(props: PageProps) {
           </Link>
         </div>
 
-        {/* Bottom tagline */}
-        <div className="flex items-center justify-center gap-3 mt-12">
-          <div className="h-px flex-1 max-w-16 bg-zinc-200" />
-          <div className="flex items-center gap-2">
-            <Leaf className="w-3 h-3 text-accent-400" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-300">
-              Elevated Style · Natural Spirit
-            </span>
-          </div>
-          <div className="h-px flex-1 max-w-16 bg-zinc-200" />
-        </div>
       </div>
     </main>
   );

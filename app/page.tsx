@@ -5,82 +5,52 @@ import {
   Bug,
   Fish,
   ArrowRight,
-  ScanLine,
   Truck,
   Leaf,
   ShieldCheck,
-  Sparkles,
 } from "lucide-react";
+import LandingNav from "@/components/LandingNav";
 
 export const revalidate = 3600;
 
 export default async function LandingPage() {
-  const { data: featured } = await supabase
-    .from("creatures")
-    .select("slug, name_hr, name_science, price, image_url, creature_type, category")
-    .order("created_at", { ascending: true })
-    .limit(8);
+  const [{ data: insectsData }, { data: fishesData }] = await Promise.all([
+    supabase
+      .from("creatures")
+      .select("slug, name_hr, name_science, price, image_url, creature_type, category")
+      .eq("creature_type", "insect")
+      .order("created_at", { ascending: true })
+      .limit(4),
+    supabase
+      .from("creatures")
+      .select("slug, name_hr, name_science, price, image_url, creature_type, category")
+      .eq("creature_type", "fish")
+      .order("created_at", { ascending: true })
+      .limit(4),
+  ]);
 
-  const insects = (featured ?? []).filter((c) => c.creature_type === "insect");
-  const fishes = (featured ?? []).filter((c) => c.creature_type === "fish");
+  const insects = insectsData ?? [];
+  const fishes = fishesData ?? [];
 
   return (
     <div className="min-h-screen bg-[#fafaf8] font-sans text-zinc-900 selection:bg-zinc-200">
-      {/* ─── NAVBAR ─── */}
-      <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100">
-        <div className="max-w-7xl mx-auto px-6 h-36 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              src="/images/kayaha-logo.png"
-              alt="KAYAHA"
-              width={400}
-              height={144}
-              className="h-32 w-auto object-contain"
-              priority
-            />
-          </Link>
-          <div className="flex items-center gap-3 text-sm">
-            <Link
-              href="/kukci"
-              className="flex items-center gap-1.5 text-zinc-400 hover:text-green-600 transition-colors font-medium px-3 py-1.5 rounded-full hover:bg-green-50"
-            >
-              <Bug className="w-4 h-4" />
-              <span className="hidden sm:inline">Kukci</span>
-            </Link>
-            <Link
-              href="/ribe"
-              className="flex items-center gap-1.5 text-zinc-400 hover:text-blue-600 transition-colors font-medium px-3 py-1.5 rounded-full hover:bg-blue-50"
-            >
-              <Fish className="w-4 h-4" />
-              <span className="hidden sm:inline">Ribe</span>
-            </Link>
-            <Link href="/clanci" className="text-zinc-400 hover:text-black transition-colors font-medium px-3 py-1.5 rounded-full hover:bg-zinc-100 hidden sm:inline-flex">
-              Članci
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <LandingNav />
 
       {/* ─── HERO ─── */}
-      <section className="relative pt-52 pb-28 md:pt-60 md:pb-36 px-6 text-center overflow-hidden">
+      <section className="relative pt-44 md:pt-56 pb-40 md:pb-56 px-6 text-center overflow-hidden">
         <div className="absolute top-20 left-1/4 w-96 h-96 bg-green-200/20 rounded-full blur-[120px] -z-10" />
         <div className="absolute top-32 right-1/4 w-96 h-96 bg-blue-200/20 rounded-full blur-[120px] -z-10" />
 
         <div className="max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.25em] text-zinc-400 mb-8 bg-white px-5 py-2.5 rounded-full border border-zinc-100 shadow-sm">
-            <Leaf className="w-3 h-3 text-accent-500" />
-            Elevated Style · Natural Spirit
-          </div>
-
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.05] mb-8">
-            Premium Majice
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.05] mb-10 md:mb-12">
+            Majice
             <br />
             <span className="text-transparent bg-clip-text bg-linear-to-r from-green-500 via-emerald-500 to-blue-500">
               s Pričom.
             </span>
           </h1>
 
-          <p className="text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto mb-12 leading-relaxed">
+          <p className="text-xl md:text-2xl text-zinc-500 max-w-2xl mx-auto mb-14 md:mb-16 leading-relaxed">
             Svaka majica nosi priču o jednoj vrsti. Skeniraj QR kod na leđima i otkrij
             tajni život životinje koju nosiš.
           </p>
@@ -88,14 +58,14 @@ export default async function LandingPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/kukci"
-              className="inline-flex items-center justify-center gap-2 bg-black text-white hover:bg-green-500 hover:text-black rounded-full text-lg px-8 h-14 transition-all shadow-lg hover:shadow-green-300/40 font-semibold tracking-wide"
+              className="inline-flex items-center justify-center gap-2 bg-green-500 text-white hover:bg-green-600 rounded-full text-lg px-8 h-14 transition-colors shadow-lg shadow-green-500/20 font-semibold tracking-wide"
             >
               <Bug className="w-5 h-5" />
               Istraži Kukce
             </Link>
             <Link
               href="/ribe"
-              className="inline-flex items-center justify-center gap-2 bg-white text-black border-2 border-zinc-200 hover:bg-blue-500 hover:text-white hover:border-blue-500 rounded-full text-lg px-8 h-14 transition-all shadow-lg hover:shadow-blue-300/40 font-semibold tracking-wide"
+              className="inline-flex items-center justify-center gap-2 bg-blue-500 text-white hover:bg-blue-600 rounded-full text-lg px-8 h-14 transition-colors shadow-lg shadow-blue-500/20 font-semibold tracking-wide"
             >
               <Fish className="w-5 h-5" />
               Istraži Ribe
@@ -105,158 +75,72 @@ export default async function LandingPage() {
       </section>
 
       {/* ─── KAKO FUNKCIONIRA ─── */}
-      <section className="py-28 px-6 bg-white border-y border-zinc-100">
+      <section className="py-40 md:py-56 px-6 bg-white border-y border-zinc-100">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-4">
             <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-300">Kako funkcionira</span>
           </div>
-          <h2 className="text-center text-3xl md:text-4xl font-bold tracking-tight mb-4">
+          <h2 className="text-center text-3xl md:text-4xl font-bold tracking-tight mb-6">
             Tri Jednostavna Koraka
           </h2>
-          <p className="text-center text-zinc-400 mb-20 max-w-lg mx-auto">
+          <p className="text-center text-zinc-500 mb-24 max-w-lg mx-auto">
             Od kupnje do edukativnog iskustva
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16">
-            <div className="text-center group">
-              <div className="w-18 h-18 bg-[#fafaf8] rounded-2xl border border-zinc-100 flex items-center justify-center mx-auto mb-6 group-hover:shadow-md transition-shadow">
-                <span className="text-2xl font-black text-zinc-200">01</span>
-              </div>
-              <h3 className="font-bold text-lg mb-2">Odaberi Majicu</h3>
-              <p className="text-sm text-zinc-400 leading-relaxed">
-                Odaberi svog omiljenog kukca ili ribu iz kolekcije premium majica.
-              </p>
-            </div>
-
-            <div className="text-center group">
-              <div className="w-18 h-18 bg-[#fafaf8] rounded-2xl border border-zinc-100 flex items-center justify-center mx-auto mb-6 group-hover:shadow-md transition-shadow">
-                <ScanLine className="w-7 h-7 text-zinc-300" />
-              </div>
-              <h3 className="font-bold text-lg mb-2">Skeniraj QR Kod</h3>
-              <p className="text-sm text-zinc-400 leading-relaxed">
-                Na leđima svake majice je QR kod koji vodi na edukativnu stranicu o vrsti.
-              </p>
-            </div>
-
-            <div className="text-center group">
-              <div className="w-18 h-18 bg-[#fafaf8] rounded-2xl border border-zinc-100 flex items-center justify-center mx-auto mb-6 group-hover:shadow-md transition-shadow">
-                <Sparkles className="w-7 h-7 text-zinc-300" />
-              </div>
-              <h3 className="font-bold text-lg mb-2">Otkrij Priču</h3>
-              <p className="text-sm text-zinc-400 leading-relaxed">
-                Saznaj zanimljivosti, stanište, prehranu i fascinantne činjenice o vrsti.
-              </p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-14 md:gap-16">
+            <Step number="01" title="Odaberi Majicu">
+              Odaberi svog omiljenog kukca ili ribu iz kolekcije majica s pričom.
+            </Step>
+            <Step number="02" title="Skeniraj QR Kod">
+              Na leđima svake majice je QR kod koji vodi na edukativnu stranicu o vrsti.
+            </Step>
+            <Step number="03" title="Otkrij Priču">
+              Saznaj zanimljivosti, stanište, prehranu i fascinantne činjenice o vrsti.
+            </Step>
           </div>
         </div>
       </section>
 
       {/* ─── SVIJET KUKACA — Featured ─── */}
-      {insects.length > 0 && (
-        <section className="py-28 px-6">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex items-center justify-between mb-14">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-green-400 rounded-full flex items-center justify-center">
-                  <Bug className="w-5 h-5 text-black" />
-                </div>
-                <div>
-                  <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
-                    Svijet Kukaca
-                  </h2>
-                  <p className="text-sm text-zinc-400">Edukativne majice o kukcima</p>
-                </div>
-              </div>
-              <Link
-                href="/kukci"
-                className="hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-green-600 hover:text-green-700 transition-colors"
-              >
-                Pogledaj sve
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-              {insects.slice(0, 4).map((item) => (
-                <ProductCard key={item.slug} item={item} accentClass="green" />
-              ))}
-            </div>
-
-            <div className="sm:hidden mt-8 text-center">
-              <Link
-                href="/kukci"
-                className="inline-flex items-center gap-1 text-sm font-semibold text-green-600"
-              >
-                Pogledaj sve kukce
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
-        </section>
-      )}
+      <FeaturedSection
+        label="Svijet Kukaca"
+        subtitle="Edukativne majice o kukcima"
+        href="/kukci"
+        items={insects}
+        accent="green"
+        icon={<Bug className="w-5 h-5 text-white" />}
+      />
 
       {/* ─── SVIJET RIBA — Featured ─── */}
-      {fishes.length > 0 && (
-        <section className="py-28 px-6 bg-white border-y border-zinc-100">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex items-center justify-between mb-14">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-blue-400 rounded-full flex items-center justify-center">
-                  <Fish className="w-5 h-5 text-black" />
-                </div>
-                <div>
-                  <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
-                    Svijet Riba
-                  </h2>
-                  <p className="text-sm text-zinc-400">Edukativne majice o ribama</p>
-                </div>
-              </div>
-              <Link
-                href="/ribe"
-                className="hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"
-              >
-                Pogledaj sve
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
+      <FeaturedSection
+        label="Svijet Riba"
+        subtitle="Edukativne majice o ribama"
+        href="/ribe"
+        items={fishes}
+        accent="blue"
+        icon={<Fish className="w-5 h-5 text-white" />}
+        dark
+      />
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-              {fishes.slice(0, 4).map((item) => (
-                <ProductCard key={item.slug} item={item} accentClass="blue" />
-              ))}
-            </div>
-
-            <div className="sm:hidden mt-8 text-center">
-              <Link
-                href="/ribe"
-                className="inline-flex items-center gap-1 text-sm font-semibold text-blue-600"
-              >
-                Pogledaj sve ribe
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* ─── ZAŠTO MI ─── */}
-      <section className="py-28 px-6">
+      <section className="py-40 md:py-56 px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-4">
             <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-300">Zašto KAYAHA</span>
           </div>
-          <h2 className="text-center text-3xl md:text-4xl font-bold tracking-tight mb-20">
+          <h2 className="text-center text-3xl md:text-4xl font-bold tracking-tight mb-24">
             Zašto Naše Majice?
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-10">
             <ValueProp
               icon={<Leaf className="w-5 h-5" />}
               title="100% Organski Pamuk"
-              desc="Premium kvaliteta, 220 gsm. Mekane, udobne, ekološki osviještene."
+              desc="Kvalitetan pamuk, 220 gsm. Mekane, udobne, ekološki osviještene."
             />
             <ValueProp
-              icon={<ScanLine className="w-5 h-5" />}
+              icon={<QrIcon />}
               title="Interaktivni QR Kod"
               desc="Svaka majica sadrži QR kod koji otvara edukativnu stranicu o vrsti."
             />
@@ -274,77 +158,22 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      {/* ─── WORLDS CTA ─── */}
-      <section className="px-6 pb-28">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Link
-            href="/kukci"
-            className="group relative rounded-3xl overflow-hidden p-10 md:p-12 flex flex-col justify-end min-h-[280px]"
-          >
-            <div className="absolute inset-0 bg-linear-to-br from-green-500 to-emerald-600 group-hover:from-green-400 group-hover:to-emerald-500 transition-all duration-500" />
-            <div className="absolute top-6 right-6 w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
-              <Bug className="w-8 h-8 text-white" />
-            </div>
-            <div className="relative z-10">
-              <p className="text-green-100 text-[10px] font-bold uppercase tracking-[0.25em] mb-2">
-                Kolekcija
-              </p>
-              <h3 className="text-3xl font-extrabold text-white mb-3">
-                Svijet Kukaca
-              </h3>
-              <p className="text-green-100 text-sm mb-5 max-w-xs leading-relaxed">
-                {insects.length} {insects.length === 1 ? "vrsta" : insects.length < 5 ? "vrste" : "vrsta"} u kolekciji. Leptiri, kornjaši, bogomoljke i više.
-              </p>
-              <span className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-2.5 rounded-full text-sm group-hover:gap-3 transition-all">
-                Istraži Kukce
-                <ArrowRight className="w-4 h-4" />
-              </span>
-            </div>
-          </Link>
-
-          <Link
-            href="/ribe"
-            className="group relative rounded-3xl overflow-hidden p-10 md:p-12 flex flex-col justify-end min-h-[280px]"
-          >
-            <div className="absolute inset-0 bg-linear-to-br from-blue-500 to-sky-600 group-hover:from-blue-400 group-hover:to-sky-500 transition-all duration-500" />
-            <div className="absolute top-6 right-6 w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
-              <Fish className="w-8 h-8 text-white" />
-            </div>
-            <div className="relative z-10">
-              <p className="text-blue-100 text-[10px] font-bold uppercase tracking-[0.25em] mb-2">
-                Kolekcija
-              </p>
-              <h3 className="text-3xl font-extrabold text-white mb-3">
-                Svijet Riba
-              </h3>
-              <p className="text-blue-100 text-sm mb-5 max-w-xs leading-relaxed">
-                {fishes.length} {fishes.length === 1 ? "vrsta" : fishes.length < 5 ? "vrste" : "vrsta"} u kolekciji. Grgeč, pastrva i više uskoro.
-              </p>
-              <span className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-2.5 rounded-full text-sm group-hover:gap-3 transition-all">
-                Istraži Ribe
-                <ArrowRight className="w-4 h-4" />
-              </span>
-            </div>
-          </Link>
-        </div>
-      </section>
-
       {/* ─── FOOTER ─── */}
-      <footer className="bg-zinc-900 text-white py-20 px-6">
+      <footer className="bg-zinc-900 text-white py-24 px-6">
         <div className="max-w-5xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-start gap-10 mb-14">
+          <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-16">
             <div>
-              <div className="mb-5">
+              <div className="mb-6">
                 <Image
                   src="/images/kayaha-logo.png"
                   alt="KAYAHA"
-                  width={350}
-                  height={126}
-                  className="h-28 w-auto object-contain brightness-0 invert"
+                  width={400}
+                  height={137}
+                  className="h-12 w-auto object-contain brightness-0 invert"
                 />
               </div>
               <p className="text-zinc-400 text-sm max-w-xs leading-relaxed">
-                Edukativne majice s pričom. Svaka majica nosi priču o jednoj vrsti.
+                Majice s pričom. Svaka nosi priču o jednoj vrsti.
               </p>
             </div>
 
@@ -370,14 +199,10 @@ export default async function LandingPage() {
             </div>
           </div>
 
-          <div className="border-t border-zinc-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="border-t border-zinc-800 pt-6">
             <p className="text-zinc-500 text-xs">
               © 2026 KAYAHA. Sva prava pridržana.
             </p>
-            <div className="flex items-center gap-2">
-              <Leaf className="w-3 h-3 text-zinc-600" />
-              <span className="text-[10px] uppercase tracking-[0.2em] text-zinc-600 font-medium">Elevated Style · Natural Spirit</span>
-            </div>
           </div>
         </div>
       </footer>
@@ -385,10 +210,106 @@ export default async function LandingPage() {
   );
 }
 
+/* ─── Step ─── */
+function Step({
+  number,
+  title,
+  children,
+}: {
+  number: string;
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="text-center">
+      <div className="w-20 h-20 bg-[#fafaf8] rounded-2xl border border-zinc-100 flex items-center justify-center mx-auto mb-7">
+        <span className="text-2xl font-black text-zinc-300 tracking-wider">{number}</span>
+      </div>
+      <h3 className="font-bold text-lg mb-3">{title}</h3>
+      <p className="text-sm text-zinc-500 leading-relaxed max-w-xs mx-auto">
+        {children}
+      </p>
+    </div>
+  );
+}
+
+/* ─── Featured Section ─── */
+function FeaturedSection({
+  label,
+  subtitle,
+  href,
+  items,
+  accent,
+  icon,
+  dark = false,
+}: {
+  label: string;
+  subtitle: string;
+  href: string;
+  items: Array<{
+    slug: string;
+    name_hr: string;
+    name_science: string;
+    price: number;
+    image_url: string | null;
+    category: string;
+  }>;
+  accent: "green" | "blue";
+  icon: React.ReactNode;
+  dark?: boolean;
+}) {
+  const accentDotBg = accent === "green" ? "bg-green-500" : "bg-blue-500";
+  const accentText = accent === "green" ? "text-green-600 hover:text-green-700" : "text-blue-600 hover:text-blue-700";
+  const sectionBg = dark ? "bg-white border-y border-zinc-100" : "";
+
+  return (
+    <section className={`py-40 md:py-56 px-6 ${sectionBg}`}>
+      <div className="max-w-7xl mx-auto">
+        <div className="flex items-center justify-between mb-16">
+          <div className="flex items-center gap-4">
+            <div className={`w-12 h-12 ${accentDotBg} rounded-full flex items-center justify-center shrink-0`}>
+              {icon}
+            </div>
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
+                {label}
+              </h2>
+              <p className="text-sm text-zinc-500 mt-1">{subtitle}</p>
+            </div>
+          </div>
+          <Link
+            href={href}
+            className={`hidden sm:inline-flex items-center gap-1 text-sm font-semibold ${accentText} transition-colors`}
+          >
+            Pogledaj sve
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          {items.map((item) => (
+            <ProductCard key={item.slug} item={item} accent={accent} />
+          ))}
+        </div>
+
+        <div className="sm:hidden mt-10 text-center">
+          <Link
+            href={href}
+            className={`inline-flex items-center gap-1 text-sm font-semibold ${accentText}`}
+          >
+            Pogledaj sve
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ─── Product Card ─── */
 function ProductCard({
   item,
-  accentClass,
+  accent,
 }: {
   item: {
     slug: string;
@@ -398,16 +319,16 @@ function ProductCard({
     image_url: string | null;
     category: string;
   };
-  accentClass: "green" | "blue";
+  accent: "green" | "blue";
 }) {
   const img = item.image_url;
-  const hoverText = accentClass === "green" ? "group-hover:text-green-600" : "group-hover:text-blue-600";
-  const badgeBg = accentClass === "green" ? "bg-green-50 text-green-600" : "bg-blue-50 text-blue-600";
-  const buttonHover = accentClass === "green" ? "group-hover:bg-green-400" : "group-hover:bg-blue-400";
+  const hoverText = accent === "green" ? "group-hover:text-green-600" : "group-hover:text-blue-600";
+  const badgeBg = accent === "green" ? "bg-green-50 text-green-600" : "bg-blue-50 text-blue-600";
+  const buttonHover = accent === "green" ? "group-hover:bg-green-500" : "group-hover:bg-blue-500";
 
   return (
     <Link href={`/shop/${item.slug}`} className="group block">
-      <div className="bg-white rounded-2xl border border-zinc-100 overflow-hidden hover:shadow-xl transition-all duration-300">
+      <div className="bg-white rounded-2xl border border-zinc-100 overflow-hidden hover:shadow-xl transition-shadow duration-300">
         <div className="relative aspect-3/4 bg-[#fafaf8]">
           {img ? (
             <Image
@@ -416,10 +337,11 @@ function ProductCard({
               fill
               sizes="(max-width: 768px) 50vw, 25vw"
               className="object-contain p-3"
+              loading="lazy"
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center text-zinc-200">
-              {accentClass === "green" ? (
+              {accent === "green" ? (
                 <Bug className="w-12 h-12" />
               ) : (
                 <Fish className="w-12 h-12" />
@@ -427,19 +349,19 @@ function ProductCard({
             </div>
           )}
         </div>
-        <div className="p-4">
-          <p className={`text-[10px] font-bold uppercase tracking-[0.2em] ${badgeBg} px-2 py-0.5 rounded-full inline-block mb-2`}>
+        <div className="p-5">
+          <p className={`text-[10px] font-bold uppercase tracking-[0.2em] ${badgeBg} px-2 py-0.5 rounded-full inline-block mb-3`}>
             {item.category}
           </p>
-          <h3 className={`font-bold text-sm md:text-base leading-tight mb-0.5 ${hoverText} transition-colors`}>
+          <h3 className={`font-bold text-sm md:text-base leading-tight mb-1 ${hoverText} transition-colors`}>
             {item.name_hr}
           </h3>
-          <p className="text-xs text-zinc-400 italic font-serif mb-3 truncate">
+          <p className="text-xs text-zinc-400 italic font-serif mb-4 truncate">
             {item.name_science}
           </p>
           <div className="flex items-center justify-between">
             <span className="font-bold text-lg">{item.price} €</span>
-            <div className={`bg-zinc-900 text-white text-xs font-medium px-3 py-1.5 rounded-full ${buttonHover} group-hover:text-black transition-colors`}>
+            <div className={`bg-zinc-900 text-white text-xs font-medium px-3 py-1.5 rounded-full ${buttonHover} transition-colors`}>
               Pogledaj
             </div>
           </div>
@@ -461,11 +383,22 @@ function ValueProp({
 }) {
   return (
     <div className="text-center">
-      <div className="w-14 h-14 bg-white border border-zinc-100 rounded-2xl flex items-center justify-center mx-auto mb-5 text-zinc-500">
+      <div className="w-14 h-14 bg-white border border-zinc-100 rounded-2xl flex items-center justify-center mx-auto mb-6 text-zinc-500">
         {icon}
       </div>
-      <h3 className="font-bold text-sm mb-1.5">{title}</h3>
-      <p className="text-xs text-zinc-400 leading-relaxed">{desc}</p>
+      <h3 className="font-bold text-sm mb-2">{title}</h3>
+      <p className="text-xs text-zinc-500 leading-relaxed max-w-[18ch] mx-auto">{desc}</p>
     </div>
+  );
+}
+
+function QrIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5" aria-hidden>
+      <rect x="3" y="3" width="7" height="7" rx="1" />
+      <rect x="14" y="3" width="7" height="7" rx="1" />
+      <rect x="3" y="14" width="7" height="7" rx="1" />
+      <path d="M14 14h3v3h-3zM17 17h4v4h-4zM14 20h3" />
+    </svg>
   );
 }

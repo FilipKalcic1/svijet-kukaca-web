@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search, X, Leaf } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { ProductMockup } from "@/components/ProductMockup";
 import Link from "next/link";
 import type { ThemeConfig } from "@/lib/themes";
@@ -150,17 +150,6 @@ export default function ShopGrid({
         )}
       </div>
 
-      {/* Bottom tagline */}
-      <div className="flex items-center justify-center gap-3 mt-20">
-        <div className="h-px flex-1 max-w-20 bg-zinc-200" />
-        <div className="flex items-center gap-2">
-          <Leaf className="w-3 h-3 text-accent-400" />
-          <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-300">
-            Elevated Style · Natural Spirit
-          </span>
-        </div>
-        <div className="h-px flex-1 max-w-20 bg-zinc-200" />
-      </div>
     </>
   );
 }

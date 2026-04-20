@@ -18,7 +18,7 @@ export default function Error({
           alt="KAYAHA"
           width={300}
           height={105}
-          className="h-24 w-auto object-contain"
+          className="h-12 w-auto object-contain"
         />
       </Link>
       <div className="w-18 h-18 bg-red-50 border border-red-100 rounded-2xl flex items-center justify-center mb-6">

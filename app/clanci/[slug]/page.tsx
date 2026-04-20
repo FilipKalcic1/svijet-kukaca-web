@@ -45,7 +45,7 @@ export default async function ArticlePage(props: PageProps) {
   return (
     <main className="min-h-screen bg-[#fafaf8] text-black pb-32 font-sans selection:bg-accent-100">
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100 px-6 h-36 flex items-center">
+      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100 px-6 h-16 md:h-20 flex items-center">
         <div className="max-w-3xl mx-auto w-full flex items-center justify-between">
           <Link
             href="/clanci"
@@ -58,9 +58,9 @@ export default async function ArticlePage(props: PageProps) {
             <Image
               src="/images/kayaha-logo.png"
               alt="KAYAHA"
-              width={400}
-              height={144}
-              className="h-32 w-auto object-contain"
+              width={800}
+              height={292}
+              className="h-7 md:h-8 w-auto object-contain"
             />
           </Link>
           <div className="flex gap-3 items-center">

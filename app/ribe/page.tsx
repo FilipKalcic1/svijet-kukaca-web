@@ -25,7 +25,7 @@ export default async function FishShopPage() {
       className="min-h-screen bg-[#fafaf8] text-zinc-900 font-sans selection:bg-accent-300 selection:text-black scroll-smooth"
       data-theme="fish"
     >
-      <HomeNav theme={FISH_THEME} />
+      <HomeNav />
 
       {/* HERO */}
       <section className="relative pt-36 md:pt-44 pb-28 md:pb-36 px-6 text-center">

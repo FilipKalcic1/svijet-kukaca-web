@@ -10,14 +10,14 @@ export default function LandingNav() {
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-zinc-100">
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 h-16 md:h-20 flex items-center justify-between overflow-visible">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 h-16 md:h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center shrink-0" aria-label="KAYAHA">
           <Image
             src="/images/kayaha-logo.png"
             alt="KAYAHA"
             width={800}
             height={292}
-            className="h-12 md:h-16 lg:h-20 w-auto object-contain"
+            className="h-10 md:h-12 w-auto object-contain"
             priority
           />
         </Link>

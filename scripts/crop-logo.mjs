@@ -9,9 +9,22 @@ const meta = await sharp(trimmed).metadata();
 console.log("after trim:", meta.width, "x", meta.height);
 
 const topHeight = Math.round(meta.height * 0.70);
-await sharp(trimmed)
+const tight = await sharp(trimmed)
   .extract({ left: 0, top: 0, width: meta.width, height: topHeight })
   .trim({ threshold: 10 })
+  .toBuffer();
+
+const tightMeta = await sharp(tight).metadata();
+const vpad = Math.round(tightMeta.height * 0.12);
+
+await sharp(tight)
+  .extend({
+    top: vpad,
+    bottom: vpad,
+    left: 0,
+    right: 0,
+    background: { r: 0, g: 0, b: 0, alpha: 0 },
+  })
   .toFile(dst);
 
 const finalMeta = await sharp(dst).metadata();

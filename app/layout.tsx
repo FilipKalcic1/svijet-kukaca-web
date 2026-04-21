@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import dynamic from "next/dynamic";
 import "./globals.css";
 
 import { CartProvider } from "@/context/CartContext";
-import CartDrawer from "@/components/CartDrawer";
-import CookieBanner from "@/components/CookieBanner";
+
+const CartDrawer = dynamic(() => import("@/components/CartDrawer"));
+const CookieBanner = dynamic(() => import("@/components/CookieBanner"));
 
 const inter = Inter({ subsets: ["latin"] });
 

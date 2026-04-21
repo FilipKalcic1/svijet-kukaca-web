@@ -42,7 +42,7 @@ export default async function LandingPage() {
         <div className="absolute top-32 right-1/4 w-96 h-96 bg-blue-200/20 rounded-full blur-[120px] -z-10" />
 
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.05] mb-10 md:mb-12">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.05] mb-12 md:mb-14">
             Nosi prirodu,
             <br />
             <span className="text-transparent bg-clip-text bg-linear-to-r from-green-500 via-emerald-500 to-blue-500">
@@ -103,22 +103,18 @@ export default async function LandingPage() {
 
       {/* ─── SVIJET KUKACA — Featured ─── */}
       <FeaturedSection
-        label="Svijet Kukaca"
-        subtitle="Edukativne majice o kukcima"
         href="/kukci"
+        ctaLabel="Pogledaj sve kukce"
         items={insects}
         accent="green"
-        icon={<Bug className="w-5 h-5 text-white" />}
       />
 
       {/* ─── SVIJET RIBA — Featured ─── */}
       <FeaturedSection
-        label="Svijet Riba"
-        subtitle="Edukativne majice o ribama"
         href="/ribe"
+        ctaLabel="Pogledaj sve ribe"
         items={fishes}
         accent="blue"
-        icon={<Fish className="w-5 h-5 text-white" />}
         dark
       />
 
@@ -168,7 +164,7 @@ export default async function LandingPage() {
                   src="/images/kayaha-logo.png"
                   alt="KAYAHA"
                   width={400}
-                  height={137}
+                  height={170}
                   className="h-12 w-auto object-contain brightness-0 invert"
                 />
               </div>
@@ -222,10 +218,10 @@ function Step({
 }) {
   return (
     <div className="text-center">
-      <div className="w-20 h-20 bg-[#fafaf8] rounded-2xl border border-zinc-100 flex items-center justify-center mx-auto mb-7">
+      <div className="w-20 h-20 bg-[#fafaf8] rounded-2xl border border-zinc-100 flex items-center justify-center mx-auto mb-10">
         <span className="text-2xl font-black text-zinc-300 tracking-wider">{number}</span>
       </div>
-      <h3 className="font-bold text-lg mb-3">{title}</h3>
+      <h3 className="font-bold text-lg mb-5">{title}</h3>
       <p className="text-sm text-zinc-500 leading-relaxed max-w-xs mx-auto">
         {children}
       </p>
@@ -235,17 +231,14 @@ function Step({
 
 /* ─── Featured Section ─── */
 function FeaturedSection({
-  label,
-  subtitle,
   href,
+  ctaLabel,
   items,
   accent,
-  icon,
   dark = false,
 }: {
-  label: string;
-  subtitle: string;
   href: string;
+  ctaLabel: string;
   items: Array<{
     slug: string;
     name_hr: string;
@@ -255,49 +248,26 @@ function FeaturedSection({
     category: string;
   }>;
   accent: "green" | "blue";
-  icon: React.ReactNode;
   dark?: boolean;
 }) {
-  const accentDotBg = accent === "green" ? "bg-green-500" : "bg-blue-500";
   const accentText = accent === "green" ? "text-green-600 hover:text-green-700" : "text-blue-600 hover:text-blue-700";
   const sectionBg = dark ? "bg-white border-y border-zinc-100" : "";
 
   return (
     <section className={`py-40 md:py-56 px-6 ${sectionBg}`}>
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-16">
-          <div className="flex items-center gap-4">
-            <div className={`w-12 h-12 ${accentDotBg} rounded-full flex items-center justify-center shrink-0`}>
-              {icon}
-            </div>
-            <div>
-              <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
-                {label}
-              </h2>
-              <p className="text-sm text-zinc-500 mt-1">{subtitle}</p>
-            </div>
-          </div>
-          <Link
-            href={href}
-            className={`hidden sm:inline-flex items-center gap-1 text-sm font-semibold ${accentText} transition-colors`}
-          >
-            Pogledaj sve
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
           {items.map((item) => (
             <ProductCard key={item.slug} item={item} accent={accent} />
           ))}
         </div>
 
-        <div className="sm:hidden mt-10 text-center">
+        <div className="mt-16 text-center">
           <Link
             href={href}
-            className={`inline-flex items-center gap-1 text-sm font-semibold ${accentText}`}
+            className={`inline-flex items-center gap-1.5 text-base font-semibold ${accentText} transition-colors`}
           >
-            Pogledaj sve
+            {ctaLabel}
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -383,10 +353,10 @@ function ValueProp({
 }) {
   return (
     <div className="text-center">
-      <div className="w-14 h-14 bg-white border border-zinc-100 rounded-2xl flex items-center justify-center mx-auto mb-6 text-zinc-500">
+      <div className="w-14 h-14 bg-white border border-zinc-100 rounded-2xl flex items-center justify-center mx-auto mb-8 text-zinc-500">
         {icon}
       </div>
-      <h3 className="font-bold text-sm mb-2">{title}</h3>
+      <h3 className="font-bold text-sm mb-3">{title}</h3>
       <p className="text-xs text-zinc-500 leading-relaxed max-w-[18ch] mx-auto">{desc}</p>
     </div>
   );

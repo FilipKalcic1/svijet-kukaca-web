@@ -43,13 +43,6 @@ export default function ShopGrid({
     <>
       {/* Controls */}
       <div className="flex flex-col items-center mb-20 space-y-10">
-        <div className="text-center">
-          <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-300 mb-2 block">KAYAHA</span>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-            {theme.shopTitle}
-          </h2>
-        </div>
-
         <div className="relative w-full max-w-xl group">
           <Search
             className="absolute left-5 top-1/2 -translate-y-1/2 text-zinc-300 group-focus-within:text-accent-500 transition-colors"

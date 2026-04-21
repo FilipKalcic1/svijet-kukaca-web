@@ -4,7 +4,6 @@ export interface ThemeConfig {
   creatureType: WorldTheme;
   dataTheme: string | undefined; // undefined = default (green), "fish" = blue
   label: string;
-  shopTitle: string;
   shopSubtitle: string;
   heroTitle: [string, string]; // [line1, gradient line2]
   heroCta: string;
@@ -18,7 +17,6 @@ export const INSECT_THEME: ThemeConfig = {
   creatureType: "insect",
   dataTheme: undefined,
   label: "Svijet Kukaca",
-  shopTitle: "Istraži Kolekciju",
   shopSubtitle:
     "Majice s edukativnom pričom. Skeniraj QR kod na leđima i otkrij tajni život kukca kojeg nosiš.",
   heroTitle: ["Maleni junaci.", "Velike priče."],
@@ -38,7 +36,6 @@ export const FISH_THEME: ThemeConfig = {
   creatureType: "fish",
   dataTheme: "fish",
   label: "Svijet Riba",
-  shopTitle: "Istraži Kolekciju",
   shopSubtitle:
     "Majice s edukativnom pričom. Skeniraj QR kod na leđima i otkrij tajni život ribe koju nosiš.",
   heroTitle: ["Ispod površine.", "Cijeli jedan svijet."],

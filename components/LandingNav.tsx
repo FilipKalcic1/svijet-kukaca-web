@@ -23,7 +23,7 @@ export default function LandingNav() {
             src="/images/kayaha-logo.png"
             alt="KAYAHA"
             width={800}
-            height={340}
+            height={384}
             className="h-10 md:h-12 w-auto object-contain"
             priority
           />

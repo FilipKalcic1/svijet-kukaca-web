@@ -15,12 +15,13 @@ const tight = await sharp(trimmed)
   .toBuffer();
 
 const tightMeta = await sharp(tight).metadata();
-const vpad = Math.round(tightMeta.height * 0.12);
+const padTop = Math.round(tightMeta.height * 0.18);
+const padBottom = Math.round(tightMeta.height * 0.22);
 
 await sharp(tight)
   .extend({
-    top: vpad,
-    bottom: vpad,
+    top: padTop,
+    bottom: padBottom,
     left: 0,
     right: 0,
     background: { r: 0, g: 0, b: 0, alpha: 0 },

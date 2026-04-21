@@ -17,7 +17,7 @@ export default function Error({
           src="/images/kayaha-logo.png"
           alt="KAYAHA"
           width={300}
-          height={128}
+          height={144}
           className="h-12 w-auto object-contain"
         />
       </Link>

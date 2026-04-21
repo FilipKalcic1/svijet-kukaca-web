@@ -164,7 +164,7 @@ export default async function LandingPage() {
                   src="/images/kayaha-logo.png"
                   alt="KAYAHA"
                   width={400}
-                  height={170}
+                  height={192}
                   className="h-12 w-auto object-contain brightness-0 invert"
                 />
               </div>

@@ -127,35 +127,96 @@ export default async function LandingPage() {
 
       {/* ─── ZAŠTO MI ─── */}
       <section className="py-40 md:py-56 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-4">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-300">Zašto KAYAHA</span>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16 md:mb-20">
+            <span className="text-[11px] font-bold uppercase tracking-[0.28em] text-zinc-400">
+              Zašto KAYAHA
+            </span>
+            <h2 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05] max-w-2xl mx-auto">
+              Svaki detalj
+              <br />
+              <span className="text-zinc-400">ima razlog.</span>
+            </h2>
           </div>
-          <h2 className="text-center text-3xl md:text-4xl font-bold tracking-tight mb-24">
-            Zašto Naše Majice?
-          </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-10">
-            <ValueProp
-              icon={<Leaf className="w-5 h-5" />}
-              title="100% Organski Pamuk"
-              desc="Kvalitetan pamuk, 220 gsm. Mekane, udobne, ekološki osviještene."
-            />
-            <ValueProp
-              icon={<QrIcon />}
-              title="Interaktivni QR Kod"
-              desc="Svaka majica sadrži QR kod koji otvara edukativnu stranicu o vrsti."
-            />
-            <ValueProp
-              icon={<Truck className="w-5 h-5" />}
-              title="Brza Dostava"
-              desc="GLS dostava u 2-3 radna dana. Besplatna dostava iznad 50 €."
-            />
-            <ValueProp
-              icon={<ShieldCheck className="w-5 h-5" />}
-              title="Sigurna Kupovina"
-              desc="Plaćanje karticom, Apple Pay, Google Pay ili pouzećem."
-            />
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-6">
+            {/* Hero: organski pamuk */}
+            <div className="md:col-span-7 relative overflow-hidden rounded-3xl bg-linear-to-br from-green-50 via-emerald-50 to-green-100/70 border border-green-100/60 p-10 md:p-12">
+              <div
+                aria-hidden
+                className="absolute -top-10 -right-10 w-52 h-52 bg-green-300/25 rounded-full blur-3xl"
+              />
+              <div className="relative">
+                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-10">
+                  <Leaf className="w-6 h-6 text-green-600" />
+                </div>
+                <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em] text-green-700">
+                  Materijal
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-3 text-zinc-900">
+                  100% organski pamuk
+                </h3>
+                <p className="text-zinc-600 text-base md:text-lg leading-relaxed max-w-md">
+                  Certificirani GOTS pamuk, 220 gsm. Mekane, udobne,
+                  ekološki osviještene od njive do ormara.
+                </p>
+              </div>
+            </div>
+
+            {/* QR kod (tamni) */}
+            <div className="md:col-span-5 relative overflow-hidden rounded-3xl bg-zinc-900 text-white p-10 md:p-12">
+              <div
+                aria-hidden
+                className="absolute -bottom-12 -right-12 w-48 h-48 bg-blue-500/15 rounded-full blur-3xl"
+              />
+              <div className="relative">
+                <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-10">
+                  <QrIcon className="w-6 h-6 text-white" />
+                </div>
+                <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-500">
+                  Interakcija
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-3">
+                  QR kod s pričom
+                </h3>
+                <p className="text-zinc-400 text-base leading-relaxed">
+                  Svaka majica otvara edukativnu stranicu o vrsti koju nosiš.
+                </p>
+              </div>
+            </div>
+
+            {/* Dostava */}
+            <div className="md:col-span-6 rounded-3xl bg-white border border-zinc-100 p-10 md:p-12">
+              <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-10">
+                <Truck className="w-6 h-6 text-blue-600" />
+              </div>
+              <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-400">
+                Dostava
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold tracking-tight mb-3 text-zinc-900">
+                Brzo na kućnom pragu
+              </h3>
+              <p className="text-zinc-500 text-base leading-relaxed">
+                GLS dostava u 2–3 radna dana. Besplatna iznad 50 €.
+              </p>
+            </div>
+
+            {/* Plaćanje */}
+            <div className="md:col-span-6 rounded-3xl bg-white border border-zinc-100 p-10 md:p-12">
+              <div className="w-14 h-14 bg-zinc-50 rounded-2xl flex items-center justify-center mb-10">
+                <ShieldCheck className="w-6 h-6 text-zinc-700" />
+              </div>
+              <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-400">
+                Plaćanje
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold tracking-tight mb-3 text-zinc-900">
+                Sigurna kupovina
+              </h3>
+              <p className="text-zinc-500 text-base leading-relaxed">
+                Kartica, Apple Pay, Google Pay ili pouzećem — kako ti
+                odgovara.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -377,30 +438,9 @@ function ProductCard({
   );
 }
 
-/* ─── Value Prop ─── */
-function ValueProp({
-  icon,
-  title,
-  desc,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  desc: string;
-}) {
+function QrIcon({ className = "w-5 h-5" }: { className?: string }) {
   return (
-    <div className="text-center">
-      <div className="w-14 h-14 bg-white border border-zinc-100 rounded-2xl flex items-center justify-center mx-auto mb-8 text-zinc-500">
-        {icon}
-      </div>
-      <h3 className="font-bold text-sm mb-3">{title}</h3>
-      <p className="text-xs text-zinc-500 leading-relaxed max-w-[18ch] mx-auto">{desc}</p>
-    </div>
-  );
-}
-
-function QrIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5" aria-hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} aria-hidden>
       <rect x="3" y="3" width="7" height="7" rx="1" />
       <rect x="14" y="3" width="7" height="7" rx="1" />
       <rect x="3" y="14" width="7" height="7" rx="1" />

@@ -103,6 +103,9 @@ export default async function LandingPage() {
 
       {/* ─── SVIJET KUKACA — Featured ─── */}
       <FeaturedSection
+        label="Kolekcija"
+        title="Kukci"
+        subtitle="Maleni junaci. Velike priče."
         href="/kukci"
         ctaLabel="Pogledaj sve kukce"
         items={insects}
@@ -111,6 +114,9 @@ export default async function LandingPage() {
 
       {/* ─── SVIJET RIBA — Featured ─── */}
       <FeaturedSection
+        label="Kolekcija"
+        title="Ribe"
+        subtitle="Ispod površine. Cijeli jedan svijet."
         href="/ribe"
         ctaLabel="Pogledaj sve ribe"
         items={fishes}
@@ -231,12 +237,18 @@ function Step({
 
 /* ─── Featured Section ─── */
 function FeaturedSection({
+  label,
+  title,
+  subtitle,
   href,
   ctaLabel,
   items,
   accent,
   dark = false,
 }: {
+  label: string;
+  title: string;
+  subtitle: string;
   href: string;
   ctaLabel: string;
   items: Array<{
@@ -251,11 +263,35 @@ function FeaturedSection({
   dark?: boolean;
 }) {
   const accentText = accent === "green" ? "text-green-600 hover:text-green-700" : "text-blue-600 hover:text-blue-700";
+  const accentLabel = accent === "green" ? "text-green-600" : "text-blue-600";
+  const accentDot = accent === "green" ? "bg-green-500" : "bg-blue-500";
+  const accentGradient =
+    accent === "green"
+      ? "from-green-500 via-emerald-500 to-green-600"
+      : "from-blue-500 via-sky-500 to-blue-600";
   const sectionBg = dark ? "bg-white border-y border-zinc-100" : "";
 
   return (
     <section className={`py-40 md:py-56 px-6 ${sectionBg}`}>
       <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center gap-2 mb-5">
+            <span className={`w-1.5 h-1.5 rounded-full ${accentDot}`} />
+            <span className={`text-[11px] font-bold uppercase tracking-[0.28em] ${accentLabel}`}>
+              {label}
+            </span>
+            <span className={`w-1.5 h-1.5 rounded-full ${accentDot}`} />
+          </div>
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-5">
+            <span className={`text-transparent bg-clip-text bg-linear-to-r ${accentGradient}`}>
+              {title}
+            </span>
+          </h2>
+          <p className="text-lg md:text-xl text-zinc-500 max-w-xl mx-auto">
+            {subtitle}
+          </p>
+        </div>
+
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
           {items.map((item) => (
             <ProductCard key={item.slug} item={item} accent={accent} />

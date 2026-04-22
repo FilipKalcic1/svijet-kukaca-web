@@ -11,7 +11,6 @@ import {
   ShoppingBag,
   Bug,
   Fish,
-  Sparkles,
   ArrowRight,
   BookOpen,
 } from "lucide-react";
@@ -123,10 +122,6 @@ export default async function CreaturePage(props: PageProps) {
       <div className="max-w-3xl mx-auto px-6 mt-16">
         {/* Hero */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 text-accent-600 text-xs font-bold uppercase tracking-[0.2em] mb-4 bg-accent-50 px-4 py-2 rounded-full border border-accent-100">
-            <Sparkles className="w-3 h-3" />
-            Kolekcija otključana
-          </div>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-black mb-3">
             {creature.name_hr}
           </h1>

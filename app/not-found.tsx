@@ -9,7 +9,7 @@ export default function NotFound() {
           src="/images/kayaha-logo.png"
           alt="KAYAHA"
           width={300}
-          height={144}
+          height={163}
           className="h-12 w-auto object-contain"
         />
       </Link>

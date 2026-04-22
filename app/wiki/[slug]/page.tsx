@@ -104,7 +104,7 @@ export default async function CreaturePage(props: PageProps) {
               src="/images/kayaha-logo.png"
               alt="KAYAHA"
               width={800}
-              height={384}
+              height={435}
               className="h-7 md:h-8 w-auto object-contain"
             />
           </Link>

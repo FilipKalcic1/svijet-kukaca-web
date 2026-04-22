@@ -20,7 +20,7 @@ export default function LegalPage({ page }: { page: LegalPage }) {
               src="/images/kayaha-logo.png"
               alt="KAYAHA"
               width={800}
-              height={384}
+              height={435}
               className="h-7 md:h-8 w-auto object-contain"
             />
           </Link>

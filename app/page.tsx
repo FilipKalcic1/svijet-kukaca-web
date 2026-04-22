@@ -8,6 +8,8 @@ import {
   Truck,
   Leaf,
   ShieldCheck,
+  ShoppingBag,
+  BookOpen,
 } from "lucide-react";
 import LandingNav from "@/components/LandingNav";
 
@@ -76,25 +78,46 @@ export default async function LandingPage() {
 
       {/* ─── KAKO FUNKCIONIRA ─── */}
       <section className="py-40 md:py-56 px-6 bg-white border-y border-zinc-100">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-4">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-300">Kako funkcionira</span>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-20 md:mb-24">
+            <span className="text-[11px] font-bold uppercase tracking-[0.28em] text-zinc-400">
+              Kako funkcionira
+            </span>
+            <h2 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05] max-w-2xl mx-auto">
+              Od majice
+              <br />
+              <span className="text-zinc-400">do priče.</span>
+            </h2>
           </div>
-          <h2 className="text-center text-3xl md:text-4xl font-bold tracking-tight mb-6">
-            Tri Jednostavna Koraka
-          </h2>
-          <p className="text-center text-zinc-500 mb-24 max-w-lg mx-auto">
-            Od kupnje do edukativnog iskustva
-          </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-14 md:gap-16">
-            <Step number="01" title="Odaberi Majicu">
+          <div className="relative grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-6">
+            <div
+              aria-hidden
+              className="hidden md:block absolute top-10 left-[16.66%] right-[16.66%] h-px border-t border-dashed border-zinc-200 pointer-events-none"
+            />
+
+            <Step
+              number="01"
+              icon={<ShoppingBag className="w-7 h-7" />}
+              accent="green"
+              title="Odaberi majicu"
+            >
               Odaberi svog omiljenog kukca ili ribu iz kolekcije majica s pričom.
             </Step>
-            <Step number="02" title="Skeniraj QR Kod">
+            <Step
+              number="02"
+              icon={<QrIcon className="w-7 h-7" />}
+              accent="dark"
+              title="Skeniraj QR kod"
+            >
               Na leđima svake majice je QR kod koji vodi na edukativnu stranicu o vrsti.
             </Step>
-            <Step number="03" title="Otkrij Priču">
+            <Step
+              number="03"
+              icon={<BookOpen className="w-7 h-7" />}
+              accent="blue"
+              title="Otkrij priču"
+            >
               Saznaj zanimljivosti, stanište, prehranu i fascinantne činjenice o vrsti.
             </Step>
           </div>
@@ -276,20 +299,37 @@ export default async function LandingPage() {
 /* ─── Step ─── */
 function Step({
   number,
+  icon,
+  accent,
   title,
   children,
 }: {
   number: string;
+  icon: React.ReactNode;
+  accent: "green" | "dark" | "blue";
   title: string;
   children: React.ReactNode;
 }) {
+  const accentClass = {
+    green: "bg-green-50 text-green-600 ring-8 ring-white",
+    dark: "bg-zinc-900 text-white ring-8 ring-white",
+    blue: "bg-blue-50 text-blue-600 ring-8 ring-white",
+  }[accent];
+
   return (
-    <div className="text-center">
-      <div className="w-20 h-20 bg-[#fafaf8] rounded-2xl border border-zinc-100 flex items-center justify-center mx-auto mb-10">
-        <span className="text-2xl font-black text-zinc-300 tracking-wider">{number}</span>
+    <div className="relative text-center">
+      <div
+        className={`relative z-10 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-8 ${accentClass}`}
+      >
+        {icon}
       </div>
-      <h3 className="font-bold text-lg mb-5">{title}</h3>
-      <p className="text-sm text-zinc-500 leading-relaxed max-w-xs mx-auto">
+      <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-300 mb-3">
+        Korak {number}
+      </div>
+      <h3 className="text-xl md:text-2xl font-bold text-zinc-900 tracking-tight mb-4">
+        {title}
+      </h3>
+      <p className="text-base text-zinc-500 leading-relaxed max-w-xs mx-auto">
         {children}
       </p>
     </div>

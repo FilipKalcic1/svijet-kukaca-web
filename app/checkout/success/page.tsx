@@ -47,7 +47,7 @@ function SuccessContent() {
 
       <Link
         href="/"
-        className="inline-flex items-center gap-2 bg-black text-white px-8 py-3.5 rounded-full font-bold text-sm hover:bg-zinc-800 transition-colors tracking-wide"
+        className="cta-primary h-12 px-8 text-sm"
       >
         Nastavi s kupovinom
         <ArrowRight className="w-4 h-4" />

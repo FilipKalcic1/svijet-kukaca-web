@@ -76,7 +76,7 @@ export default function CheckoutPage() {
         </p>
         <Link
           href="/"
-          className="bg-black text-white px-8 py-3 rounded-full font-bold text-sm hover:bg-zinc-800 transition-colors tracking-wide"
+          className="cta-primary h-12 px-8 text-sm"
         >
           Povratak u trgovinu
         </Link>
@@ -164,15 +164,15 @@ export default function CheckoutPage() {
                   <label
                     className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${
                       paymentMethod === "stripe"
-                        ? "border-black bg-zinc-50"
+                        ? "border-accent-600 bg-accent-50/40"
                         : "border-zinc-200 hover:border-zinc-300"
                     }`}
                   >
                     <input type="radio" name="payment" value="stripe" checked={paymentMethod === "stripe"} onChange={() => setPaymentMethod("stripe")} className="sr-only" />
-                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${paymentMethod === "stripe" ? "border-black" : "border-zinc-300"}`}>
-                      {paymentMethod === "stripe" && <div className="w-2.5 h-2.5 rounded-full bg-black" />}
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${paymentMethod === "stripe" ? "border-accent-600" : "border-zinc-300"}`}>
+                      {paymentMethod === "stripe" && <div className="w-2.5 h-2.5 rounded-full bg-accent-600" />}
                     </div>
-                    <CreditCard className={`w-5 h-5 shrink-0 ${paymentMethod === "stripe" ? "text-black" : "text-zinc-400"}`} />
+                    <CreditCard className={`w-5 h-5 shrink-0 ${paymentMethod === "stripe" ? "text-accent-700" : "text-zinc-400"}`} />
                     <div className="flex-1">
                       <span className="block text-sm font-semibold">Kartično plaćanje</span>
                       <span className="block text-xs text-zinc-400 mt-0.5">Visa, Mastercard, Apple Pay, Google Pay</span>
@@ -182,15 +182,15 @@ export default function CheckoutPage() {
                   <label
                     className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${
                       paymentMethod === "cod"
-                        ? "border-black bg-zinc-50"
+                        ? "border-accent-600 bg-accent-50/40"
                         : "border-zinc-200 hover:border-zinc-300"
                     }`}
                   >
                     <input type="radio" name="payment" value="cod" checked={paymentMethod === "cod"} onChange={() => setPaymentMethod("cod")} className="sr-only" />
-                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${paymentMethod === "cod" ? "border-black" : "border-zinc-300"}`}>
-                      {paymentMethod === "cod" && <div className="w-2.5 h-2.5 rounded-full bg-black" />}
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${paymentMethod === "cod" ? "border-accent-600" : "border-zinc-300"}`}>
+                      {paymentMethod === "cod" && <div className="w-2.5 h-2.5 rounded-full bg-accent-600" />}
                     </div>
-                    <Truck className={`w-5 h-5 shrink-0 ${paymentMethod === "cod" ? "text-black" : "text-zinc-400"}`} />
+                    <Truck className={`w-5 h-5 shrink-0 ${paymentMethod === "cod" ? "text-accent-700" : "text-zinc-400"}`} />
                     <div className="flex-1">
                       <span className="block text-sm font-semibold">Plaćanje pouzećem</span>
                       <span className="block text-xs text-zinc-400 mt-0.5">Platite gotovinom prilikom preuzimanja</span>
@@ -285,7 +285,7 @@ export default function CheckoutPage() {
                   form="checkout-form"
                   type="submit"
                   disabled={isSubmitting || !agreedToTerms}
-                  className="w-full h-14 bg-black text-white font-bold rounded-full text-base transition-all hover:bg-zinc-800 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg tracking-wide"
+                  className="cta-primary w-full h-14 text-base disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
                 >
                   {isSubmitting ? (
                     <><Loader2 className="w-5 h-5 animate-spin" />Obrađujem...</>
@@ -327,7 +327,7 @@ export default function CheckoutPage() {
             form="checkout-form"
             type="submit"
             disabled={isSubmitting || !agreedToTerms}
-            className="flex-1 h-12 bg-black text-white font-bold rounded-full text-sm transition-all hover:bg-zinc-800 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 tracking-wide"
+            className="cta-primary flex-1 h-12 text-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
           >
             {isSubmitting ? (
               <><Loader2 className="w-4 h-4 animate-spin" />Obrađujem...</>
@@ -352,9 +352,9 @@ function FloatingInput({
       <input
         {...props}
         placeholder=" "
-        className="peer w-full h-14 px-4 pt-5 pb-2 rounded-xl border border-zinc-200 bg-white text-sm font-medium text-zinc-900 placeholder-transparent focus:border-black focus:ring-1 focus:ring-black focus:outline-none transition-all"
+        className="peer w-full h-14 px-4 pt-5 pb-2 rounded-xl border border-zinc-200 bg-white text-sm font-medium text-zinc-900 placeholder-transparent focus:border-accent-600 focus:ring-2 focus:ring-accent-500/20 focus:outline-none transition-all"
       />
-      <label className="absolute left-4 top-2 text-[10px] font-semibold text-zinc-400 uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:font-medium peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-zinc-400 peer-focus:top-2 peer-focus:text-[10px] peer-focus:font-semibold peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-black pointer-events-none">
+      <label className="absolute left-4 top-2 text-[10px] font-semibold text-zinc-400 uppercase tracking-wider transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:font-medium peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-zinc-400 peer-focus:top-2 peer-focus:text-[10px] peer-focus:font-semibold peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-accent-700 pointer-events-none">
         {label}
       </label>
     </div>

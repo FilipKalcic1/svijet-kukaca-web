@@ -300,20 +300,20 @@ export default async function CreaturePage(props: PageProps) {
 
         {/* CTA - Buy the shirt */}
         <div className="bg-zinc-900 text-white rounded-3xl p-10 md:p-14 text-center mb-8">
-          <div className="w-12 h-12 bg-accent-400 rounded-full flex items-center justify-center mx-auto mb-4">
-            <CreatureIcon className="w-6 h-6 text-black" />
+          <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-6 ring-1 ring-white/10">
+            <CreatureIcon className="w-6 h-6 text-white" strokeWidth={1.5} />
           </div>
-          <h3 className="text-2xl font-bold mb-2">
+          <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-3">
             Nosi {creature.name_hr} na sebi
           </h3>
-          <p className="text-zinc-400 mb-6 max-w-md mx-auto">
+          <p className="text-zinc-400 mb-8 max-w-md mx-auto leading-relaxed">
             Edukativna majica s QR kodom. Skeniraj i podijeli priču s drugima.
           </p>
           <Link
             href={`/shop/${creature.slug}`}
-            className="inline-flex items-center gap-2 bg-accent-400 text-black font-bold px-8 py-3 rounded-full hover:bg-accent-300 transition-colors"
+            className="cta-accent h-14 px-8 text-base"
           >
-            <ShoppingBag className="w-5 h-5" />
+            <ShoppingBag className="w-5 h-5" strokeWidth={1.5} />
             Kupi Majicu
           </Link>
         </div>

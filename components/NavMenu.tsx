@@ -11,24 +11,18 @@ const ITEMS = [
     label: "Svijet Kukaca",
     desc: "Edukativne majice o kukcima",
     Icon: Bug,
-    iconBg: "bg-green-500",
-    iconShadow: "shadow-green-500/30",
   },
   {
     href: "/ribe",
     label: "Svijet Riba",
     desc: "Edukativne majice o ribama",
     Icon: Fish,
-    iconBg: "bg-blue-500",
-    iconShadow: "shadow-blue-500/30",
   },
   {
     href: "/clanci",
     label: "Članci",
     desc: "Zanimljivosti i saznaj više",
     Icon: BookOpen,
-    iconBg: "bg-zinc-900",
-    iconShadow: "shadow-zinc-900/20",
   },
 ] as const;
 
@@ -74,7 +68,7 @@ export default function NavMenu() {
         role="menu"
       >
         <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 flex flex-col gap-1">
-          {ITEMS.map(({ href, label, desc, Icon, iconBg, iconShadow }) => {
+          {ITEMS.map(({ href, label, desc, Icon }) => {
             const active = pathname === href;
             return (
               <Link
@@ -87,11 +81,7 @@ export default function NavMenu() {
                 }`}
                 role="menuitem"
               >
-                <div
-                  className={`w-12 h-12 rounded-full ${iconBg} text-white flex items-center justify-center shrink-0 shadow-md ${iconShadow}`}
-                >
-                  <Icon className="w-6 h-6" />
-                </div>
+                <Icon className="w-6 h-6 text-zinc-900 shrink-0" strokeWidth={1.5} />
                 <div className="min-w-0">
                   <p className="font-semibold text-zinc-900 truncate">{label}</p>
                   <p className="text-sm text-zinc-500 truncate">{desc}</p>

@@ -60,16 +60,16 @@ export default async function LandingPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/kukci"
-              className="inline-flex items-center justify-center gap-2 bg-green-500 text-white hover:bg-green-600 rounded-full text-lg px-8 h-14 transition-colors shadow-lg shadow-green-500/20 font-semibold tracking-wide"
+              className="group inline-flex items-center justify-center gap-2 bg-green-600 text-white hover:bg-green-700 rounded-full text-lg px-8 h-14 transition-all shadow-lg shadow-green-600/20 hover:shadow-xl hover:shadow-green-600/30 active:scale-[0.98] font-semibold tracking-wide"
             >
-              <Bug className="w-5 h-5" />
+              <Bug className="w-5 h-5 transition-transform group-hover:-rotate-6" />
               Istraži Kukce
             </Link>
             <Link
               href="/ribe"
-              className="inline-flex items-center justify-center gap-2 bg-blue-500 text-white hover:bg-blue-600 rounded-full text-lg px-8 h-14 transition-colors shadow-lg shadow-blue-500/20 font-semibold tracking-wide"
+              className="group inline-flex items-center justify-center gap-2 bg-blue-600 text-white hover:bg-blue-700 rounded-full text-lg px-8 h-14 transition-all shadow-lg shadow-blue-600/20 hover:shadow-xl hover:shadow-blue-600/30 active:scale-[0.98] font-semibold tracking-wide"
             >
-              <Fish className="w-5 h-5" />
+              <Fish className="w-5 h-5 transition-transform group-hover:rotate-6" />
               Istraži Ribe
             </Link>
           </div>
@@ -98,24 +98,21 @@ export default async function LandingPage() {
 
             <Step
               number="01"
-              icon={<ShoppingBag className="w-7 h-7" />}
-              accent="green"
+              icon={<ShoppingBag className="w-6 h-6" strokeWidth={1.5} />}
               title="Odaberi majicu"
             >
               Odaberi svog omiljenog kukca ili ribu iz kolekcije majica s pričom.
             </Step>
             <Step
               number="02"
-              icon={<QrIcon className="w-7 h-7" />}
-              accent="dark"
+              icon={<QrIcon className="w-6 h-6" />}
               title="Skeniraj QR kod"
             >
               Na leđima svake majice je QR kod koji vodi na edukativnu stranicu o vrsti.
             </Step>
             <Step
               number="03"
-              icon={<BookOpen className="w-7 h-7" />}
-              accent="blue"
+              icon={<BookOpen className="w-6 h-6" strokeWidth={1.5} />}
               title="Otkrij priču"
             >
               Saznaj zanimljivosti, stanište, prehranu i fascinantne činjenice o vrsti.
@@ -164,54 +161,42 @@ export default async function LandingPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-6">
             {/* Hero: organski pamuk */}
-            <div className="md:col-span-7 relative overflow-hidden rounded-3xl bg-linear-to-br from-green-50 via-emerald-50 to-green-100/70 border border-green-100/60 p-10 md:p-12">
-              <div
-                aria-hidden
-                className="absolute -top-10 -right-10 w-52 h-52 bg-green-300/25 rounded-full blur-3xl"
-              />
-              <div className="relative">
-                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-10">
-                  <Leaf className="w-6 h-6 text-green-600" />
-                </div>
-                <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em] text-green-700">
-                  Materijal
-                </div>
-                <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-3 text-zinc-900">
-                  100% organski pamuk
-                </h3>
-                <p className="text-zinc-600 text-base md:text-lg leading-relaxed max-w-md">
-                  Certificirani GOTS pamuk, 220 gsm. Mekane, udobne,
-                  ekološki osviještene od njive do ormara.
-                </p>
+            <div className="md:col-span-7 rounded-3xl bg-white border border-zinc-100 p-10 md:p-12">
+              <div className="w-14 h-14 bg-white border border-zinc-200 rounded-2xl flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.04)] mb-10">
+                <Leaf className="w-6 h-6 text-zinc-900" strokeWidth={1.5} />
               </div>
+              <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-400">
+                Materijal
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-3 text-zinc-900">
+                100% organski pamuk
+              </h3>
+              <p className="text-zinc-600 text-base md:text-lg leading-relaxed max-w-md">
+                Certificirani GOTS pamuk, 220 gsm. Mekane, udobne,
+                ekološki osviještene od njive do ormara.
+              </p>
             </div>
 
             {/* QR kod (tamni) */}
-            <div className="md:col-span-5 relative overflow-hidden rounded-3xl bg-zinc-900 text-white p-10 md:p-12">
-              <div
-                aria-hidden
-                className="absolute -bottom-12 -right-12 w-48 h-48 bg-blue-500/15 rounded-full blur-3xl"
-              />
-              <div className="relative">
-                <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-10">
-                  <QrIcon className="w-6 h-6 text-white" />
-                </div>
-                <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-500">
-                  Interakcija
-                </div>
-                <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-3">
-                  QR kod s pričom
-                </h3>
-                <p className="text-zinc-400 text-base leading-relaxed">
-                  Svaka majica otvara edukativnu stranicu o vrsti koju nosiš.
-                </p>
+            <div className="md:col-span-5 rounded-3xl bg-zinc-900 text-white p-10 md:p-12">
+              <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center ring-1 ring-white/10 mb-10">
+                <QrIcon className="w-6 h-6 text-white" />
               </div>
+              <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-500">
+                Interakcija
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-3">
+                QR kod s pričom
+              </h3>
+              <p className="text-zinc-400 text-base leading-relaxed">
+                Svaka majica otvara edukativnu stranicu o vrsti koju nosiš.
+              </p>
             </div>
 
             {/* Dostava */}
             <div className="md:col-span-6 rounded-3xl bg-white border border-zinc-100 p-10 md:p-12">
-              <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-10">
-                <Truck className="w-6 h-6 text-blue-600" />
+              <div className="w-14 h-14 bg-white border border-zinc-200 rounded-2xl flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.04)] mb-10">
+                <Truck className="w-6 h-6 text-zinc-900" strokeWidth={1.5} />
               </div>
               <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-400">
                 Dostava
@@ -226,8 +211,8 @@ export default async function LandingPage() {
 
             {/* Plaćanje */}
             <div className="md:col-span-6 rounded-3xl bg-white border border-zinc-100 p-10 md:p-12">
-              <div className="w-14 h-14 bg-zinc-50 rounded-2xl flex items-center justify-center mb-10">
-                <ShieldCheck className="w-6 h-6 text-zinc-700" />
+              <div className="w-14 h-14 bg-white border border-zinc-200 rounded-2xl flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.04)] mb-10">
+                <ShieldCheck className="w-6 h-6 text-zinc-900" strokeWidth={1.5} />
               </div>
               <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-400">
                 Plaćanje
@@ -300,31 +285,21 @@ export default async function LandingPage() {
 function Step({
   number,
   icon,
-  accent,
   title,
   children,
 }: {
   number: string;
   icon: React.ReactNode;
-  accent: "green" | "dark" | "blue";
   title: string;
   children: React.ReactNode;
 }) {
-  const accentClass = {
-    green: "bg-green-50 text-green-600 ring-8 ring-white",
-    dark: "bg-zinc-900 text-white ring-8 ring-white",
-    blue: "bg-blue-50 text-blue-600 ring-8 ring-white",
-  }[accent];
-
   return (
     <div className="relative text-center">
-      <div
-        className={`relative z-10 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-8 ${accentClass}`}
-      >
+      <div className="relative z-10 w-20 h-20 rounded-full bg-white border border-zinc-200 flex items-center justify-center mx-auto mb-8 text-zinc-900 shadow-[0_2px_8px_rgba(0,0,0,0.04)] ring-8 ring-white">
         {icon}
       </div>
-      <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-300 mb-3">
-        Korak {number}
+      <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-400 mb-3 tabular-nums">
+        {number} — Korak
       </div>
       <h3 className="text-xl md:text-2xl font-bold text-zinc-900 tracking-tight mb-4">
         {title}
@@ -363,8 +338,11 @@ function FeaturedSection({
   accent: "green" | "blue";
   dark?: boolean;
 }) {
-  const accentText = accent === "green" ? "text-green-600 hover:text-green-700" : "text-blue-600 hover:text-blue-700";
-  const accentLabel = accent === "green" ? "text-green-600" : "text-blue-600";
+  const accentCta =
+    accent === "green"
+      ? "bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-600/20 hover:shadow-xl hover:shadow-green-600/30"
+      : "bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-600/20 hover:shadow-xl hover:shadow-blue-600/30";
+  const accentLabel = accent === "green" ? "text-green-700" : "text-blue-700";
   const accentDot = accent === "green" ? "bg-green-500" : "bg-blue-500";
   const accentGradient =
     accent === "green"
@@ -402,10 +380,10 @@ function FeaturedSection({
         <div className="mt-16 text-center">
           <Link
             href={href}
-            className={`inline-flex items-center gap-1.5 text-base font-semibold ${accentText} transition-colors`}
+            className={`group inline-flex items-center gap-2 h-12 px-7 rounded-full text-sm font-bold tracking-wide transition-all active:scale-[0.98] ${accentCta}`}
           >
             {ctaLabel}
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </div>
       </div>
@@ -429,9 +407,9 @@ function ProductCard({
   accent: "green" | "blue";
 }) {
   const img = item.image_url;
-  const hoverText = accent === "green" ? "group-hover:text-green-600" : "group-hover:text-blue-600";
-  const badgeBg = accent === "green" ? "bg-green-50 text-green-600" : "bg-blue-50 text-blue-600";
-  const buttonHover = accent === "green" ? "group-hover:bg-green-500" : "group-hover:bg-blue-500";
+  const hoverText = accent === "green" ? "group-hover:text-green-700" : "group-hover:text-blue-700";
+  const badgeBg = accent === "green" ? "bg-green-50 text-green-700" : "bg-blue-50 text-blue-700";
+  const buttonHover = accent === "green" ? "group-hover:bg-green-600" : "group-hover:bg-blue-600";
 
   return (
     <Link href={`/shop/${item.slug}`} className="group block">

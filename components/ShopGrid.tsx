@@ -70,10 +70,10 @@ export default function ShopGrid({
               key={cat.id}
               variant="ghost"
               onClick={() => setActiveCategory(cat.id)}
-              className={`rounded-full px-6 h-10 transition-all text-sm tracking-wide ${
+              className={`rounded-full px-6 h-10 transition-all text-sm tracking-wide font-semibold ${
                 activeCategory === cat.id
-                  ? "bg-black text-white hover:bg-zinc-800"
-                  : "bg-white border border-zinc-200 text-zinc-500 hover:bg-accent-50 hover:text-black hover:border-accent-200"
+                  ? "bg-accent-600 text-white hover:bg-accent-700 shadow-sm shadow-accent-500/20"
+                  : "bg-white border border-zinc-200 text-zinc-600 hover:text-accent-700 hover:border-accent-300"
               }`}
             >
               {cat.label}
@@ -110,7 +110,7 @@ export default function ShopGrid({
                     <span className="text-xl font-bold tracking-tight">
                       {item.price} €
                     </span>
-                    <div className="bg-zinc-900 text-white text-sm font-medium px-4 py-2 rounded-full group-hover:bg-accent-400 group-hover:text-black transition-colors">
+                    <div className="bg-zinc-900 text-white text-sm font-semibold px-4 py-2 rounded-full group-hover:bg-accent-600 transition-colors">
                       Pogledaj
                     </div>
                   </div>

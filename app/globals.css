@@ -143,12 +143,49 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
   html {
     scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "ss01", "cv11";
+  }
+  :focus {
+    outline: none;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent-600);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible {
+    outline: 2px solid var(--accent-600);
+    outline-offset: 3px;
+  }
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid var(--accent-600);
+    outline-offset: 1px;
+  }
+}
+
+@layer components {
+  .cta-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-bold tracking-wide bg-black text-white transition-all shadow-lg shadow-black/10 hover:bg-zinc-800 hover:shadow-xl hover:shadow-black/15 active:scale-[0.98];
+  }
+  .cta-accent {
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-bold tracking-wide bg-accent-600 text-white transition-all shadow-lg shadow-accent-500/20 hover:bg-accent-700 hover:shadow-xl hover:shadow-accent-500/30 active:scale-[0.98];
+  }
+  .cta-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors text-zinc-900 hover:text-accent-700;
   }
 }

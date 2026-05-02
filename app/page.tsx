@@ -12,6 +12,7 @@ import {
   BookOpen,
 } from "lucide-react";
 import LandingNav from "@/components/LandingNav";
+import SiteFooter from "@/components/SiteFooter";
 
 export const revalidate = 3600;
 
@@ -229,54 +230,7 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      {/* ─── FOOTER ─── */}
-      <footer className="bg-zinc-900 text-white py-24 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-16">
-            <div>
-              <div className="mb-6">
-                <Image
-                  src="/images/kayaha-logo.png"
-                  alt="KAYAHA"
-                  width={400}
-                  height={218}
-                  className="h-12 w-auto object-contain brightness-0 invert"
-                />
-              </div>
-              <p className="text-zinc-400 text-sm max-w-xs leading-relaxed">
-                Majice s pričom. Svaka nosi priču o jednoj vrsti.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-x-16 gap-y-3 text-sm">
-              <Link href="/kukci" className="text-zinc-400 hover:text-white transition-colors">
-                Svijet Kukaca
-              </Link>
-              <Link href="/o-projektu" className="text-zinc-400 hover:text-white transition-colors">
-                O projektu
-              </Link>
-              <Link href="/ribe" className="text-zinc-400 hover:text-white transition-colors">
-                Svijet Riba
-              </Link>
-              <Link href="/uvjeti" className="text-zinc-400 hover:text-white transition-colors">
-                Uvjeti poslovanja
-              </Link>
-              <Link href="/clanci" className="text-zinc-400 hover:text-white transition-colors">
-                Članci
-              </Link>
-              <Link href="/privatnost" className="text-zinc-400 hover:text-white transition-colors">
-                Privatnost
-              </Link>
-            </div>
-          </div>
-
-          <div className="border-t border-zinc-800 pt-6">
-            <p className="text-zinc-500 text-xs">
-              © 2026 KAYAHA. Sva prava pridržana.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

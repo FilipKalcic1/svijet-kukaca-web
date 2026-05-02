@@ -1,7 +1,7 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
-import { X, ShoppingBag, Minus, Plus, ArrowRight, Leaf } from "lucide-react";
+import { X, ShoppingBag, Minus, Plus, ArrowRight, Truck, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
@@ -83,7 +83,15 @@ export default function CartDrawer() {
               </button>
             </div>
           ) : (
-            <div className="p-4 space-y-3">
+            <>
+              {/* Trust banner */}
+              <div className="bg-accent-50/60 border-b border-accent-100/60 px-5 py-3 flex items-center gap-2.5">
+                <Truck className="w-4 h-4 text-accent-700 shrink-0" strokeWidth={1.5} />
+                <span className="text-xs font-semibold text-accent-700">
+                  Besplatna dostava — uključena u svakoj narudžbi
+                </span>
+              </div>
+              <div className="p-4 space-y-3">
               {items.map((item) => (
                 <div key={item.id} className="flex gap-4 p-4 bg-white rounded-2xl border border-zinc-100">
                   {/* Image */}
@@ -151,7 +159,8 @@ export default function CartDrawer() {
                   </div>
                 </div>
               ))}
-            </div>
+              </div>
+            </>
           )}
         </div>
 
@@ -173,14 +182,16 @@ export default function CartDrawer() {
             <Link
               href="/checkout"
               onClick={closeCart}
-              className="flex items-center justify-center gap-2 w-full h-13 bg-black text-white font-bold rounded-full text-sm hover:bg-zinc-800 active:scale-[0.98] transition-all shadow-lg tracking-wide"
+              className="cta-primary w-full h-13 text-sm"
             >
               Nastavi na naplatu
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
             </Link>
-            <div className="flex items-center justify-center gap-2 pt-1">
-              <Leaf className="w-3 h-3 text-zinc-300" />
-              <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-300">KAYAHA</span>
+            <div className="flex items-center justify-center gap-2 pt-1 text-zinc-400">
+              <ShieldCheck className="w-3.5 h-3.5" strokeWidth={1.5} />
+              <span className="text-[10px] font-semibold tracking-wide">
+                Sigurno plaćanje · Visa · Mastercard · Apple Pay
+              </span>
             </div>
           </div>
         )}

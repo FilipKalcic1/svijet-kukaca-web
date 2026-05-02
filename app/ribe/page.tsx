@@ -1,8 +1,7 @@
 import { supabase } from "@/lib/supabase";
 import HomeNav from "@/components/HomeNav";
 import ShopGrid from "@/components/ShopGrid";
-import Link from "next/link";
-import Image from "next/image";
+import SiteFooter from "@/components/SiteFooter";
 import { FISH_THEME } from "@/lib/themes";
 import type { Metadata } from "next";
 
@@ -54,29 +53,7 @@ export default async function FishShopPage() {
         <ShopGrid creatures={creatures ?? []} theme={FISH_THEME} />
       </section>
 
-      {/* FOOTER */}
-      <footer className="bg-zinc-900 text-white py-20 px-6">
-        <div className="max-w-5xl mx-auto text-center">
-          <div className="mb-8">
-            <Image
-              src="/images/kayaha-logo.png"
-              alt="KAYAHA"
-              width={300}
-              height={163}
-              className="h-12 w-auto object-contain brightness-0 invert mx-auto"
-            />
-          </div>
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-10 text-sm text-zinc-400">
-            <Link href="/o-projektu" className="hover:text-white transition-colors">O projektu</Link>
-            <Link href="/uvjeti" className="hover:text-white transition-colors">Uvjeti poslovanja</Link>
-            <Link href="/privatnost" className="hover:text-white transition-colors">Politika privatnosti</Link>
-            <Link href="/kolacici" className="hover:text-white transition-colors">Kolačići</Link>
-          </div>
-          <div className="border-t border-zinc-800 pt-6">
-            <p className="text-zinc-500 text-xs">© 2026 KAYAHA. Sva prava pridržana.</p>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

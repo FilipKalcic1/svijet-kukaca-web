@@ -10,6 +10,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
+import SizeChartDialog from "@/components/SizeChartDialog";
 
 interface Creature {
   id: number;
@@ -118,7 +119,7 @@ export default function ProductDetails({
         </div>
       </nav>
 
-      <main className="pt-44 pb-32 max-w-7xl mx-auto px-4 md:px-8">
+      <main className="pt-44 pb-44 lg:pb-32 max-w-7xl mx-auto px-4 md:px-8">
 
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-xs text-zinc-400 mb-8 tracking-wide">
@@ -198,6 +199,7 @@ export default function ProductDetails({
               <div>
                 <div className="flex justify-between items-center mb-3">
                   <span className="font-bold text-sm uppercase tracking-wider text-zinc-500">Veličina</span>
+                  <SizeChartDialog activeSize={selectedSize} />
                 </div>
                 <div className="grid grid-cols-5 gap-2 md:gap-3">
                   {["S", "M", "L", "XL", "XXL"].map((size) => (
@@ -318,6 +320,27 @@ export default function ProductDetails({
           </section>
         )}
       </main>
+
+      {/* Sticky mobile add-to-cart bar */}
+      <div className="lg:hidden fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-zinc-100 px-4 py-3 z-40 shadow-[0_-4px_20px_rgba(0,0,0,0.06)]">
+        <div className="flex items-center gap-3 max-w-2xl mx-auto">
+          <div className="shrink-0 min-w-0">
+            <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 truncate">
+              Vel. {selectedSize}
+            </div>
+            <div className="text-lg font-extrabold tracking-tight tabular-nums">
+              {(product.price * quantity).toFixed(2)} €
+            </div>
+          </div>
+          <Button
+            onClick={handleAddToCart}
+            className="cta-primary flex-1 h-12 text-sm"
+          >
+            <ShoppingBag className="w-4 h-4" strokeWidth={1.5} />
+            Dodaj u košaricu
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

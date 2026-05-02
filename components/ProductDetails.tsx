@@ -87,7 +87,7 @@ export default function ProductDetails({
   };
 
   return (
-    <div className="min-h-screen bg-[#fafaf8] font-sans text-zinc-900 selection:bg-accent-300 selection:text-black">
+    <div className="min-h-screen bg-[#F8F5EE] font-sans text-zinc-900 selection:bg-accent-300 selection:text-black">
 
       {/* NAVBAR */}
       <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-zinc-100 h-16 md:h-20 flex items-center px-4 md:px-6 justify-between">
@@ -349,7 +349,7 @@ function RelatedCard({ item }: { item: RelatedItem }) {
   return (
     <Link href={`/shop/${item.slug}`} className="group block">
       <div className="bg-white rounded-2xl border border-zinc-100 overflow-hidden hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
-        <div className="relative aspect-3/4 bg-[#fafaf8]">
+        <div className="relative aspect-3/4 bg-[#F8F5EE]">
           <ProductMockup
             frontImage={item.image_url || ""}
             bugSlug={item.slug}

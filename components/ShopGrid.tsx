@@ -88,7 +88,7 @@ export default function ShopGrid({
           filtered.map((item) => (
             <Link href={`/shop/${item.slug}`} key={item.id} className="block group">
               <div className="h-full border border-zinc-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden bg-white rounded-2xl">
-                <div className="aspect-3/4 bg-[#fafaf8] relative">
+                <div className="aspect-3/4 bg-[#F8F5EE] relative">
                   <ProductMockup
                     frontImage={item.product_front_image || item.image_url}
                     bugSlug={item.slug}

@@ -59,7 +59,7 @@ function SuccessContent() {
 
 export default function SuccessPage() {
   return (
-    <div className="min-h-screen bg-[#fafaf8] flex flex-col items-center justify-center p-6">
+    <div className="min-h-screen bg-[#F8F5EE] flex flex-col items-center justify-center p-6">
       <div className="absolute top-8">
         <Link href="/">
           <Image

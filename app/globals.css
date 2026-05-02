@@ -51,18 +51,37 @@
   --color-accent-500: var(--accent-500);
   --color-accent-600: var(--accent-600);
   --color-accent-700: var(--accent-700);
+  --color-kayaha-primary: var(--kayaha-primary);
+  --color-kayaha-primary-hover: var(--kayaha-primary-hover);
+  --color-kayaha-primary-light: var(--kayaha-primary-light);
+  --color-kayaha-bg: var(--kayaha-bg);
+  --color-kayaha-text: var(--kayaha-text);
+  --color-kayaha-text-muted: var(--kayaha-text-muted);
+  --color-kayaha-border: var(--kayaha-border);
+  --color-kayaha-accent: var(--kayaha-accent);
 }
 
 :root {
   --radius: 0.625rem;
-  /* Theme accent colors (default: green for insects) */
-  --accent-50: oklch(0.982 0.018 155.826);
-  --accent-100: oklch(0.962 0.044 156.743);
-  --accent-300: oklch(0.871 0.15 154.449);
-  --accent-400: oklch(0.792 0.209 151.711);
-  --accent-500: oklch(0.723 0.219 149.579);
-  --accent-600: oklch(0.627 0.194 149.214);
-  --accent-700: oklch(0.527 0.154 150.069);
+
+  /* KAYAHA brand palette — premium organic kids brand */
+  --kayaha-primary: #2D5F3F;
+  --kayaha-primary-hover: #244D33;
+  --kayaha-primary-light: #E8F0EA;
+  --kayaha-bg: #F8F5EE;
+  --kayaha-text: #1A1A1A;
+  --kayaha-text-muted: #5C5C5C;
+  --kayaha-border: #E5E0D6;
+  --kayaha-accent: #D4A574;
+
+  /* Accent ramp — forest green family (single brand tone, no dual fish/insect split) */
+  --accent-50:  #F1F6F2;
+  --accent-100: #E8F0EA;
+  --accent-300: #9DBFA9;
+  --accent-400: #6FA081;
+  --accent-500: #4A7E5C;
+  --accent-600: #2D5F3F;
+  --accent-700: #244D33;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -130,16 +149,8 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-/* Fish theme overrides (blue) */
-[data-theme="fish"] {
-  --accent-50: oklch(0.97 0.014 254.604);
-  --accent-100: oklch(0.932 0.032 255.585);
-  --accent-300: oklch(0.809 0.105 251.813);
-  --accent-400: oklch(0.707 0.165 254.624);
-  --accent-500: oklch(0.623 0.214 259.815);
-  --accent-600: oklch(0.546 0.245 262.881);
-  --accent-700: oklch(0.488 0.243 264.376);
-}
+/* Fish/insect theme attribute kept for backward compatibility but no longer remaps colors —
+   KAYAHA brand uses a single forest-green palette regardless of category. */
 
 @layer base {
   * {
@@ -180,10 +191,13 @@
 
 @layer components {
   .cta-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full font-bold tracking-wide bg-black text-white transition-all shadow-lg shadow-black/10 hover:bg-zinc-800 hover:shadow-xl hover:shadow-black/15 active:scale-[0.98];
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold tracking-wide bg-accent-600 text-white transition-all shadow-md shadow-accent-700/15 hover:bg-accent-700 hover:shadow-lg hover:shadow-accent-700/25 active:scale-[0.98];
+  }
+  .cta-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold tracking-wide bg-transparent text-accent-600 border-2 border-accent-600 transition-all hover:bg-accent-100 active:scale-[0.98];
   }
   .cta-accent {
-    @apply inline-flex items-center justify-center gap-2 rounded-full font-bold tracking-wide bg-accent-600 text-white transition-all shadow-lg shadow-accent-500/20 hover:bg-accent-700 hover:shadow-xl hover:shadow-accent-500/30 active:scale-[0.98];
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold tracking-wide bg-accent-600 text-white transition-all shadow-md shadow-accent-700/15 hover:bg-accent-700 hover:shadow-lg hover:shadow-accent-700/25 active:scale-[0.98];
   }
   .cta-ghost {
     @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors text-zinc-900 hover:text-accent-700;

@@ -11,7 +11,7 @@ export default function Error({
   reset: () => void;
 }) {
   return (
-    <div className="min-h-screen bg-[#fafaf8] flex flex-col items-center justify-center p-6 text-center">
+    <div className="min-h-screen bg-[#F8F5EE] flex flex-col items-center justify-center p-6 text-center">
       <Link href="/" className="mb-10">
         <Image
           src="/images/kayaha-logo.png"

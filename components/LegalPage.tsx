@@ -5,7 +5,7 @@ import type { LegalPage } from "@/lib/legal";
 
 export default function LegalPage({ page }: { page: LegalPage }) {
   return (
-    <main className="min-h-screen bg-[#fafaf8] text-zinc-900 font-sans selection:bg-accent-100">
+    <main className="min-h-screen bg-[#F8F5EE] text-zinc-900 font-sans selection:bg-accent-100">
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100 px-6 h-16 md:h-20 flex items-center">
         <div className="max-w-3xl mx-auto w-full flex items-center justify-between">
           <Link

@@ -36,41 +36,36 @@ export default async function LandingPage() {
   const fishes = fishesData ?? [];
 
   return (
-    <div className="min-h-screen bg-[#fafaf8] font-sans text-zinc-900 selection:bg-zinc-200">
+    <div className="min-h-screen bg-[#F8F5EE] font-sans text-zinc-900 selection:bg-zinc-200">
       <LandingNav />
 
       {/* ─── HERO ─── */}
-      <section className="relative pt-44 md:pt-56 pb-40 md:pb-56 px-6 text-center overflow-hidden">
-        <div className="absolute top-20 left-1/4 w-96 h-96 bg-green-200/20 rounded-full blur-[120px] -z-10" />
-        <div className="absolute top-32 right-1/4 w-96 h-96 bg-blue-200/20 rounded-full blur-[120px] -z-10" />
-
+      <section className="relative pt-40 md:pt-56 pb-32 md:pb-56 px-6 text-center">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.05] mb-12 md:mb-14">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.05] mb-10 md:mb-14 text-zinc-900">
             Nosi prirodu,
             <br />
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-green-500 via-emerald-500 to-blue-500">
-              upoznaj svijet.
-            </span>
+            <span className="text-accent-600">upoznaj svijet.</span>
           </h1>
 
-          <p className="text-xl md:text-2xl text-zinc-500 max-w-2xl mx-auto mb-14 md:mb-16 leading-relaxed">
+          <p className="text-lg md:text-2xl text-zinc-600 max-w-2xl mx-auto mb-12 md:mb-16 leading-relaxed">
             Svaka majica nosi priču o jednoj vrsti. Skeniraj QR kod na leđima i otkrij
             tajni život životinje koju nosiš.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <Link
               href="/kukci"
-              className="group inline-flex items-center justify-center gap-2 bg-green-600 text-white hover:bg-green-700 rounded-full text-lg px-8 h-14 transition-all shadow-lg shadow-green-600/20 hover:shadow-xl hover:shadow-green-600/30 active:scale-[0.98] font-semibold tracking-wide"
+              className="cta-primary text-base md:text-lg px-8 h-14"
             >
-              <Bug className="w-5 h-5 transition-transform group-hover:-rotate-6" />
+              <Bug className="w-5 h-5" strokeWidth={1.5} />
               Istraži Kukce
             </Link>
             <Link
               href="/ribe"
-              className="group inline-flex items-center justify-center gap-2 bg-blue-600 text-white hover:bg-blue-700 rounded-full text-lg px-8 h-14 transition-all shadow-lg shadow-blue-600/20 hover:shadow-xl hover:shadow-blue-600/30 active:scale-[0.98] font-semibold tracking-wide"
+              className="cta-outline text-base md:text-lg px-8 h-14"
             >
-              <Fish className="w-5 h-5 transition-transform group-hover:rotate-6" />
+              <Fish className="w-5 h-5" strokeWidth={1.5} />
               Istraži Ribe
             </Link>
           </div>
@@ -130,7 +125,6 @@ export default async function LandingPage() {
         href="/kukci"
         ctaLabel="Pogledaj sve kukce"
         items={insects}
-        accent="green"
       />
 
       {/* ─── SVIJET RIBA — Featured ─── */}
@@ -141,7 +135,6 @@ export default async function LandingPage() {
         href="/ribe"
         ctaLabel="Pogledaj sve ribe"
         items={fishes}
-        accent="blue"
         dark
       />
 
@@ -273,7 +266,6 @@ function FeaturedSection({
   href,
   ctaLabel,
   items,
-  accent,
   dark = false,
 }: {
   label: string;
@@ -289,55 +281,42 @@ function FeaturedSection({
     image_url: string | null;
     category: string;
   }>;
-  accent: "green" | "blue";
   dark?: boolean;
 }) {
-  const accentCta =
-    accent === "green"
-      ? "bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-600/20 hover:shadow-xl hover:shadow-green-600/30"
-      : "bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-600/20 hover:shadow-xl hover:shadow-blue-600/30";
-  const accentLabel = accent === "green" ? "text-green-700" : "text-blue-700";
-  const accentDot = accent === "green" ? "bg-green-500" : "bg-blue-500";
-  const accentGradient =
-    accent === "green"
-      ? "from-green-500 via-emerald-500 to-green-600"
-      : "from-blue-500 via-sky-500 to-blue-600";
   const sectionBg = dark ? "bg-white border-y border-zinc-100" : "";
 
   return (
-    <section className={`py-40 md:py-56 px-6 ${sectionBg}`}>
+    <section className={`py-32 md:py-56 px-6 ${sectionBg}`}>
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-20">
+        <div className="text-center mb-16 md:mb-20">
           <div className="inline-flex items-center gap-2 mb-5">
-            <span className={`w-1.5 h-1.5 rounded-full ${accentDot}`} />
-            <span className={`text-[11px] font-bold uppercase tracking-[0.28em] ${accentLabel}`}>
+            <span className="w-1.5 h-1.5 rounded-full bg-accent-600" />
+            <span className="text-[11px] font-bold uppercase tracking-[0.28em] text-accent-700">
               {label}
             </span>
-            <span className={`w-1.5 h-1.5 rounded-full ${accentDot}`} />
+            <span className="w-1.5 h-1.5 rounded-full bg-accent-600" />
           </div>
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-5">
-            <span className={`text-transparent bg-clip-text bg-linear-to-r ${accentGradient}`}>
-              {title}
-            </span>
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-5 text-zinc-900">
+            {title}
           </h2>
-          <p className="text-lg md:text-xl text-zinc-500 max-w-xl mx-auto">
+          <p className="text-base md:text-xl text-zinc-600 max-w-xl mx-auto">
             {subtitle}
           </p>
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
           {items.map((item) => (
-            <ProductCard key={item.slug} item={item} accent={accent} />
+            <ProductCard key={item.slug} item={item} />
           ))}
         </div>
 
         <div className="mt-16 text-center">
           <Link
             href={href}
-            className={`group inline-flex items-center gap-2 h-12 px-7 rounded-full text-sm font-bold tracking-wide transition-all active:scale-[0.98] ${accentCta}`}
+            className="cta-outline group h-12 px-7 text-sm"
           >
             {ctaLabel}
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" strokeWidth={1.5} />
           </Link>
         </div>
       </div>
@@ -348,7 +327,6 @@ function FeaturedSection({
 /* ─── Product Card ─── */
 function ProductCard({
   item,
-  accent,
 }: {
   item: {
     slug: string;
@@ -358,17 +336,13 @@ function ProductCard({
     image_url: string | null;
     category: string;
   };
-  accent: "green" | "blue";
 }) {
   const img = item.image_url;
-  const hoverText = accent === "green" ? "group-hover:text-green-700" : "group-hover:text-blue-700";
-  const badgeBg = accent === "green" ? "bg-green-50 text-green-700" : "bg-blue-50 text-blue-700";
-  const buttonHover = accent === "green" ? "group-hover:bg-green-600" : "group-hover:bg-blue-600";
 
   return (
     <Link href={`/shop/${item.slug}`} className="group block">
       <div className="bg-white rounded-2xl border border-zinc-100 overflow-hidden hover:shadow-xl transition-shadow duration-300">
-        <div className="relative aspect-3/4 bg-[#fafaf8]">
+        <div className="relative aspect-3/4 bg-[#F8F5EE]">
           {img ? (
             <Image
               src={img}
@@ -380,27 +354,23 @@ function ProductCard({
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center text-zinc-200">
-              {accent === "green" ? (
-                <Bug className="w-12 h-12" />
-              ) : (
-                <Fish className="w-12 h-12" />
-              )}
+              <Bug className="w-12 h-12" strokeWidth={1.5} />
             </div>
           )}
         </div>
         <div className="p-5">
-          <p className={`text-[10px] font-bold uppercase tracking-[0.2em] ${badgeBg} px-2 py-0.5 rounded-full inline-block mb-3`}>
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent-700 bg-accent-50 px-2 py-0.5 rounded-full inline-block mb-3">
             {item.category}
           </p>
-          <h3 className={`font-bold text-sm md:text-base leading-tight mb-1 ${hoverText} transition-colors`}>
+          <h3 className="font-bold text-sm md:text-base leading-tight mb-1 text-zinc-900 group-hover:text-accent-700 transition-colors">
             {item.name_hr}
           </h3>
           <p className="text-xs text-zinc-400 italic font-serif mb-4 truncate">
             {item.name_science}
           </p>
           <div className="flex items-center justify-between">
-            <span className="font-bold text-lg">{item.price} €</span>
-            <div className={`bg-zinc-900 text-white text-xs font-medium px-3 py-1.5 rounded-full ${buttonHover} transition-colors`}>
+            <span className="font-bold text-lg text-zinc-900">{item.price} €</span>
+            <div className="bg-zinc-900 text-white text-xs font-semibold px-3 py-1.5 rounded-full group-hover:bg-accent-600 transition-colors">
               Pogledaj
             </div>
           </div>

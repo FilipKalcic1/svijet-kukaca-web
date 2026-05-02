@@ -82,10 +82,7 @@ export default async function CreaturePage(props: PageProps) {
     .limit(5);
 
   return (
-    <main
-      className="min-h-screen bg-[#fafaf8] text-black pb-32 font-sans selection:bg-accent-100"
-      data-theme={isFish ? "fish" : undefined}
-    >
+    <main className="min-h-screen bg-[#F8F5EE] text-black pb-32 font-sans selection:bg-accent-100">
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100 px-6 h-16 md:h-20 flex items-center">
         <div className="max-w-3xl mx-auto w-full flex items-center justify-between">
@@ -199,7 +196,7 @@ export default async function CreaturePage(props: PageProps) {
                   className="border border-zinc-100 rounded-2xl overflow-hidden hover:shadow-lg transition-all bg-white"
                 >
                   {related.image_url && (
-                    <div className="relative aspect-4/3 bg-[#fafaf8]">
+                    <div className="relative aspect-4/3 bg-[#F8F5EE]">
                       <Image
                         src={related.image_url}
                         alt={related.name_hr}
@@ -226,17 +223,17 @@ export default async function CreaturePage(props: PageProps) {
                     {(related.size || related.food || related.habitat) && (
                       <div className="flex flex-wrap gap-2 mb-4 text-xs text-zinc-500">
                         {related.size && (
-                          <span className="bg-[#fafaf8] px-2.5 py-1 rounded-full border border-zinc-100">
+                          <span className="bg-[#F8F5EE] px-2.5 py-1 rounded-full border border-zinc-100">
                             {related.size}
                           </span>
                         )}
                         {related.food && (
-                          <span className="bg-[#fafaf8] px-2.5 py-1 rounded-full border border-zinc-100">
+                          <span className="bg-[#F8F5EE] px-2.5 py-1 rounded-full border border-zinc-100">
                             {related.food}
                           </span>
                         )}
                         {related.habitat && (
-                          <span className="bg-[#fafaf8] px-2.5 py-1 rounded-full border border-zinc-100">
+                          <span className="bg-[#F8F5EE] px-2.5 py-1 rounded-full border border-zinc-100">
                             {related.habitat}
                           </span>
                         )}
@@ -270,7 +267,7 @@ export default async function CreaturePage(props: PageProps) {
                   href={`/clanci/${article.slug}`}
                   className="flex items-center gap-3 p-4 rounded-2xl border border-zinc-100 bg-white hover:border-zinc-200 hover:shadow-md transition-all group"
                 >
-                  <div className="w-9 h-9 bg-[#fafaf8] rounded-xl flex items-center justify-center shrink-0 group-hover:bg-accent-50 transition-colors">
+                  <div className="w-9 h-9 bg-[#F8F5EE] rounded-xl flex items-center justify-center shrink-0 group-hover:bg-accent-50 transition-colors">
                     <BookOpen className="w-4 h-4 text-zinc-400 group-hover:text-accent-600 transition-colors" />
                   </div>
                   <div className="flex-1 min-w-0">

@@ -20,29 +20,20 @@ export default async function FishShopPage() {
     .eq("creature_type", "fish");
 
   return (
-    <div
-      className="min-h-screen bg-[#fafaf8] text-zinc-900 font-sans selection:bg-accent-300 selection:text-black scroll-smooth"
-      data-theme="fish"
-    >
+    <div className="min-h-screen bg-[#F8F5EE] text-zinc-900 font-sans selection:bg-accent-300 selection:text-black scroll-smooth">
       <HomeNav />
 
       {/* HERO */}
-      <section className="relative pt-36 md:pt-44 pb-28 md:pb-36 px-6 text-center">
-        <div className="absolute top-32 left-1/2 -translate-x-1/2 w-125 h-125 bg-accent-300/15 rounded-full blur-[100px] -z-10" />
+      <section className="relative pt-32 md:pt-44 pb-24 md:pb-36 px-6 text-center">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-zinc-900 mb-10 md:mb-12 tracking-tight leading-[1.05]">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold text-zinc-900 mb-8 md:mb-12 tracking-tight leading-[1.05]">
             {FISH_THEME.heroTitle[0]} <br />
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-accent-500 to-accent-700">
-              {FISH_THEME.heroTitle[1]}
-            </span>
+            <span className="text-accent-600">{FISH_THEME.heroTitle[1]}</span>
           </h1>
-          <p className="text-xl md:text-2xl text-zinc-500 max-w-2xl mx-auto mb-14 leading-relaxed">
+          <p className="text-lg md:text-2xl text-zinc-600 max-w-2xl mx-auto mb-12 md:mb-14 leading-relaxed">
             {FISH_THEME.shopSubtitle}
           </p>
-          <a
-            href="#shop"
-            className="inline-flex items-center justify-center bg-black text-white hover:bg-accent-400 hover:text-black rounded-full text-lg px-8 h-14 transition-all shadow-lg hover:shadow-accent-300/50 font-semibold tracking-wide"
-          >
+          <a href="#shop" className="cta-primary text-base md:text-lg px-8 h-14">
             {FISH_THEME.heroCta}
           </a>
         </div>

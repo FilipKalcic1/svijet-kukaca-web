@@ -41,7 +41,7 @@ export default function CartDrawer() {
 
       {/* Drawer */}
       <div
-        className="fixed inset-y-0 right-0 w-full max-w-md bg-[#fafaf8] shadow-2xl z-100 flex flex-col animate-in slide-in-from-right duration-300"
+        className="fixed inset-y-0 right-0 w-full max-w-md bg-[#F8F5EE] shadow-2xl z-100 flex flex-col animate-in slide-in-from-right duration-300"
         role="dialog"
         aria-label="Košarica"
       >
@@ -95,7 +95,7 @@ export default function CartDrawer() {
               {items.map((item) => (
                 <div key={item.id} className="flex gap-4 p-4 bg-white rounded-2xl border border-zinc-100">
                   {/* Image */}
-                  <div className="relative w-18 h-22 bg-[#fafaf8] rounded-xl overflow-hidden shrink-0 border border-zinc-100">
+                  <div className="relative w-18 h-22 bg-[#F8F5EE] rounded-xl overflow-hidden shrink-0 border border-zinc-100">
                     <Image
                       src={item.image}
                       alt={item.name}
@@ -126,7 +126,7 @@ export default function CartDrawer() {
                     </div>
 
                     <div className="flex items-center justify-between mt-auto pt-2">
-                      <div className="flex items-center h-8 border border-zinc-200 rounded-full bg-[#fafaf8]">
+                      <div className="flex items-center h-8 border border-zinc-200 rounded-full bg-[#F8F5EE]">
                         <button
                           onClick={() =>
                             item.quantity > 1

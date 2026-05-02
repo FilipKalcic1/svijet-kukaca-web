@@ -67,7 +67,7 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-6 bg-[#fafaf8]">
+      <div className="min-h-screen flex flex-col items-center justify-center gap-6 bg-[#F8F5EE]">
         <div className="w-18 h-18 bg-white border border-zinc-100 rounded-2xl flex items-center justify-center">
           <Package className="w-7 h-7 text-zinc-200" />
         </div>
@@ -88,7 +88,7 @@ export default function CheckoutPage() {
   const total = cartTotal + shippingCost;
 
   return (
-    <main className="min-h-screen bg-[#fafaf8] text-zinc-900 selection:bg-accent-100">
+    <main className="min-h-screen bg-[#F8F5EE] text-zinc-900 selection:bg-accent-100">
       {/* Top bar */}
       <div className="bg-white border-b border-zinc-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 md:h-20 flex items-center justify-between">
@@ -221,7 +221,7 @@ export default function CheckoutPage() {
               <div className="divide-y divide-zinc-100 mb-6">
                 {items.map((item) => (
                   <div key={item.id} className="flex gap-3 py-4 first:pt-0">
-                    <div className="relative w-14 h-14 bg-[#fafaf8] rounded-xl overflow-hidden shrink-0 border border-zinc-100">
+                    <div className="relative w-14 h-14 bg-[#F8F5EE] rounded-xl overflow-hidden shrink-0 border border-zinc-100">
                       <Image src={item.image} alt={item.name} fill sizes="56px" className="object-contain p-1" />
                     </div>
                     <div className="flex-1 min-w-0">
@@ -237,7 +237,7 @@ export default function CheckoutPage() {
                       </div>
                       <p className="text-xs text-zinc-400 mt-0.5">Vel: {item.size}</p>
                       <div className="flex items-center justify-between mt-2">
-                        <div className="flex items-center h-7 border border-zinc-200 rounded-full bg-[#fafaf8]">
+                        <div className="flex items-center h-7 border border-zinc-200 rounded-full bg-[#F8F5EE]">
                           <button onClick={() => item.quantity > 1 ? updateQuantity(item.id, item.quantity - 1) : removeItem(item.id)} className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white text-zinc-500 transition-colors">
                             <Minus className="w-3 h-3" />
                           </button>

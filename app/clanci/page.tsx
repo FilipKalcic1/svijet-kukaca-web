@@ -46,9 +46,7 @@ export default async function ArticlesPage() {
               className="h-7 md:h-8 w-auto object-contain"
             />
           </Link>
-          <span className="text-[10px] font-bold bg-zinc-100 px-3 py-1.5 rounded-full text-zinc-400 uppercase tracking-[0.2em]">
-            Članci
-          </span>
+
         </div>
       </nav>
 
